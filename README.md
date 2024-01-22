@@ -1,6 +1,6 @@
 # Modular_QciPark
 Proyecto Modular sobre Qci Park
-(https://github.com/LRoberto22/Modular_QciPark/blob/main/images/Inicio.png)
+![Imagen del idex](https://github.com/LRoberto22/Modular_QciPark/blob/main/images/Inicio.png)
 
 ## Descripción 
 QciPark ofrece al alumno del Centro Universitario de Ciencias Exactas e Ingenierías (CUCEI) una solución a la problemática de no poder encontrar lugar en el estacionamiento del recinto y una solución también al centro ya que se evitará aglomeramientos en los alrededores de sus ingresos.
