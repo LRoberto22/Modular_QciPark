@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="images/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="images/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="images/favicon-16x16.png"
+        />
+        <link rel="manifest" href="images/site.webmanifest" />
+
+        <title>Carint</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+        />
+        <link href="css/font-awesome.min.css" rel="stylesheet" />
+        <link href="css/style.css" rel="stylesheet" />
+        <link href="css/responsive.css" rel="stylesheet" />
+    </head>
+
+    <body class="sub_page">
+        <div class="hero_area">
+            <header class="header_section">
+                <div class="header_top">
+                    <div class="container-fluid">
+                        <div class="contact_nav">
+                            <a href="">
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                <span> Whatsapp : +34 602342951 </span>
+                            </a>
+                            <a href="">
+                                <i
+                                    class="fa fa-envelope"
+                                    aria-hidden="true"
+                                ></i>
+                                <span> Email : albert.avila@gmail.com </span>
+                            </a>
+                            <script>
+                                function openGoogleMaps() {
+                                    var latitude = 41.25225743727103;
+                                    var longitude = 1.0874838588981983;
+                                    window.open(
+                                        'https://www.google.com/maps?q=' +
+                                            latitude +
+                                            ',' +
+                                            longitude
+                                    );
+                                }
+                            </script>
+                            <a
+                                href="javascript:void(0);"
+                                onclick="openGoogleMaps()"
+                            >
+                                <i
+                                    class="fa fa-map-marker"
+                                    aria-hidden="true"
+                                ></i>
+                                <span> Ubicación </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="header_bottom">
+                    <div class="container-fluid">
+                        <nav
+                            class="navbar navbar-expand-lg custom_nav-container"
+                        >
+                            <a class="navbar-brand" href="index.html">
+                                <span> Albiol Jepeto </span>
+                            </a>
+
+                            <button
+                                class="navbar-toggler"
+                                type="button"
+                                data-toggle="collapse"
+                                data-target="#navbarSupportedContent"
+                                aria-controls="navbarSupportedContent"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation"
+                            >
+                                <span class=""> </span>
+                            </button>
+
+                            <div
+                                class="collapse navbar-collapse"
+                                id="navbarSupportedContent"
+                            >
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="index.html"
+                                            >Inicio
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="service.html"
+                                            >Servicios</a
+                                        >
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="about.html">
+                                            Sobre nosotros</a
+                                        >
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="contact.html"
+                                            >Contacto
+                                            <span class="sr-only"
+                                                >(current)</span
+                                            >
+                                        </a>
+                                    </li>
+                                    <form class="form-inline"></form>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <section class="contact_section layout_padding-top">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-md-5 offset-md-1">
+                        <div class="heading_container">
+                            <h2>Contacto</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-5 offset-md-1">
+                        <div class="form_container">
+                            <form action="">
+                                <div>
+                                    <input type="text" placeholder="Nombre" />
+                                </div>
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="Número de móvil"
+                                    />
+                                </div>
+                                <div>
+                                    <input type="email" placeholder="Mail" />
+                                </div>
+                                <div>
+                                    <input
+                                        type="text"
+                                        class="message-box"
+                                        placeholder="Mensaje"
+                                    />
+                                </div>
+                                <div class="btn_box">
+                                    <button>Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-6 px-0">
+                        <div class="map_container">
+                            <div class="map">
+                                <div id="googleMap"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="info_section layout_padding2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 info_col">
+                        <div class="info_contact">
+                            <h4>Información</h4>
+                            <div class="contact_link_box">
+                                <a
+                                    href="javascript:void(0);"
+                                    onclick="openGoogleMaps()"
+                                >
+                                    <i
+                                        class="fa fa-map-marker"
+                                        aria-hidden="true"
+                                    ></i>
+                                    <span> Ubicación </span>
+                                </a>
+
+                                <a href="">
+                                    <i
+                                        class="fa fa-phone"
+                                        aria-hidden="true"
+                                    ></i>
+                                    <span> Whatsapp +34 610269693 </span>
+                                </a>
+                                <a href="">
+                                    <i
+                                        class="fa fa-envelope"
+                                        aria-hidden="true"
+                                    ></i>
+                                    <span> albert.avila@gmail.com </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 info_col">
+                        <div class="info_detail">
+                            <h4>Dirección</h4>
+                            <p>
+                                Art i Matèria, Mas Jepo, 43479 L'Albiol,
+                                Tarragona
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 mx-auto info_col">
+                        <div class="info_link_box">
+                            <h4>Links</h4>
+                            <div class="info_links">
+                                <a class="active" href="index.html">
+                                    <img src="images/nav-bullet.png" alt="" />
+                                    Inicio
+                                </a>
+                                <a class="" href="about.html">
+                                    <img src="images/nav-bullet.png" alt="" />
+                                    Sobre nosotros
+                                </a>
+                                <a class="" href="service.html">
+                                    <img src="images/nav-bullet.png" alt="" />
+                                    Servicios
+                                </a>
+                                <a class="" href="contact.html">
+                                    <img src="images/nav-bullet.png" alt="" />
+                                    Contacto
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="footer_section">
+            <div class="container">
+                <p>
+                    &copy; <span id="displayYear"></span> All Rights Reserved By
+                    <a href="https://html.design/">Albiol Jepeto S.L</a>
+                </p>
+            </div>
+        </section>
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"
+        ></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+        ></script>
+        <script type="text/javascript" src="js/custom.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+    </body>
+</html>

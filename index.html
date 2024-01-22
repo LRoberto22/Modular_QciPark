@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="manifest" href="images/site.webmanifest">
+
+        <title>Albiol Jepeto</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+        />
+        <link href="css/font-awesome.min.css" rel="stylesheet" />
+        <link href="css/style.css" rel="stylesheet" />
+        <link href="css/responsive.css" rel="stylesheet" />
+    <style>
+ 
+        #cookieConsent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            z-index: 100;
+            display: none; 
+        }
+
+        #cookieConsent button {
+            background-color: #e8491d;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + value + expires + "; path=/";
+            }
+
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+            function checkCookieConsent() {
+                var cookieConsent = getCookie("cookieConsent");
+                var consentBar = document.getElementById("cookieConsent");
+
+                if (!cookieConsent) {
+                    consentBar.style.display = "block";
+
+                    document.getElementById("acceptCookies").addEventListener("click", function () {
+                        setCookie("cookieConsent", "accepted", 30); // Set cookie for 30 days
+                        consentBar.style.display = "none";
+                    });
+                }
+            }
+
+            checkCookieConsent();
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="cookieConsent">
+        Este sitio web utiliza cookies. Al utilizar este sitio web, acepta el uso de cookies.
+        <button id="acceptCookies">Accept</button>
+    </div>
+    </div>
+        <div class="hero_area">
+            <!-- header section strats -->
+            <header class="header_section">
+                <div class="header_top">
+                    <div class="container-fluid">
+                        <div class="contact_nav">
+                            <a href="">
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                <span> Whatsapp : +34 610269693 </span>
+                            </a>
+                            <a href="">
+                                <i
+                                    class="fa fa-envelope"
+                                    aria-hidden="true"
+                                ></i>
+                                <span> Email : albert.avila@gmail.com </span>
+                            </a>
+<script>
+    function openGoogleMaps() {
+        var latitude = 41.25225743727103;
+        var longitude = 1.0874838588981983;
+
+        window.open('https://www.google.com/maps?q=' + latitude + ',' + longitude);
+    }
+</script>
+<a href="javascript:void(0);" onclick="openGoogleMaps()">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    <span> Ubicación </span>
+</a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="header_bottom">
+                    <div class="container-fluid">
+                        <nav
+                            class="navbar navbar-expand-lg custom_nav-container"
+                        >
+                            <a class="navbar-brand" href="index.html">
+                                <span> Albiol Jepeto </span>
+                            </a>
+
+                            <button
+                                class="navbar-toggler"
+                                type="button"
+                                data-toggle="collapse"
+                                data-target="#navbarSupportedContent"
+                                aria-controls="navbarSupportedContent"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation"
+                            >
+                                <span class=""> </span>
+                            </button>
+
+                            <div
+                                class="collapse navbar-collapse"
+                                id="navbarSupportedContent"
+                            >
+                                <ul class="navbar-nav">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="index.html"
+                                            >Inicio
+                                            <span class="sr-only"
+                                                >(current)</span
+                                            ></a
+                                        >
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="service.html"
+                                            >Servicios</a
+                                        >
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="about.html">
+                                            Sobre nosotros</a
+                                        >
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="contact.html"
+                                            >Contacto</a
+                                        >
+                                    </li>
+                                        </button>
+                                    </form>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+            <section class="slider_section">
+                <div class="slider_bg_box">
+                    <img src="images/slider-bg.jpg" alt="" />
+                </div>
+                <div
+                    id="customCarousel1"
+                    class="carousel slide"
+                    data-ride="carousel"
+                >
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="detail-box">
+                                            <h1>
+                                                Parking de Caravanas en los alrededores de Salou/Reus/Cambrils <br />
+                              
+                                            </h1>
+                                            <p>
+                                          Un espacio ideal para el estacionamiento de caravanas en los alrededores de Salou, Reus y Cambrils. Nuestro parking ofrece una ubicación estratégica, brindando comodidad y accesibilidad para aquellos que deseen explorar estas hermosas ciudades y sus alrededores.
+                                            </p>
+                                                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="detail-box">
+                                            <h1>
+                                               Seguridad y Limpieza<br />
+                                               
+                                            </h1>
+                                            <p>
+                                                 La seguridad y la limpieza son nuestras principales prioridades. Contamos con instalaciones especialmente diseñadas para garantizar la protección y bienestar de su caravana. Nuestro sistema de seguridad incluye vigilancia las 24 horas, iluminación adecuada y accesos controlados, brindando tranquilidad a nuestros visitantes.
+                                            </p>
+                                                                                  </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="detail-box">
+                                            <h1>
+                                                Trasnporte al aeropuerto <br />
+                                                                                            </h1>
+                                            <p>
+                                               
+Ofrecemos un servicio integral para nuestros clientes. Una vez que han dejado sus vehículos en nuestro parking de caravanas, extendemos nuestra hospitalidad al proporcionar transporte directo al aeropuerto de Reus o Barcelona, y viceversa. Simplificamos su experiencia de viaje, asegurándonos de que lleguen a su destino de manera conveniente y sin complicaciones. Con nosotros, no solo obtiene un lugar seguro para su caravana, sino también la comodidad de un traslado sin preocupaciones entre el estacionamiento y el aeropuerto. 
+                                            </p>
+                                                                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ol class="carousel-indicators">
+                        <li
+                            data-target="#customCarousel1"
+                            data-slide-to="0"
+                            class="active"
+                        ></li>
+                        <li
+                            data-target="#customCarousel1"
+                            data-slide-to="1"
+                        ></li>
+                        <li
+                            data-target="#customCarousel1"
+                            data-slide-to="2"
+                        ></li>
+                    </ol>
+                </div>
+            </section>
+            </div>
+
+        <section class="service_section layout_padding">
+            <div class="service_container">
+                <div class="container">
+                    <div class="heading_container">
+                                  <p>
+                            <h2>Nuestros <span>Servicios</span></h2>
+                        <p>
+                            En nuestra empresa, nos enorgullece ofrecer una experiencia completa para los propietarios de caravanas. Nuestros servicios incluyen:
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box">
+                                <div class="img-box">
+                                    <img src="images/s1.png" alt="" />
+                                </div>
+                                <div class="detail-box">
+                                    <h5>Mantenimiento Impecable</h5>
+                                    <p>
+                                        Mantenemos todas las caravanas en condiciones impecables. Nuestro equipo se asegura de que su vehículo esté limpio y listo para su próxima aventura en todo momento.
+                                    </p>
+                                                           </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box">
+                                <div class="img-box">
+                                    <img src="images/s2.png" alt="" />
+                                </div>
+                                <div class="detail-box">
+                                    <h5>Transporte al Aeropuerto</h5>
+                                    <p>
+                                        Hacemos que su viaje sea más conveniente al ofrecer servicios de transporte directo al aeropuerto de Reus o Barcelona después de que deje su vehículo con nosotros. Sin complicaciones ni estrés, ¡solo relájese y disfrute!
+                                    </p>
+                                                                  </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box">
+                                <div class="img-box">
+                                    <img src="images/s3.png" alt="" />
+                                </div>
+                                <div class="detail-box">
+                                    <h5>Estacionamiento Todo el Año</h5>
+                                    <p>
+                                         Ofrecemos opciones de estacionamiento a corto o largo plazo, brindándole la flexibilidad de viajar cuando desee, sabiendo que su caravana está en manos seguras.
+                                    </p>
+                 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box">
+                                <div class="img-box">
+                                    <img src="images/s4.png" alt="" />
+                                </div>
+                                <div class="detail-box">
+                                    <h5>Vigilancia las 24 Horas</h5>
+                                    <p>
+                                        La seguridad es nuestra máxima prioridad. Con nuestro sistema de vigilancia las 24 horas, puede tener la tranquilidad de que su caravana está protegida en todo momento.
+                                    </p>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about_section layout_padding-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="detail-box">
+                            <div class="heading_container">
+                                <h2>Sobre <span>Nosotros</span></h2>
+                            </div>
+                                                <p>Bienvenidos a Albiol Jepeto, donde la pasión por las aventuras sobre ruedas se une a la dedicación por brindar un servicio excepcional. Somos Albert y Marta, una apasionada pareja que decidió convertir nuestra fascinación por las caravanas en una empresa comprometida con la excelencia y el cuidado.</p>
+
+<p>Hace unos años, inspirados por nuestras propias experiencias de viaje, decidimos fundar Albiol Jepeto. Nos dimos cuenta de la necesidad de un servicio integral que no solo ofreciera estacionamiento seguro, sino que también se preocupara por el bienestar y la comodidad de cada caravana.</p>
+
+<p>Lo que comenzó como un sueño compartido ahora se ha convertido en una realidad que compartimos con nuestros clientes. En Albiol Jepeto, nos esforzamos por proporcionar un entorno donde la comunidad de entusiastas de las caravanas pueda confiar en que sus vehículos sean atendidos con el mismo cuidado y amor con el que nosotros mismos cuidamos los nuestros.</p>
+
+<p>Nuestra misión va más allá del estacionamiento; buscamos enriquecer la experiencia de cada viajero ofreciendo servicios que marquen la diferencia. Con un equipo dedicado y un compromiso inquebrantable con la calidad, Albiol Jepeto se ha convertido en un hogar lejos de casa para muchas caravanas y sus propietarios.</p>
+
+<p>Únase a nosotros en este viaje. Descubra la historia detrás de cada caravana que pasa por nuestras instalaciones y experimente la atención personalizada que distingue a Albiol Jepeto. Estamos aquí para hacer que su viaje sea aún más especial. ¡Bienvenido a nuestra familia de entusiastas de las caravanas!</p>
+
+                        
+                                                 </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="img-box">
+                            <img src="images/parking.jpg" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact_section">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-md-5 offset-md-1">
+                        <div class="heading_container">
+                            <h2>Contacto</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-5 offset-md-1">
+                        <div class="form_container contact-form">
+                            <form action="">
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="Nombre"
+                                    />
+                                </div>
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="Número de teléfono"
+                                    />
+                                </div>
+                                <div>
+                                    <input type="email" placeholder="Email" />
+                                </div>
+                                <div>
+                                    <input
+                                        type="text"
+                                        class="message-box"
+                                        placeholder="Mensaje"
+                                    />
+                                </div>
+                                <div class="btn_box">
+                                    <button>ENVIAR</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-6 px-0">
+                        <div class="map_container">
+                            <div class="map">
+                                <div id="googleMap"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info_section layout_padding2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 info_col">
+                        <div class="info_contact">
+                            <h4>Información</h4>
+                            <div class="contact_link_box">
+                        
+                                <a href="javascript:void(0);" onclick="openGoogleMaps()">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    <span> Ubicación </span>
+</a>
+                                <a href="">
+                                    <i
+                                        class="fa fa-phone"
+                                        aria-hidden="true"
+                                    ></i>
+                                    <span> Whatsapp +34 610269693 </span>
+                                </a>
+                                <a href="">
+                                    <i
+                                        class="fa fa-envelope"
+                                        aria-hidden="true"
+                                    ></i>
+                                    <span> albert.avila@gmail.com </span>
+                                </a>
+                            </div>
+                        </div>
+                                            </div>
+                    <div class="col-md-6 col-lg-3 info_col">
+                        <div class="info_detail">
+                            <h4>Dirección</h4>
+                            <p>
+                                Art i Matèria, Mas Jepo, 43479 L'Albiol, Tarragona
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 mx-auto info_col">
+                        <div class="info_link_box">
+                            <h4>Links</h4>
+                            <div class="info_links">
+                                <a class="active" href="index.html">
+                                    <img src="images/nav-bullet.png" alt="" />
+                                    Inicio
+                                </a>
+                                <a class="" href="about.html">
+                                    <img src="images/nav-bullet.png" alt="" />
+                                    Sobre nosotros
+                                </a>
+                                <a class="" href="service.html">
+                                    <img src="images/nav-bullet.png" alt="" />
+                                    Servicios
+                                </a>
+                                <a class="" href="contact.html">
+                                    <img src="images/nav-bullet.png" alt="" />
+                                    Contacto
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="footer_section">
+            <div class="container">
+                <p>
+                    &copy; <span id="displayYear"></span> All Rights Reserved By
+                    <a href="https://html.design/">Albiol Jepeto S.L</a>
+                            </p>
+            </div>
+        </section>
+
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"
+        ></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+        ></script>
+        <script type="text/javascript" src="js/custom.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+
+    </body>
+</html>
