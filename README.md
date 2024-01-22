@@ -16,9 +16,13 @@ QciPark ofrece al alumno del Centro Universitario de Ciencias Exactas e Ingenier
 No requiere de instalación. Simplemente visite el sitio web QciPark desde su navegador favorito. 
 
 ## Tecnologías Utilizadas 
-HTML
-CSS3 (Bootstapp)
-JavaScript
+* HTML
+* CSS3 (Bootstapp)
+* JavaScript
+* Python
+* TensorFlow
+* PgAdmin (SQL)
+* Apache
 
 ## Autores
 Martinez Vidrio Luis Roberto
