@@ -4,18 +4,18 @@ Proyecto Modular sobre Qci Park
 ## Descripción 
 QciPark ofrece al alumno del Centro Universitario de Ciencias Exactas e Ingenierías (CUCEI) una solución a la problemática de no poder encontrar lugar en el estacionamiento del recinto y una solución también al centro ya que se evitará aglomeramientos en los alrededores de sus ingresos.
 
-##Contenido
+## Contenido
 >Sección princial: En esta parte se encuentra 
 
-##Instalación 
+## Instalación 
 No requiere de instalación. Simplemente visite el sitio web QciPark desde su navegador favorito. 
 
-##Tecnologías Utilizadas 
+## Tecnologías Utilizadas 
 HTML
 CSS3 (Bootstapp)
 JavaScript
 
-##Autores
+## Autores
 Martinez Vidrio Luis Roberto
 Romero Palma Patricia Ivania
 Mora Orleans Luis Fernando
