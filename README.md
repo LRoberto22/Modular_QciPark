@@ -12,9 +12,6 @@ QciPark ofrece al alumno del Centro Universitario de Ciencias Exactas e Ingenier
 * Estádisticas: Esta sección nos muestra un listado de las horas pico del día en curso.
 * Asistente: Este chat nos ayudará con el funcionamiento de la página en caso de necesitar ayuda.
 
-## Instalación 
-No requiere de instalación. Simplemente visite el sitio web QciPark desde su navegador favorito. 
-
 ## Tecnologías Utilizadas 
 * HTML
 * CSS3 (Bootstapp)
@@ -25,6 +22,6 @@ No requiere de instalación. Simplemente visite el sitio web QciPark desde su na
 * Apache
 
 ## Autores
-Martinez Vidrio Luis Roberto
-Romero Palma Patricia Ivania
-Mora Orleans Luis Fernando
+* Martinez Vidrio Luis Roberto
+* Romero Palma Patricia Ivania
+* Mora Orleans Luis Fernando
