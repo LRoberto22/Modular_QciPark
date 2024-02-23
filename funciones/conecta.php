@@ -1,6 +1,6 @@
 <?php
 
-//Le ando calando
+//Le ando calando para ver como conectar esta madre
 
 define("HOST",'localhost');
 define("BD",'empresa');
