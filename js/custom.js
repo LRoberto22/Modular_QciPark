@@ -1,5 +1,17 @@
 // Custom JavaScript for your website
+const {Client} = require('pg')
+const client = new Client({
+    user: 'avnadmin',
+    host: 'modular-parking-modularparking.a.aivencloud.com',
+    database: 'defaultdb',
+    password: 'AVNS_bJSJ3oB9EynJCouQhPY',
+    port: 28916,
 
+})
+client.connect(function(err){
+    if(err) throw err;
+    console.log("Connected");
+})
 // Function to get the current year and display it
 function getYear() {
     var currentDate = new Date();
