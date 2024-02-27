@@ -1,5 +1,5 @@
-// Custom JavaScript for your website
-const {Client} = require('pg')
+// // Conección con la BD
+const {Client} = require('pg');
 const client = new Client({
     user: 'avnadmin',
     host: 'modular-parking-modularparking.a.aivencloud.com',
@@ -7,11 +7,16 @@ const client = new Client({
     password: 'AVNS_bJSJ3oB9EynJCouQhPY',
     port: 28916,
 
-})
-client.connect(function(err){
-    if(err) throw err;
-    console.log("Connected");
-})
+});
+
+// ----------------ingres_horarios-----------------------
+const dias = {'L': 1, 'M': 2, 'I': 3, 'J': 4, 'V': 5, 'S': 6}
+console.log(dias.L);
+
+
+
+
+
 // Function to get the current year and display it
 function getYear() {
     var currentDate = new Date();
