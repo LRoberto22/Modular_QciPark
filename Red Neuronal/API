@@ -84,6 +84,13 @@ def save_responses_to_database(responses, carrera_recomendada):
     cursor.close()
 
 
+
+
+#######################################
+    
+
+
+########################################
 # Constructor y carga de microservicio
 if __name__ == "__main__":
     import uvicorn
