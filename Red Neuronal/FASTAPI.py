@@ -235,7 +235,7 @@ def submit_answer(answer: int = Form(...), pregunta_id: int = Form(...)):
         related_centers = recommended_career_info['centrosrelacionados']
 
         # Llama la función para guardar las respuestas y carrera en la bd, mandandole como parametros en arrelo con preguntas y carrera recomendada
-        save_responses_to_database(user_responses, carrera_recomendada)
+        #save_responses_to_database(user_responses, carrera_recomendada)
 
         print(recommended_career_model)
 
