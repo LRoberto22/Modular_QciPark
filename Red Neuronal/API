@@ -97,6 +97,13 @@ def actualizaHorario():
 #     cursor.close()
 
 
+
+
+#######################################
+    
+
+
+########################################
 # Constructor y carga de microservicio
 if __name__ == "__main__":
     import uvicorn
