@@ -40,19 +40,11 @@ conexion = psycopg2.connect(
 @app.get("/obtener-usuario-horario/")
 async def obtener_usuario_horario():
     try:
-        # Obtener una sesión de la base de datos
-        db = SessionLocal()
-
-        # Ejecutar una consulta SQL directamente
-        query = text("SELECT * FROM public.horario_usuario WHERE fkusuario = :usuario_id")
-        result = db.execute(query, {"usuario_id": 216666666})
-        horarios = result.fetchall()
-
-        # Cerrar la sesión
-        db.close()
-
-        return {"horarios": horarios}
-
+        with conexion.cursor() as cursor:
+            query = text("SELECT * FROM public.horario_usuario WHERE fkusuario = 216666666;")
+            cursor.execute(query)
+            resultado = cursor.fetchall()
+            return {"Jalo"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error obteniendo horario del usuario: {str(e)}")
 
