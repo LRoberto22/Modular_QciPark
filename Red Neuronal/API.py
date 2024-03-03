@@ -34,7 +34,7 @@ conexion = psycopg2.connect(
     port="28916",
     database="defaultdb",
     user="avnadmin",
-    password="VNS_bJSJ3oB9EynJCouQhPY"
+    password="AVNS_bJSJ3oB9EynJCouQhPY"
 )
 
 @app.get("/obtener-usuario-horario/")
