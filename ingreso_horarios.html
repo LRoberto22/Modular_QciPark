@@ -156,15 +156,7 @@
             cursor: pointer;
         }
     </style>
-</head>
-
-    <!-- Contenido de la página -->
-    <div style="padding:20px;">
-        <h2></h2>
-        <p></p>
-    </div>
-
-    <script src="js/jquery-3.4.1.min.js">
+     <!-- <script src="js/jquery-3.4.1.min.js">
         //--------------------Intento de acortar codigo select-option----------------------------
         // //      Lunes
         // //Entrada
@@ -173,7 +165,18 @@
             var crearOptions = getElementById("lunesEntrada");
             console.log("pene");
         }
-        hazAlgoP;orFavor()
+        
+        function obtenerPregunta() {
+        $.get('http://0.0.0.0:8000/obtener-usuario-horario', function(data) {
+            if (data) {
+                salida = data.salida;
+                console.log(salida);
+                $('#Salida').text(salida);
+            } else {
+                alert("No jalo");  // Manejar errores si es necesario
+            }
+        });
+    }
 
         // for (var i = 0; i < diasSemana.length; i++) {
         //     var dia = diasSemana[i];
@@ -182,7 +185,7 @@
 
         // function generarHorarios(dia){
         //     console.log(dia);
-        //     var selectEntrada = document.querySelector("#"+dia+"")
+        //     var selectEntrada = document.querySelector("#"+dia+"enttrada")
         //     var selectSalida = document.querySelector(`[name='${dia}Salida']`);
 
         //     for (var hora = 7; hora <= 21; hora++){
@@ -263,10 +266,18 @@
 
         // Actualizar el valor del porcentaje en el círculo
         percentageElement.textContent = randomPercentage + '%';
-    </script>
+    </script> -->
+</head>
 
+    <!-- Contenido de la página -->
+    <div style="padding:20px;">
+        <h2></h2>
+        <p></p>
+    </div>
     <div id="container">
         <h1>Hola Usuario! aqui ingresa tu horario</h1>
+        <label class="Salida">Pene</label>
+        <button type="submit" onclick="obtenerPregunta(); return false;">Click aqui</button>
         <form action="#" method="post">
             <h2>Lunes</h2>
             <label>Entrada</label>
