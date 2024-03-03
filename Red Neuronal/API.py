@@ -2,13 +2,14 @@ import os
 import numpy as np
 import pandas as pd
 import psycopg2
-import random
 from datetime import datetime
-from keras.models import Sequential, load_model
-from keras.layers import Dense
-from keras.utils import to_categorical
-from fastapi import FastAPI, HTTPException, Form
+# from keras.models import Sequential, load_model
+# from keras.layers import Dense
+# from keras.utils import to_categorical
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import create_engine, text
+from sqlalchemy.orm import Session
 import json
 
 app = FastAPI()
@@ -29,25 +30,45 @@ app.add_middleware(
 
 # Configuración de la base de datos PostgreSQL
 conexion = psycopg2.connect(
-    host="avnadmin",
+    host="modular-parking-modularparking.a.aivencloud.com",
     port="28916",
-    database="28916",
+    database="defaultdb",
     user="avnadmin",
     password="VNS_bJSJ3oB9EynJCouQhPY"
 )
 
-@app.post("/ActualizacionHorario")
-def actualizaHorario():
-    db = conexion()
+@app.get("/obtener-usuario-horario/")
+async def obtener_usuario_horario():
     try:
-        fecha = datetime.now() 
-        query = f"CALL public.inserthorariousuario({fecha.strftime(f"%Y/%m/%d")}, {from.option_selected}, {from.option_selected}, {seteadoPorAhora}, );" 
-        db.execute(query)
-        db.commit()
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error al ejecutar stored procedure: {str(e)}")
-    finally:
+        # Obtener una sesión de la base de datos
+        db = SessionLocal()
+
+        # Ejecutar una consulta SQL directamente
+        query = text("SELECT * FROM public.horario_usuario WHERE fkusuario = :usuario_id")
+        result = db.execute(query, {"usuario_id": 216666666})
+        horarios = result.fetchall()
+
+        # Cerrar la sesión
         db.close()
+
+        return {"horarios": horarios}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error obteniendo horario del usuario: {str(e)}")
+
+
+# @app.post("/ActualizacionHorario")
+# def actualizaHorario():
+#     db = conexion()
+#     try:
+#         fecha = datetime.now() 
+#         query = f"CALL public.inserthorariousuario({fecha.strftime(f"%Y/%m/%d")}, {from.option_selected}, {from.option_selected}, {seteadoPorAhora}, );" 
+#         db.execute(query)
+#         db.commit()
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f"Error al ejecutar stored procedure: {str(e)}")
+#     finally:
+#         db.close()
 
 
 #---------------Referencias API Mike--------------------
