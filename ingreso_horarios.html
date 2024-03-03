@@ -156,7 +156,7 @@
             cursor: pointer;
         }
     </style>
-     <!-- <script src="js/jquery-3.4.1.min.js">
+     <script src="js/jquery-3.4.1.min.js">
         //--------------------Intento de acortar codigo select-option----------------------------
         // //      Lunes
         // //Entrada
@@ -167,7 +167,8 @@
         }
         
         function obtenerPregunta() {
-        $.get('http://0.0.0.0:8000/obtener-usuario-horario', function(data) {
+            $.get('http://0.0.0.0:8000/obtener-usuario-horario', function(data) {
+            console.log("Entro");
             if (data) {
                 salida = data.salida;
                 console.log(salida);
@@ -266,7 +267,7 @@
 
         // Actualizar el valor del porcentaje en el círculo
         percentageElement.textContent = randomPercentage + '%';
-    </script> -->
+    </script>
 </head>
 
     <!-- Contenido de la página -->
