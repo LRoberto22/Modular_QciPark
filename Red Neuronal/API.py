@@ -8,6 +8,7 @@ from datetime import datetime
 # from keras.utils import to_categorical
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
 import json
@@ -37,14 +38,12 @@ conexion = psycopg2.connect(
     password="AVNS_bJSJ3oB9EynJCouQhPY"
 )
 
-@app.get("/obtener-usuario-horario/")
+@app.get("/obtener-usuario-horario")
 async def obtener_usuario_horario():
     try:
-        with conexion.cursor() as cursor:
-            query = text("SELECT * FROM public.horario_usuario WHERE fkusuario = 216666666;")
-            cursor.execute(query)
-            resultado = cursor.fetchall()
-            return {"Jalo"}
+        with conexion.cursor():
+            query = pd.read_sql_query("SELECT * FROM horario_usuario WHERE fkusuario = 216666666;", conexion)
+            return JSONResponse(query.to_json())
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error obteniendo horario del usuario: {str(e)}")
 
