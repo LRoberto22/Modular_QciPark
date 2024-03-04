@@ -9,7 +9,7 @@
         
     
     </head>
-    <body>
+    <body class="cuerpote">
         <header>
             <div class="row py-1 justify-content-md-center text-center" style="background-color: #D9D9D9;">
                 <div class="col center-block align-center">
@@ -52,49 +52,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingreso de Horarios</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f3f3f3; /* Gris claro de fondo */
-        }
-        #container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #d9d9d9; /* Fondo blanco del contenedor */
-            border-radius: 8px;
-        }
-        #header {
-            background-color: #d9d9d9; /* Fondo gris claro */
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        #menu-container {
-            position: relative;
-            width: 200px; /* Ancho del menú */
-            background-color: #a6a6a6; /* Fondo gris oscuro del menú */
-            color: #fff; /* Color de texto del menú */
-            overflow: hidden;
-            transition: width 0.1s ease;
-            overflow-y: hidden;
-        }
-        #menu {
-            padding: 10px;
-        }
-        #menu-button {
-            background-image: url('menu.png');
-            background-size: cover;
-            width: 60px;
-            height: 60px;
-            border: none;
-            cursor: pointer;
-        }
-        #menu-options {
-            display: none;
-        }
+        
         #menu-options a {
             color: white;
             text-decoration: none;
@@ -106,55 +64,7 @@
         #menu-options a:hover {
             background-color: #a6a6a6;
         }
-        #logo {
-            width: 80px;
-            height: auto;
-        }
-        #percentage {
-            background-color: #f8a80b;
-            color: white;
-            border-radius: 50%;
-            width: 70px;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #f8a80b; /* Naranja */
-        }
-
-        h2 {
-            text-align: center;
-            color: #6a6868; /* Gris oscuro dias */
-            font-size: 20px;
-        }
-        form {
-            margin-top: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333; /* Texto gris oscuro */
-        }
-        select {
-            width: 40%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc; /* Borde gris */
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            background-color: #f8a80b; /* Naranja */
-            color: #fff; /* Texto blanco */
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+        
     </style>
      <script src="js/jquery-3.4.1.min.js">
         var menuButton = document.getElementById('menu-button');
@@ -198,51 +108,51 @@
         <p></p>
     </div>
     <div id="container">
-        <h1>Hola Usuario! aqui ingresa tu horario</h1>
-        <form action="http://0.0.0.0:8000/enviarHorario" method="post">
-            <h2>Lunes</h2>
-            <label>Entrada</label>
-            <select name="lunesEntrada" id="lunesEntrada"></select>
+        <h1 class="tituloHorario" >Hola Usuario! aqui ingresa tu horario</h1>
+        <form action="http://0.0.0.0:8000/enviarHorario" method="post" class="formulario_horario">
+            <h2 class="tituloDia" >Lunes</h2>
+            <label class="lblEntradaS" >Entrada</label>
+            <select class="seleccion" name="lunesEntrada" id="lunesEntrada"></select>
 
-            <label for="lunes-salida">Salida</label>
-            <select name="lunesSalida" id="lunesSalida"></select>
+            <label class="lblEntradaS" for="lunes-salida">Salida</label>
+            <select class="seleccion" name="lunesSalida" id="lunesSalida"></select>
 
-            <h2>Martes</h2>
-            <label for="martes-entrada">Entrada</label>
-            <select name="martesEntrada" id="martesEntrada"></select>
+            <h2 class="tituloDia" >Martes</h2>
+            <label class="lblEntradaS" for="martes-entrada">Entrada</label>
+            <select class="seleccion" name="martesEntrada" id="martesEntrada"></select>
             
-            <label for="martes-salida">Salida</label>
-            <select name="martesSalida" id="martesSalida"></select>
+            <label class="lblEntradaS" for="martes-salida">Salida</label>
+            <select class="seleccion" name="martesSalida" id="martesSalida"></select>
 
-            <h2>Miercoles</h2>            
-            <label for="miercoles-entrada">Entrada</label>
-            <select name="miercolesEntrada" id="miercolesEntrada"></select>
+            <h2 class="tituloDia" >Miercoles</h2>            
+            <label class="lblEntradaS" for="miercoles-entrada">Entrada</label>
+            <select class="seleccion" name="miercolesEntrada" id="miercolesEntrada"></select>
 
-            <label for="miercoles-salida">Salida</label>
-            <select name="miercolesSalida" id="miercolesSalida"></select>
+            <label class="lblEntradaS" for="miercoles-salida">Salida</label>
+            <select class="seleccion" name="miercolesSalida" id="miercolesSalida"></select>
             
-            <h2>Jueves</h2>
-            <label for="jueves-entrada">Entrada</label>
-            <select name="juevesEntrada" id="juevesEntrada"></select>
+            <h2 class="tituloDia" >Jueves</h2>
+            <label class="lblEntradaS" for="jueves-entrada">Entrada</label>
+            <select class="seleccion" name="juevesEntrada" id="juevesEntrada"></select>
 
-            <label for="jueves-salida">Salida</label>
-            <select name="juevesSalida" id="juevesSalida"></select>
+            <label class="lblEntradaS" for="jueves-salida">Salida</label>
+            <select class="seleccion" name="juevesSalida" id="juevesSalida"></select>
 
-            <h2>Viernes</h2>
-            <label for="viernes-entrada">Entrada</label>
-            <select name="viernesEntrada" id="viernesEntrada"></select>
+            <h2 class="tituloDia" >Viernes</h2>
+            <label class="lblEntradaS" for="viernes-entrada">Entrada</label>
+            <select class="seleccion" name="viernesEntrada" id="viernesEntrada"></select>
 
-            <label for="viernes-salida">Salida</label>
-            <select name="viernesSalida" id="viernesSalida"></select>
+            <label class="lblEntradaS" for="viernes-salida">Salida</label>
+            <select class="seleccion" name="viernesSalida" id="viernesSalida"></select>
 
-            <h2>Sabado</h2>
-            <label for="sabado-entrada">Entrada</label>
-            <select name="sabadoEntrada" id="sabadoEntrada"></select>
+            <h2 class="tituloDia" >Sabado</h2>
+            <label class="lblEntradaS" for="sabado-entrada">Entrada</label>
+            <select class="seleccion" name="sabadoEntrada" id="sabadoEntrada"></select>
 
-            <label for="sabado-salida">Salida</label>
-            <select name="sabadoSalida" id="sabadoSalida"></select>
+            <label class="lblEntradaS" for="sabado-salida">Salida</label>
+            <select class="seleccion" name="sabadoSalida" id="sabadoSalida"></select>
         </br>
-            <input type="submit" value="Guardar Horarios">
+            <input class="btnGrdHorario" type="submit" value="Guardar Horarios">
         </form>
     </div>
 

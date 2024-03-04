@@ -231,7 +231,7 @@
 #cajotaRegistro{
   background-color: #DFDFDF;
   position: absolute;
-  height: 550px;
+  height: 600px;
   width: 900px;
   top:10%;
   left: 27%;
@@ -254,14 +254,114 @@
   text-align: right;
   position: relative;
   width: 80%;
-  height: 16%;
+  height: 12%;
   top: 20%;
   left: 10%
 }
 
 .lblCampo{
-  text-align: center;
+  float: left;
+  text-align: left;
   position: relative;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
+  padding-top: 6%;
+}
+
+/* ----------------------- ingreso_horario stylsheet --------------------------------- */
+
+.cuerpote{
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f3f3f3; /* Gris claro de fondo */
+}
+#container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #d9d9d9; /* Fondo blanco del contenedor */
+  border-radius: 8px;
+}
+#header {
+  background-color: #d9d9d9; /* Fondo gris claro */
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#menu-container {
+  position: relative;
+  width: 200px; /* Ancho del menú */
+  background-color: #a6a6a6; /* Fondo gris oscuro del menú */
+  color: #fff; /* Color de texto del menú */
+  overflow: hidden;
+  transition: width 0.1s ease;
+  overflow-y: hidden;
+}
+#menu {
+  padding: 10px;
+}
+#menu-button {
+  background-image: url('menu.png');
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+  border: none;
+  cursor: pointer;
+}
+#menu-options {
+  display: none;
+}
+
+#logo {
+  width: 80px;
+  height: auto;
+}
+#percentage {
+  background-color: #f8a80b;
+  color: white;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.tituloHorario{
+  text-align: center;
+  color: #f8a80b; /* Naranja */
+}
+
+.tituloDia{
+  text-align: center;
+  color: #6a6868; /* Gris oscuro dias */
+  font-size: 20px;
+}
+
+.formulario_horario{
+  margin-top: 20px;
+}
+.lblEntradaS{
+  display: block;
+  margin-bottom: 5px;
+  color: #333; /* Texto gris oscuro */
+}
+.seleccion{
+  width: 40%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc; /* Borde gris */
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.btnGrdHorario{
+  background-color: #f8a80b; /* Naranja */
+  color: #fff; /* Texto blanco */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
 }
