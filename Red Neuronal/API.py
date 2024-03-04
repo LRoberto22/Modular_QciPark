@@ -13,6 +13,11 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
 import json
 
+#Librerias de prueba 
+from pydantic import BaseModel
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
+
 app = FastAPI()
 
 # Manejar los origenes que se permiten en el microservicio, ponienod la ip del servidor donde se aloja la página
@@ -46,6 +51,8 @@ async def obtener_usuario_horario():
             return JSONResponse(query.to_json())
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error obteniendo horario del usuario: {str(e)}")
+
+
 
 @app.post("/enviarHorario")
 async def enviarHorario():

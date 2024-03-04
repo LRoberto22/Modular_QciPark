@@ -1,16 +1,3 @@
-// var selectExistente = document.getElementById("lunesEntrada");
-// var opciones = [];
-// for( var i = 0; i <= 14; i++){
-//     opciones[i] = document.createElement("option");
-//     opciones[i].text = (i+7)+":00";
-//     opciones[i].value = (i+7)+":00";
-//     selectExistente.append(opciones[i]);
-// }
-// var opcionNA = document.createElement("option");
-// opcionNA.text = "N/A";
-// opcionNA.value = "N/A";
-// selectExistente.append(opcionNA);
-
 // ---------------------------Funcion mejorada--------------------
 var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
 
@@ -24,21 +11,22 @@ function generarHorarios(dia){
     var selectEntrada = document.getElementById(dia+"Entrada");
     var selectSalida = document.getElementById(dia+"Salida");
     var opcionNA = document.createElement("option");
+    var opcionNAE = document.createElement("option");
     // ----------Para la entrada---------------------
-    for (var i = 0; i <= 14; i++){
+    for (var i = 0; i <= 12; i++){
         opciones[i] = document.createElement("option");
         opciones[i].text = (i+7)+":00";
         opciones[i].value = (i+7)+":00";
         selectEntrada.append(opciones[i]);
     }
-    opcionNA.text = "N/A";
-    opcionNA.value = "N/A";
-    selectEntrada.append(opcionNA);
+    opcionNAE.text = "N/A";
+    opcionNAE.value = "N/A";
+    selectEntrada.append(opcionNAE);
     // ----------Para la salida---------------------
-    for (var i = 0; i <= 14; i++){
+    for (var i = 0; i <= 13; i++){
         opciones[i] = document.createElement("option");
-        opciones[i].text = (i+7)+":00";
-        opciones[i].value = (i+7)+":00";
+        opciones[i].text = (i+8)+":00";
+        opciones[i].value = (i+8)+":00";
         selectSalida.append(opciones[i]);
     }
     opcionNA.text = "N/A";
