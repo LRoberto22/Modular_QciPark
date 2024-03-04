@@ -47,6 +47,9 @@ async def obtener_usuario_horario():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error obteniendo horario del usuario: {str(e)}")
 
+@app.post("/enviarHorario")
+async def enviarHorario():
+    pass
 
 # @app.post("/ActualizacionHorario")
 # def actualizaHorario():
