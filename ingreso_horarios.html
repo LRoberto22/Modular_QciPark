@@ -90,7 +90,10 @@
             }
         });
 
-
+        function pene(){
+            var queHay = $("#lunesEntrada").value();
+            console.log(queHay);
+        }
         // Obtener el elemento del porcentaje
         var percentageElement = document.getElementById('percentage-value');
 
@@ -109,7 +112,7 @@
     </div>
     <div id="container">
         <h1 class="tituloHorario" >Hola Usuario! aqui ingresa tu horario</h1>
-        <form action="http://0.0.0.0:8000/enviarHorario" method="post" class="formulario_horario">
+        <form  class="formulario_horario">
             <h2 class="tituloDia" >Lunes</h2>
             <label class="lblEntradaS" >Entrada</label>
             <select class="seleccion" name="lunesEntrada" id="lunesEntrada"></select>
@@ -152,7 +155,7 @@
             <label class="lblEntradaS" for="sabado-salida">Salida</label>
             <select class="seleccion" name="sabadoSalida" id="sabadoSalida"></select>
         </br>
-            <input class="btnGrdHorario" type="submit" value="Guardar Horarios">
+            <input class="btnGrdHorario" type="submit" value="Guardar Horarios" onclick="responderPregunta(); return false;">
         </form>
     </div>
 

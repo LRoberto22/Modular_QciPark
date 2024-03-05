@@ -33,3 +33,22 @@ function generarHorarios(dia){
     opcionNA.value = "N/A";
     selectSalida.append(opcionNA);
 }
+
+
+
+function responderPregunta(){
+    var horarios = [[],[]];
+    diasSemana.forEach(function(dia, indice) {
+        alert(dia);
+        horarios[indice][0] = document.getElementById(dia+"Entrada").value;
+        alert(horarios[indice][0]);
+        horarios[indice][1] = document.getElementById(dia+"Salida").value;
+        alert(horarios[indice][1]);
+    });
+    
+    
+   
+    // var respuestaJSON = {"dato_que_mandaremos": lunesEntrada, }
+    // console.log(queHay);
+
+}
