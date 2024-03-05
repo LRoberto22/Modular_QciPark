@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 import psycopg2
 from datetime import datetime
-from keras.models import Sequential, load_model
-from keras.layers import Dense
-from keras.utils import to_categorical
+# from keras.models import Sequential, load_model
+# from keras.layers import Dense
+# from keras.utils import to_categorical
 from fastapi import FastAPI, HTTPException, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -49,7 +49,7 @@ conexion = psycopg2.connect(
 def insertar_usuario_bd(codigoUsuario: str = Form(...), nombreUsuario: str = Form(...), contrasenia: str = Form(...)):
     try:
         cursor = conexion.cursor()
-        query = "INSERT INTO "
+        query = "INSERT INTO usuario (codigo, nombre, passw) VALUES (%s, %s, %s)"
         cursor.execute(query, (codigoUsuario, nombreUsuario, contrasenia))
         conexion.commit()
         cursor.close()
