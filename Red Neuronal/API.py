@@ -6,7 +6,7 @@ from datetime import datetime
 from keras.models import Sequential, load_model
 from keras.layers import Dense
 from keras.utils import to_categorical
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import create_engine, text
@@ -42,6 +42,22 @@ conexion = psycopg2.connect(
     user="avnadmin",
     password="AVNS_bJSJ3oB9EynJCouQhPY"
 )
+
+
+#Insercion en la base de datos en el registro de usuario
+@app.post("/insertarUsuario_bd")
+def insertar_usuario_bd(codigoUsuario: str = Form(...), nombreUsuario: str = Form(...), contrasenia: str = Form(...)):
+    try:
+        cursor = conexion.cursor()
+        query = "INSERT INTO "
+        cursor.execute(query, (codigoUsuario, nombreUsuario, contrasenia))
+        conexion.commit()
+        cursor.close()
+    except Exception as e:
+        return {"error": str(e)}
+    
+    return {"message" : "Datos insertados correcamente"}
+
 
 @app.get("/obtener-usuario-horario")
 async def obtener_usuario_horario():

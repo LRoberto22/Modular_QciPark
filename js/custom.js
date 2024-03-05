@@ -52,3 +52,23 @@ function responderPregunta(){
     // console.log(queHay);
 
 }
+
+function registroUsuario(){
+    
+    var codigo = document.getElementById("usuario_cod").value;
+    var nom_usuario = document.getElementById("usuario_nom").value;
+    var pass = document.getElementById("usuario_pass").value;
+    var pass_confirmar = document.getElementById("pass_conf").value;
+
+    console.log(codigo)
+    console.log(nom_usuario)
+    console.log(pass)
+
+    if (pass =! pass_confirmar){
+        console.log("tas wey")
+    }
+    else{
+        var respuestaJSONusuario = {"codigoUsuario":codigo, "nombreUsuario":nom_usuario, "contrasenia":pass}
+        console.log("pasas")
+    }
+}
