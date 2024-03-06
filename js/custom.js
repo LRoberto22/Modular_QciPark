@@ -37,17 +37,20 @@ function generarHorarios(dia){
 
 
 function responderPregunta(){
-    var horarios = [[],[]];
-    diasSemana.forEach(function(dia, indice) {
-        alert(dia);
-        horarios[indice][0] = document.getElementById(dia+"Entrada").value;
-        alert(horarios[indice][0]);
-        horarios[indice][1] = document.getElementById(dia+"Salida").value;
-        alert(horarios[indice][1]);
-    });
+    var entradas = [];
+    var salidas = [];
+    var diasAsiste = [];
+    for(var i=0; i<diasSemana.length; i++){
+        entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
+        salidas[i] = document.getElementById(diasSemana[i]+"Salida").value;
+    } 
     
-    
-   
+    for(var i = 0; i < diasSemana.length; i++){
+        if(entradas[i] != "N/A"){
+            console.log("se hace insercion en BD");
+        }
+    }
+
     // var respuestaJSON = {"dato_que_mandaremos": lunesEntrada, }
     // console.log(queHay);
 
