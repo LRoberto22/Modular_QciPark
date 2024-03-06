@@ -86,15 +86,20 @@ function registroUsuario(){
     var pass = document.getElementById("usuario_pass").value;
     var pass_confirmar = document.getElementById("pass_conf").value;
 
-    console.log(codigo)
-    console.log(nom_usuario)
-    console.log(pass)
+    console.log(codigo);
+    console.log(nom_usuario);
+    console.log(pass);
 
     if (pass =! pass_confirmar){
-        console.log("tas wey")
+        console.log("tas wey");
     }
     else{
-        var respuestaJSONusuario = {"codigoUsuario":codigo, "nombreUsuario":nom_usuario, "contrasenia":pass}
-        console.log("pasas")
+        console.log("pasas");
+        console.log("pasas");
+        var respuestaJSON = {"codigoUsuario":codigo, "nombreUsuario":nom_usuario, "contrasenia":pass}
+        $.post('https://0.0.0.0:8000/insertarUsuario_bd', respuestaJSON, function(data){
+            console.log('Jalo el server', data);
+        });
+        
     }
 }
