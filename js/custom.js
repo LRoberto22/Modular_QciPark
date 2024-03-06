@@ -31,23 +31,46 @@ function generarHorarios(dia){
     }
     opcionNA.text = "N/A";
     opcionNA.value = "N/A";
-    selectSalida.append(opcionNA);
 }
 
 
 
-function responderPregunta(){
+function responderPregunta(){ //ObtenerHorario
     var entradas = [];
     var salidas = [];
     var diasAsiste = [];
+    var fechaActual = new Date();
+
+    // Obtener los componentes de la fecha
+    var año = fechaActual.getFullYear();
+    var mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2); // Sumar 1 porque los meses son indexados desde 0
+    var dia = ('0' + fechaActual.getDate()).slice(-2);
+
+    // Formatear la fecha en el formato "YYYY-mm-dd"
+    var fechaFormateada = año + '-' + mes + '-' + dia;
+    
+    var codigoUsuario = 216666666;
     for(var i=0; i<diasSemana.length; i++){
         entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
         salidas[i] = document.getElementById(diasSemana[i]+"Salida").value;
     } 
-    
     for(var i = 0; i < diasSemana.length; i++){
         if(entradas[i] != "N/A"){
             console.log("se hace insercion en BD");
+            // var respuestaJSON = {"fecha": fechaFormateada, "entrada": entradas[i], "salida": salidas[i], "codigoUsuario": codigoUsuario, "diaSemana": i};
+            // $.post('http://0.0.0.0:8000/obtener-usuario-horario', respuestaJSON, function(data){
+            //     console.log("respuesta del servidor: ", data.message);
+            // });
+
+            $.ajax({
+                url: 'http://0.0.0.0:8000/obtener-usuario-horario',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(respuestaJSON),
+                success: function(data) {
+                    console.log("respuesta del servidor:", data.message);
+                }
+            });
         }
     }
 

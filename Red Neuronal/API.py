@@ -59,14 +59,17 @@ def insertar_usuario_bd(codigoUsuario: str = Form(...), nombreUsuario: str = For
     return {"message" : "Datos insertados correcamente"}
 
 
-@app.get("/obtener-usuario-horario")
-async def obtener_usuario_horario():
+@app.post("/obtener-usuario-horario")
+async def obtener_usuario_horario(fecha: datetime = Form(...), entrada: datetime = Form(...), salida: datetime = Form(...), codigoUsuario: int = Form(...), diaSemana: int = Form(...)):
+    #conectar a la base de datos
     try:
-        with conexion.cursor():
-            query = pd.read_sql_query("SELECT * FROM horario_usuario WHERE fkusuario = 216666666;", conexion)
-            return JSONResponse(query.to_json())
+       cursor = conexion.cursor()
+       query = f"INSERT INTO horario_usuario VALUES ({fecha}, {entrada}, {salida}, {codigoUsuario}, {diaSemana})"
+       cursor.execute(query)
+       conexion.commit()
+       cursor.close()
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error obteniendo horario del usuario: {str(e)}")
+        return {"message": "Datos insertados correctamente"}
 
 
 
