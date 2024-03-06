@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 import psycopg2
 from datetime import datetime
-# from keras.models import Sequential, load_model
-# from keras.layers import Dense
-# from keras.utils import to_categorical
+from keras.models import Sequential, load_model
+from keras.layers import Dense
+from keras.utils import to_categorical
 from fastapi import FastAPI, HTTPException, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
