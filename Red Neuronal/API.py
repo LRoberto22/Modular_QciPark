@@ -14,9 +14,9 @@ from sqlalchemy.orm import Session
 import json
 
 #Librerias de prueba 
-from pydantic import BaseModel
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
+# from pydantic import BaseModel
+# from fastapi.staticfiles import StaticFiles
+# from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
