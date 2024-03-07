@@ -89,27 +89,29 @@ function responderPregunta(){ //ObtenerHorario
 function registroUsuario(){
     
     var codigo = document.getElementById("usuario_cod").value;
+    var passw = document.getElementById("pass_usuario").value;
     var nom_usuario = document.getElementById("usuario_nom").value;
-    var pass = document.getElementById("usuario_pass").value;
     var pass_confirmar = document.getElementById("pass_conf").value;
 
-    console.log(codigo);
-    console.log(nom_usuario);
-    console.log(pass);
-
-    if (pass =! pass_confirmar){
+    if (passw != pass_confirmar){
         console.log("tas wey");
     }
     else{
         console.log("pasas");
-        console.log("pasas");
         console.log(codigo);
         console.log(nom_usuario);
-        console.log(pass);
-        var respuestaJSON = {"codigoUsuario":codigo, "nombreUsuario":nom_usuario, "contrasenia":pass}
-        $.post('https://0.0.0.0:8000/insertarUsuario_bd', respuestaJSON, function(data){
+        console.log(passw);
+        var respuestaJSON = {"codigoUsuario":codigo, "nombreUsuario":nom_usuario, "contrasenia":passw};
+        console.log(respuestaJSON);
+        $.post('http://localhost:8000/insertarUsuario_bd', respuestaJSON, function(data){
             console.log('Jalo el server', data);
-        });
+            try{
+                console.log('lo que sea');
+            }
+            catch(error){
+                console.log(error.message);
+            }
+        }, "json");
         
     }
 }
