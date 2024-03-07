@@ -46,10 +46,10 @@ conexion = psycopg2.connect(
 
 #Insercion en la base de datos en el registro de usuario
 @app.post("/insertarUsuario_bd")
-def insertar_usuario_bd(codigoUsuario: str = Form(...), nombreUsuario: str = Form(...), contrasenia: str = Form(...)):
+def insertar_usuario_bd(codigoUsuario: int = Form(...), nombreUsuario: str = Form(...), contrasenia: str = Form(...)):
     try:
         cursor = conexion.cursor()
-        query = "INSERT INTO usuario (codigo, nombre, passw) VALUES (%s, %s, %s)"
+        query = "INSERT INTO usuarios (codigo, nombre, passw) VALUES (%s, %s, %s)"
         cursor.execute(query, (codigoUsuario, nombreUsuario, contrasenia))
         conexion.commit()
         cursor.close()

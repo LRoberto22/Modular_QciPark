@@ -103,6 +103,9 @@ function registroUsuario(){
     else{
         console.log("pasas");
         console.log("pasas");
+        console.log(codigo);
+        console.log(nom_usuario);
+        console.log(pass);
         var respuestaJSON = {"codigoUsuario":codigo, "nombreUsuario":nom_usuario, "contrasenia":pass}
         $.post('https://0.0.0.0:8000/insertarUsuario_bd', respuestaJSON, function(data){
             console.log('Jalo el server', data);

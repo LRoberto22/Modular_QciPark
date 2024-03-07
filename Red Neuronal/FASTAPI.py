@@ -36,41 +36,64 @@ conexion = psycopg2.connect(
 )
 
 # Cargar datos desde la base de datos
-preguntas_data = pd.read_sql_query("SELECT * FROM preguntas", conexion)
-pregunta_carrera_data = pd.read_sql_query("SELECT * FROM preguntas_carreras", conexion)
-carrera_data = pd.read_sql_query("SELECT * FROM carreras", conexion)
+ingresos_data = pd.read_sql_query("SELECT * FROM ingresos", conexion)
+egresos_data = pd.read_sql_query("SELECT * FROM egresos", conexion)
+semana_data = pd.read_sql_query("SELECT * FROM dias_semana", conexion)
 
 #Variables Globales
-selected_careers = []
-asked_questions = set()
-MAX_QUESTIONS = 15
-current_question_id = None
 contador = 0
-user_responses = []
-carrera_recomendada = None
-model_filename = "C:\\Users\\M1guel110\\Desktop\\MICROSERVICIO MODULAR\\modelo.h5"  # Ruta completa para guardar el modelo
 
+
+model_filename = "parking_model.h5"
+
+# Función para cargar o crear el modelo
 # Función para cargar o crear el modelo
 def load_or_create_model(input_shape, output_shape):
     if os.path.exists(model_filename):
         return load_model(model_filename)
     else:
-        # El modelo es del tipo secuencial (librería Keras)
         model = Sequential([
-            # Primera capa de la red neuronal con 128 neuronas, que espera entradas con 16 caracteristicas
-            Dense(128, activation='relu', input_shape=(16,)),
-            # Segunda capa de la red neuronal con el mismo numero de neuronas como de carreras
-            Dense(output_shape, activation='softmax')
+            Dense(128, activation='relu', input_shape=input_shape),
+            Dense(output_shape, activation='linear')  # Linear activation for predicting continuous values
         ])
-        # ADAM algoritmo de optimización para entrenamiento de la red neuronal.
-        # Se guarda el modelo en el directorio especificado
         model.save(model_filename)
         return model
 
-# Cargar o crear el modelo
-input_shape = len(carrera_data) #76 carreras
-output_shape = len(carrera_data) #76 carreras
-model = load_or_create_model(input_shape, output_shape)
+
+# Función para preparar los datos
+def prepare_data(ingresos_data, egresos_data, semana_data):
+    best_parking_times = []
+
+    # Iterar sobre cada día de la semana
+    for day in semana_data['day_of_week']:
+        # Obtener los registros de ingresos y egresos correspondientes a este día
+        ingresos_day = ingresos_data[ingresos_data['day_of_week'] == day]
+        egresos_day = egresos_data[egresos_data['day_of_week'] == day]
+
+        # Calcular la diferencia entre las horas de ingreso y egreso para cada registro
+        parking_times = (egresos_day['egreso_time'] - ingresos_day['ingreso_time']).dt.total_seconds() / 3600
+
+        # Seleccionar el mejor tiempo de estacionamiento (el más largo)
+        best_parking_time = parking_times.max()
+        best_parking_times.append(best_parking_time)
+
+    # Convertir a un array numpy
+    X = np.array(best_parking_times)
+
+    # Generar etiquetas ficticias para el ejemplo (podrían ser la capacidad del estacionamiento para cada día)
+    y = np.random.randint(50, size=len(semana_data))
+
+    return X.reshape(-1, 1), y
+
+
+
+
+
+
+
+
+
+
 
 
 # Función para entrenar el modelo con los datos de la tabla respuestas_usuario
@@ -235,7 +258,7 @@ def submit_answer(answer: int = Form(...), pregunta_id: int = Form(...)):
         related_centers = recommended_career_info['centrosrelacionados']
 
         # Llama la función para guardar las respuestas y carrera en la bd, mandandole como parametros en arrelo con preguntas y carrera recomendada
-        #save_responses_to_database(user_responses, carrera_recomendada)
+        save_responses_to_database(user_responses, carrera_recomendada)
 
         print(recommended_career_model)
 
