@@ -38,7 +38,8 @@ function generarHorarios(dia){
 function responderPregunta(){ //ObtenerHorario
     var entradas = [];
     var salidas = [];
-    var diasAsiste = [];
+    var entradaLun = "";
+    var salidaLun;
     var fechaActual = new Date();
 
     // Obtener los componentes de la fecha
@@ -50,29 +51,35 @@ function responderPregunta(){ //ObtenerHorario
     var fechaFormateada = año + '-' + mes + '-' + dia;
     
     var codigoUsuario = 216666666;
-    for(var i=0; i<diasSemana.length; i++){
-        entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
-        salidas[i] = document.getElementById(diasSemana[i]+"Salida").value;
-    } 
-    for(var i = 0; i < diasSemana.length; i++){
-        if(entradas[i] != "N/A"){
-            console.log("se hace insercion en BD");
-            // var respuestaJSON = {"fecha": fechaFormateada, "entrada": entradas[i], "salida": salidas[i], "codigoUsuario": codigoUsuario, "diaSemana": i};
-            // $.post('http://0.0.0.0:8000/obtener-usuario-horario', respuestaJSON, function(data){
-            //     console.log("respuesta del servidor: ", data.message);
-            // });
-
-            $.ajax({
-                url: 'http://0.0.0.0:8000/obtener-usuario-horario',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(respuestaJSON),
-                success: function(data) {
-                    console.log("respuesta del servidor:", data.message);
-                }
-            });
+    // for(var i=0; i<diasSemana.length; i++){
+    //     entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
+    //     salidas[i] = document.getElementById(diasSemana[i]+"Salida").value;
+    // } 
+    // for(var i = 0; i < diasSemana.length; i++){
+    //     if(entradas[i] != "N/A"){
+            // var respuestaJSON = {"fecha": fechaFormateada, "entrada": entradas[i], "salida": salidas[i], "codigoUsuario": codigoUsuario, "diaSemana": i+1};
+            // //console.log(respuestaJSON);
+            // $.post('http://localhost:8000/enviar_usuario_horario', respuestaJSON, function(data){
+            //     if(data.success == true){
+            //         console.log("respuesta del servidor: ", data.message);
+            //     }
+            // }, "json");           
+    //     }
+    // }
+    entradaLun = document.getElementById("lunesEntrada").value;
+    salidaLun = document.getElementById("lunesSalida").value;
+    console.log("Entrada lun: ", entradaLun);
+    console.log("salida lun: ", salidaLun);
+    var respuestaJSON = {"fecha": fechaFormateada, "entrada": entradaLun, "salida": salidaLun, "codigoUsuario": codigoUsuario, "diaSemana": 2};
+    //console.log(respuestaJSON);
+    $.post("http://localhost:8000/enviar_usuario_horario", respuestaJSON, function(data){
+        try{
+            console.log('lo que sea');
         }
-    }
+        catch(error){
+            alert(error.message);
+        }    
+    });           
 
     // var respuestaJSON = {"dato_que_mandaremos": lunesEntrada, }
     // console.log(queHay);

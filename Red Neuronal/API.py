@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 import psycopg2
 from datetime import datetime
-from keras.models import Sequential, load_model
-from keras.layers import Dense
-from keras.utils import to_categorical
+# from keras.models import Sequential, load_model
+# from keras.layers import Dense
+# from keras.utils import to_categorical
 from fastapi import FastAPI, HTTPException, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -59,17 +59,29 @@ def insertar_usuario_bd(codigoUsuario: str = Form(...), nombreUsuario: str = For
     return {"message" : "Datos insertados correcamente"}
 
 
-@app.post("/obtener-usuario-horario")
-async def obtener_usuario_horario(fecha: datetime = Form(...), entrada: datetime = Form(...), salida: datetime = Form(...), codigoUsuario: int = Form(...), diaSemana: int = Form(...)):
+@app.get("/obtener-usuario-horario")
+async def obtener_usuario_horario():
+    try:
+        with conexion.cursor():
+            query = pd.read_sql_query("SELECT * FROM horario_usuario WHERE fkusuario = 216666666;", conexion)
+            return JSONResponse(query.to_json())
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error obteniendo horario del usuario: {str(e)}");
+
+
+
+@app.post("/enviar_usuario_horario")
+async def enviar_usuario_horario(fecha: str = Form(...), entrada: str = Form(...), salida: str = Form(...), codigoUsuario: int = Form(...), diaSemana: int = Form(...)):
     #conectar a la base de datos
     try:
        cursor = conexion.cursor()
-       query = f"INSERT INTO horario_usuario VALUES ({fecha}, {entrada}, {salida}, {codigoUsuario}, {diaSemana})"
-       cursor.execute(query)
+       query = "INSERT INTO horario_usuario (fecha, entrada, salida, fkusuario, fkdiasemana) VALUES (%s, %s, %s, %s, %s)"
+       cursor.execute(query, (fecha, entrada, salida, codigoUsuario, diaSemana))
        conexion.commit()
        cursor.close()
+       return {"message": "Datos insertados correctamente"}
     except Exception as e:
-        return {"message": "Datos insertados correctamente"}
+        raise HTTPException(status_code=500, detail=f"Error enviando horario del usuario: {str(e)}");
 
 
 
