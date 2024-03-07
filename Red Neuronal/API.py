@@ -3,10 +3,10 @@ import numpy as np
 import pandas as pd
 import psycopg2
 from datetime import datetime
-# from keras.models import Sequential, load_model
-# from keras.layers import Dense
-# from keras.utils import to_categorical
-from fastapi import FastAPI, HTTPException
+from keras.models import Sequential, load_model
+from keras.layers import Dense
+from keras.utils import to_categorical
+from fastapi import FastAPI, HTTPException, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import create_engine, text
@@ -14,9 +14,9 @@ from sqlalchemy.orm import Session
 import json
 
 #Librerias de prueba 
-from pydantic import BaseModel
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
+# from pydantic import BaseModel
+# from fastapi.staticfiles import StaticFiles
+# from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
@@ -43,19 +43,38 @@ conexion = psycopg2.connect(
     password="AVNS_bJSJ3oB9EynJCouQhPY"
 )
 
-@app.get("/obtener-usuario-horario")
-async def obtener_usuario_horario():
+
+#Insercion en la base de datos en el registro de usuario
+@app.post("/insertarUsuario_bd")
+def insertar_usuario_bd(codigoUsuario: str = Form(...), nombreUsuario: str = Form(...), contrasenia: str = Form(...)):
     try:
-        with conexion.cursor():
-            query = pd.read_sql_query("SELECT * FROM horario_usuario WHERE fkusuario = 216666666;", conexion)
-            return JSONResponse(query.to_json())
+        cursor = conexion.cursor()
+        query = "INSERT INTO usuario (codigo, nombre, passw) VALUES (%s, %s, %s)"
+        cursor.execute(query, (codigoUsuario, nombreUsuario, contrasenia))
+        conexion.commit()
+        cursor.close()
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error obteniendo horario del usuario: {str(e)}")
+        return {"error": str(e)}
+    
+    return {"message" : "Datos insertados correcamente"}
+
+
+@app.post("/obtener-usuario-horario")
+async def obtener_usuario_horario(fecha: datetime = Form(...), entrada: datetime = Form(...), salida: datetime = Form(...), codigoUsuario: int = Form(...), diaSemana: int = Form(...)):
+    #conectar a la base de datos
+    try:
+       cursor = conexion.cursor()
+       query = f"INSERT INTO horario_usuario VALUES ({fecha}, {entrada}, {salida}, {codigoUsuario}, {diaSemana})"
+       cursor.execute(query)
+       conexion.commit()
+       cursor.close()
+    except Exception as e:
+        return {"message": "Datos insertados correctamente"}
 
 
 
 @app.post("/enviarHorario")
-async def enviarHorario():
+async def enviarHorario(dato_que_mandaremos: str = Form(...)):
     pass
 
 # @app.post("/ActualizacionHorario")
