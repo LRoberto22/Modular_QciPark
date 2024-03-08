@@ -105,7 +105,7 @@ def insertar_usuario_bd(codigoUsuario: int = Form(...), nombreUsuario: str = For
 async def obtener_usuario_horario():
     try:
         with conexion.cursor():
-            query = pd.read_sql_query("SELECT * FROM horario_usuario WHERE fkusuario = 216666666;", conexion)
+            query = pd.read_sql_query("SELECT fecha AS fechau, entrada AS entradau, salida AS salidau, fkusuario AS usuario, fkdiasemana AS diasemana FROM horario_usuario WHERE fkusuario = 216666666;", conexion)
             return JSONResponse(query.to_json())
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error obteniendo horario del usuario: {str(e)}");
