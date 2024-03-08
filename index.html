@@ -47,13 +47,14 @@
                         <div class="progress-value">80%</div>
                       </div>
                 </div>
+
             </div>
         </header>
         <div class="container" style="margin-top: 50px; width: 65%;">     
             <div class="container text-center rounded-top" style="background-color: #F8A80B; padding: 0.5%; font-weight: bold; font-size: xx-large; width: 100%;">
                 Estacionamiento CUCEI
             </div>
-            <div class="container text-center rounded-bottom d-flex justify-content-center" style="background-color:#D9D9D9; height: fit-content;">
+            <div class="container text-center rounded-bottom display: column justify-content-center" style="background-color:#D9D9D9; height: fit-content;">
                 <div class="container d-flex justify-content-center">
                     <!-- progressbar -->
                     <div class="progress yellow">
@@ -66,6 +67,9 @@
                         <div class="progress-value">37.5%</div>
                       </div>
                 </div>
+                <div>
+                    <label id="cuposDisponibles"></label>
+                </div>
             </div>
         </div>
         <div class="container d-flex justify-content-center" style="margin-top: 20px;">
@@ -73,10 +77,62 @@
                 <div class="col col-lg-auto">
                     Ultima actualización: 
                 </div>
-                <div class="col col-lg-auto" id="horaActualizacion" style="padding-left: 5px;">
-                    Dato
+                <div class="col col-lg-auto" style="padding-left: 5px;">
+                    <label id="horaActualizacion"></label> 
                 </div>
             </div>
         </div>
+        <br>
+        <div class="display row">
+            <button class="col" onclick="insertaIngreso(); return false;">Ingreso</button>
+            <button class="col" onclick="insertaEgreso()">Egreso</button>
+        </div>
     </body>
+    <script src="js/custom.js">
+        // window.onload = function(){
+        //     console.log("A la primera");
+        //     // var respuestaJSON = {"fecha":fechaFormateada, "diaSemana":diaDeLaSemana};
+        //     // $.post('http://localhost:8000/insertarEgreso', respuestaJSON, function(data){
+        //     //     try{
+        //     //         console.log(data);
+        //     //     }
+        //     //     catch(error){
+        //     //         console.log(error.message);
+        //     //     }
+        //     // }, "json");
+        // }
+    </script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script>
+        var cuposTotales = 999;
+        var fechaActual = new Date();
+        // Obtener el día de la semana (0 para domingo, 1 para lunes, etc.)
+        var diaDeLaSemana = fechaActual.getDay();
+        var year = fechaActual.getFullYear();
+        var day = fechaActual.getDate();
+        var month = fechaActual.getMonth() + 1; // Ten en cuenta que los meses van de 0 a 11 en JavaScript
+        // Formatear la fecha como cadena con ceros a la izquierda si es necesario
+        var fechaFormateada = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+
+        var horas = fechaActual.getHours();
+        var minutos = fechaActual.getMinutes();
+        // Formatear la hora y los minutos como cadena
+        var horaActual = (horas < 10 ? '0' : '') + horas + ':' + (minutos < 10 ? '0' : '') + minutos;
+        window.onload = function consultaCupo(){
+            console.log("A la primera");
+            document.getElementById("horaActualizacion").textContent = horaActual;
+            var respuestaJSON = {"fecha":fechaFormateada, "diaSemana":diaDeLaSemana};
+            $.post('http://localhost:8000/consultaCupo', respuestaJSON, function(data){
+                try{
+                    console.log(data);
+                    let cuposDisponibles = parseInt(data);
+                    document.getElementById("cuposDisponibles").textContent = cuposTotales + cuposDisponibles 
+                }
+                catch(error){
+                    console.log(error.message);
+                }
+            }, "json");
+        }
+        
+    </script>
 </html>

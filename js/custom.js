@@ -1,13 +1,56 @@
-// ---------------------------Funcion mejorada--------------------
-var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
+// Crear un nuevo objeto Date
+var fechaActual = new Date();
+// Obtener el día de la semana (0 para domingo, 1 para lunes, etc.)
+var diaDeLaSemana = fechaActual.getDay();
 
-for (var i = 0; i < diasSemana.length; i++) {
-    var dia = diasSemana[i];
-    generarHorarios(dia);
+// Obtener la hora y los minutos
+var horas = fechaActual.getHours();
+var minutos = fechaActual.getMinutes();
+// Formatear la hora y los minutos como cadena
+var horaActual = (horas < 10 ? '0' : '') + horas + ':' + (minutos < 10 ? '0' : '') + minutos;
+
+var year = fechaActual.getFullYear();
+var day = fechaActual.getDate();
+var month = fechaActual.getMonth() + 1; // Ten en cuenta que los meses van de 0 a 11 en JavaScript
+// Formatear la fecha como cadena con ceros a la izquierda si es necesario
+var fechaFormateada = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+// --------------------------------------Ingreso--------------------------------
+function insertaIngreso(){
+    var respuestaJSON = {"fecha":fechaFormateada, "horaIngreso":horaActual, "diaSemana":diaDeLaSemana};
+    $.post('http://localhost:8000/insertarIngreso', respuestaJSON, function(data){
+        try{
+            console.log(data);
+        }
+        catch(error){
+            console.log(error.message);
+        }
+    }, "json");
 }
+
+function insertaEgreso(){
+    var respuestaJSON = {"fecha":fechaFormateada, "horaEgreso":horaActual, "diaSemana":diaDeLaSemana};
+    $.post('http://localhost:8000/insertarEgreso', respuestaJSON, function(data){
+        try{
+            console.log(data);
+        }
+        catch(error){
+            console.log(error.message);
+        }
+    }, "json");
+}
+
+
+// ---------------------------Funcion mejorada--------------------
+// var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
+
+// for (var i = 0; i < diasSemana.length; i++) {
+//     var dia = diasSemana[i];
+//     generarHorarios(dia);
+// }
 
 function generarHorarios(dia){
     var opciones = [];
+
     var selectEntrada = document.getElementById(dia+"Entrada");
     var selectSalida = document.getElementById(dia+"Salida");
     var opcionNA = document.createElement("option");
@@ -115,3 +158,4 @@ function registroUsuario(){
         
     }
 }
+

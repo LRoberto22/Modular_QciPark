@@ -43,7 +43,49 @@ conexion = psycopg2.connect(
     password="AVNS_bJSJ3oB9EynJCouQhPY"
 )
 
+@app.post("/insertarIngreso")
+def insertarIngreso(fecha: str = Form(...), horaIngreso: str = Form(...), diaSemana: int = Form(...)):
+    try:
+        cursor = conexion.cursor()
+        query = "INSERT INTO ingresos (hora_ingreso, fecha, fkdiasemana) VALUES (%s, %s, %s)"
+        cursor.execute(query, (horaIngreso, fecha, diaSemana))
+        conexion.commit()
+        cursor.close()
+    except Exception as e:
+        return {"error": str(e)}
+    
+    return {"message" : "Datos insertados correcamente"}
 
+@app.post("/insertarEgreso")
+def insertarIngreso(fecha: str = Form(...), horaEgreso: str = Form(...), diaSemana: int = Form(...)):
+    try:
+        cursor = conexion.cursor()
+        query = "INSERT INTO egresos (hora_egreso, fecha, fkdiasemana) VALUES (%s, %s, %s)"
+        cursor.execute(query, (horaEgreso, fecha, diaSemana))
+        conexion.commit()
+        cursor.close()
+    except Exception as e:
+        return {"error": str(e)}
+    
+    return {"message" : "Datos insertados correcamente"}
+
+
+@app.post("/consultaCupo")
+def consultaCupo(fecha: str = Form(...), diaSemana: int = Form(...)):
+    try:
+        cursor = conexion.cursor()
+        query = "SELECT COUNT(1) FROM ingresos WHERE fecha = %s AND fkdiasemana = %s"
+        query2 = "SELECT COUNT(*) FROM egresos WHERE fecha = %s AND fkdiasemana = %s"
+        cursor.execute(query, (fecha, diaSemana))
+        ingresosRes = cursor.fetchone()[0]
+        cursor.execute(query2, (fecha, diaSemana))
+        egresoRes = cursor.fetchone()[0]
+        conexion.commit()
+        cursor.close()
+    except Exception as e:
+        return {"error": str(e)}
+    
+    return {egresoRes-ingresosRes}
 #Insercion en la base de datos en el registro de usuario
 @app.post("/insertarUsuario_bd")
 def insertar_usuario_bd(codigoUsuario: int = Form(...), nombreUsuario: str = Form(...), contrasenia: str = Form(...)):
