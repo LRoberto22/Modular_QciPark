@@ -101,16 +101,24 @@ def insertar_usuario_bd(codigoUsuario: int = Form(...), nombreUsuario: str = For
     return {"message" : "Datos insertados correcamente"}
 
 
-@app.get("/obtener-usuario-horario")
-async def obtener_usuario_horario():
+@app.post("/consultaHorario")
+def consultaHorario(diaSemanaActual: int = Form(...)):
     try:
-        with conexion.cursor():
-            query = pd.read_sql_query("SELECT fecha AS fechau, entrada AS entradau, salida AS salidau, fkusuario AS usuario, fkdiasemana AS diasemana FROM horario_usuario WHERE fkusuario = 216666666;", conexion)
-            return JSONResponse(query.to_json())
+        cursor = conexion.cursor()
+        query = "SELECT * FROM horario_usuario WHERE fkusuario = 216666666 AND fkdiasemana = %s"
+        cursor.execute(query,(diaSemanaActual,))
+        resultado = cursor.fetchone()
+        if resultado is not None:
+            entradaUs = resultado[2]
+            salidaUs = resultado[3]   
+        
+            conexion.commit()
+            cursor.close()
+            return{entradaUs, salidaUs}        
+        else:
+            return {"error": "No se encontraron resultados para el día de la semana especificado."}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error obteniendo horario del usuario: {str(e)}");
-
-
+        return {"error": str(e)}
 
 @app.post("/enviar_usuario_horario")
 async def enviar_usuario_horario(fecha: str = Form(...), entrada: str = Form(...), salida: str = Form(...), codigoUsuario: int = Form(...), diaSemana: int = Form(...)):

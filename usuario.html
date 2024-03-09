@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -28,37 +28,81 @@
 
                 var fechaActual = new Date();
                 var diaDeLaSemana = fechaActual.getDay()
-                console.log(diaDeLaSemana)
 
-                document.addEventListener("DOMContentLoaded", function(){
+                window.onload = function consultaHorario(){
 
-                    $.get('http://localhost:8000/obtener-usuario-horario', function(data){
-                        console.log('Jalo el server', data);
+                    var respuestaJSON = {"diaSemanaActual":diaDeLaSemana};
+                    console.log(respuestaJSON);
+                    $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
+
                         try{
-
-                            for(var i = 0; i<data.lenght; i++){
-
-                                var horario = data[i];
-                                var id = horario.id;
-                                var fecha = horario.fecha;
-                                var entrada = horario.entrada;
-                                var salida = horario.salida;
-                                var usuario = horario.usuario;
-                                var diaSemanaUsuario = horario.diaSemanaUsuario;
-
-                            }
-
-                            // data.forEach(function(dato) {
-                            //     console.log(dato);
-                            // });
+                            console.log("hola");
+                            console.log(data);
                         }
                         catch(error){
                             console.log(error.message);
                         }
-                    }, "json");
 
-                    console.log("A ver si jala")
-                });
+                    }, "json");
+
+                }
+
+                // document.addEventListener("DOMContentLoaded", function(){
+                    /////////// ES DE PRUEBA
+                    // var respuestaJSON = {"codigoUsuario":codigo, "nombreUsuario":nom_usuario, "contrasenia":passw};
+                    // console.log(respuestaJSON);
+                    // $.post('http://localhost:8000/insertarUsuario_bd', respuestaJSON, function(data){
+                    //     console.log('Jalo el server', data);
+                    //     try{
+                    //         console.log('lo que sea');
+                    //     }
+                    //     catch(error){
+                    //         console.log(error.message);
+                    //     }
+                    // }, "json");
+                    //////////// ES DE PRUEBA
+
+                    // var respuestaJSON = {"diaSemanaActual":diaDeLaSemana};
+                    // console.log(respuestaJSON);
+                    // $.post('http://localhost:8000/obtener_horario', respuestaJSON, function(data){
+
+                    //     try{
+                    //         console.log("hola");
+                    //         console.log(data);
+                    //     }
+                    //     catch(error){
+                    //         console.log(error.message);
+                    //     }
+
+                    // }, "json");
+
+                //     $.get('http://localhost:8000/obtener-usuario-horario', function(data){
+                //         console.log('Jalo el server', data);
+                //         try{
+
+                //             // for(var i = 0; i<data.lenght; i++){
+
+                //             //     var horario = data[i];
+                //             //     var id = horario.id;
+                //             //     var fecha = horario.fecha;
+                //             //     var entrada = horario.entrada;
+                //             //     var salida = horario.salida;
+                //             //     var usuario = horario.usuario;
+                //             //     var diaSemanaUsuario = horario.diaSemanaUsuario;
+
+                //             // }
+
+                //             // data.forEach(function(dato) {
+                //             //     console.log(dato);
+                //             // });
+                //         }
+                //         catch(error){
+                //             console.log(error.message);
+                //         }
+                //     }, "json");
+
+                //     console.log("A ver si jala")
+                // });
             
             </script>
 
@@ -173,4 +217,3 @@
             </div>
         </div>
     </body>
-</html
