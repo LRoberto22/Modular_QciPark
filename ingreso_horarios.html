@@ -89,11 +89,8 @@
                 menuContainer.style.width = '0';
             }
         });
-
-        function pene(){
-            var queHay = $("#lunesEntrada").value();
-            console.log(queHay);
-        }
+        
+       
         // Obtener el elemento del porcentaje
         var percentageElement = document.getElementById('percentage-value');
 
@@ -115,47 +112,47 @@
         <form  class="formulario_horario">
             <h2 class="tituloDia" >Lunes</h2>
             <label class="lblEntradaS" >Entrada</label>
-            <select class="seleccion" name="lunesEntrada" id="lunesEntrada"></select>
+            <select class="seleccion" name="lunesEntrada" id="lunesEntrada" onchange="cambioHorario(this)"></select>
 
             <label class="lblEntradaS" for="lunes-salida">Salida</label>
             <select class="seleccion" name="lunesSalida" id="lunesSalida"></select>
 
             <h2 class="tituloDia" >Martes</h2>
             <label class="lblEntradaS" for="martes-entrada">Entrada</label>
-            <select class="seleccion" name="martesEntrada" id="martesEntrada"></select>
+            <select class="seleccion" name="martesEntrada" id="martesEntrada" onchange="cambioHorario(this)"></select>
             
             <label class="lblEntradaS" for="martes-salida">Salida</label>
             <select class="seleccion" name="martesSalida" id="martesSalida"></select>
 
             <h2 class="tituloDia" >Miercoles</h2>            
             <label class="lblEntradaS" for="miercoles-entrada">Entrada</label>
-            <select class="seleccion" name="miercolesEntrada" id="miercolesEntrada"></select>
+            <select class="seleccion" name="miercolesEntrada" id="miercolesEntrada" onchange="cambioHorario(this)"></select>
 
             <label class="lblEntradaS" for="miercoles-salida">Salida</label>
             <select class="seleccion" name="miercolesSalida" id="miercolesSalida"></select>
             
             <h2 class="tituloDia" >Jueves</h2>
             <label class="lblEntradaS" for="jueves-entrada">Entrada</label>
-            <select class="seleccion" name="juevesEntrada" id="juevesEntrada"></select>
+            <select class="seleccion" name="juevesEntrada" id="juevesEntrada" onchange="cambioHorario(this)"></select>
 
             <label class="lblEntradaS" for="jueves-salida">Salida</label>
             <select class="seleccion" name="juevesSalida" id="juevesSalida"></select>
 
             <h2 class="tituloDia" >Viernes</h2>
             <label class="lblEntradaS" for="viernes-entrada">Entrada</label>
-            <select class="seleccion" name="viernesEntrada" id="viernesEntrada"></select>
+            <select class="seleccion" name="viernesEntrada" id="viernesEntrada" onchange="cambioHorario(this)"></select>
 
             <label class="lblEntradaS" for="viernes-salida">Salida</label>
             <select class="seleccion" name="viernesSalida" id="viernesSalida"></select>
 
             <h2 class="tituloDia" >Sabado</h2>
             <label class="lblEntradaS" for="sabado-entrada">Entrada</label>
-            <select class="seleccion" name="sabadoEntrada" id="sabadoEntrada"></select>
+            <select class="seleccion" name="sabadoEntrada" id="sabadoEntrada" onchange="cambioHorario(this)"></select>
 
             <label class="lblEntradaS" for="sabado-salida">Salida</label>
             <select class="seleccion" name="sabadoSalida" id="sabadoSalida"></select>
         </br>
-            <input class="btnGrdHorario" type="submit" value="Guardar Horarios" onclick="responderPregunta(); return false;">
+            <input class="btnGrdHorario" type="submit" value="Guardar Horarios" onclick="guardarHorario(); return false;">
         </form>
     </div>
 
@@ -163,6 +160,39 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>
+    <script>
+        var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
+
+        for (var i = 0; i < diasSemana.length; i++) {
+            var dia = diasSemana[i];
+            generarHorarios(dia);
+        }
+        function generarHorarios(dia){
+    var opciones = [];
+
+    var selectEntrada = document.getElementById(dia+"Entrada");
+    var selectSalida = document.getElementById(dia+"Salida");
+    var opcionNAE = document.createElement("option");
+    // ----------Para la entrada---------------------
+    for (var i = 0; i <= 13; i++){
+        opciones[i] = document.createElement("option");
+        opciones[i].text = (i+7)+":00";
+        opciones[i].value = (i+7)+":00";
+        selectEntrada.append(opciones[i]);
+    }
+    opcionNAE.text = "N/A";
+    opcionNAE.value = "N/A";
+    selectEntrada.append(opcionNAE);
+    // ----------Para la salida---------------------
+    for (var i = 0; i <= 13; i++){
+        opciones[i] = document.createElement("option");
+        opciones[i].text = (i+8)+":00";
+        opciones[i].value = (i+8)+":00";
+        selectSalida.append(opciones[i]);
+    }
+    
+}
+    </script>
 
 </body>
 </html>

@@ -74,7 +74,7 @@ def insertarIngreso(fecha: str = Form(...), horaEgreso: str = Form(...), diaSema
 def consultaCupo(fecha: str = Form(...), diaSemana: int = Form(...)):
     try:
         cursor = conexion.cursor()
-        query = "SELECT COUNT(1) FROM ingresos WHERE fecha = %s AND fkdiasemana = %s"
+        query = "SELECT COUNT(*) FROM ingresos WHERE fecha = %s AND fkdiasemana = %s"
         query2 = "SELECT COUNT(*) FROM egresos WHERE fecha = %s AND fkdiasemana = %s"
         cursor.execute(query, (fecha, diaSemana))
         ingresosRes = cursor.fetchone()[0]
@@ -112,7 +112,7 @@ async def obtener_usuario_horario():
 
 
 
-@app.post("/enviar_usuario_horario")
+@app.post("/enviarUsuarioHorario")
 async def enviar_usuario_horario(fecha: str = Form(...), entrada: str = Form(...), salida: str = Form(...), codigoUsuario: int = Form(...), diaSemana: int = Form(...)):
     #conectar a la base de datos
     try:
@@ -123,7 +123,9 @@ async def enviar_usuario_horario(fecha: str = Form(...), entrada: str = Form(...
        cursor.close()
        return {"message": "Datos insertados correctamente"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error enviando horario del usuario: {str(e)}");
+        return {"error": str(e)}
+    
+    return {"message" : "Datos insertados correcamente"}
 
 
 

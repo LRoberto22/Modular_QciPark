@@ -39,90 +39,76 @@ function insertaEgreso(){
     }, "json");
 }
 
+// --------------------------------Ingreso Horario --------------------------
 
-// ---------------------------Funcion mejorada--------------------
-// var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
-
-// for (var i = 0; i < diasSemana.length; i++) {
-//     var dia = diasSemana[i];
-//     generarHorarios(dia);
-// }
-
-function generarHorarios(dia){
+function cambioHorario(selectElement) {
     var opciones = [];
-
-    var selectEntrada = document.getElementById(dia+"Entrada");
-    var selectSalida = document.getElementById(dia+"Salida");
-    var opcionNA = document.createElement("option");
-    var opcionNAE = document.createElement("option");
-    // ----------Para la entrada---------------------
-    for (var i = 0; i <= 12; i++){
-        opciones[i] = document.createElement("option");
-        opciones[i].text = (i+7)+":00";
-        opciones[i].value = (i+7)+":00";
-        selectEntrada.append(opciones[i]);
+    //Obtener la seleccion actual de entrada
+    var seleccion = selectElement.value;
+    //obtener el dia de entrada
+    var diaId = selectElement.id;
+    var dia = diaId.replace("Entrada", "");
+    //Obtener la hora de entrada
+    var entrada = parseInt(seleccion.replace(":00", ""));
+    //Select de salida
+    // for (var i = 0; i < diasSemana.length; i++){
+    var select2 = document.getElementById(dia+"Salida");
+        //     // Habilitar o deshabilitar el segundo select basado en la selección del primero
+    if (seleccion === "N/A") {
+        select2.disabled = true;
+    } else {
+        select2.disabled = false;
+        select2.options.length = 0;
+        for (var i = 1; i <= (21-entrada); i++){
+            opciones[i] = document.createElement("option");
+            opciones[i].text = (entrada + i)+":00";
+            opciones[i].value = (entrada+ i)+":00";
+            select2.append(opciones[i]);
+        }
     }
-    opcionNAE.text = "N/A";
-    opcionNAE.value = "N/A";
-    selectEntrada.append(opcionNAE);
-    // ----------Para la salida---------------------
-    for (var i = 0; i <= 13; i++){
-        opciones[i] = document.createElement("option");
-        opciones[i].text = (i+8)+":00";
-        opciones[i].value = (i+8)+":00";
-        selectSalida.append(opciones[i]);
-    }
-    opcionNA.text = "N/A";
-    opcionNA.value = "N/A";
-}
+  }
 
 
 
-function responderPregunta(){ //ObtenerHorario
+function guardarHorario(){ //ObtenerHorario
+    var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
     var entradas = [];
     var salidas = [];
     var entradaLun = "";
     var salidaLun;
-    var fechaActual = new Date();
 
-    // Obtener los componentes de la fecha
-    var año = fechaActual.getFullYear();
-    var mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2); // Sumar 1 porque los meses son indexados desde 0
-    var dia = ('0' + fechaActual.getDate()).slice(-2);
-
-    // Formatear la fecha en el formato "YYYY-mm-dd"
-    var fechaFormateada = año + '-' + mes + '-' + dia;
-    
     var codigoUsuario = 216666666;
-    // for(var i=0; i<diasSemana.length; i++){
-    //     entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
-    //     salidas[i] = document.getElementById(diasSemana[i]+"Salida").value;
-    // } 
-    // for(var i = 0; i < diasSemana.length; i++){
-    //     if(entradas[i] != "N/A"){
-            // var respuestaJSON = {"fecha": fechaFormateada, "entrada": entradas[i], "salida": salidas[i], "codigoUsuario": codigoUsuario, "diaSemana": i+1};
-            // //console.log(respuestaJSON);
-            // $.post('http://localhost:8000/enviar_usuario_horario', respuestaJSON, function(data){
-            //     if(data.success == true){
-            //         console.log("respuesta del servidor: ", data.message);
-            //     }
-            // }, "json");           
-    //     }
-    // }
-    entradaLun = document.getElementById("lunesEntrada").value;
-    salidaLun = document.getElementById("lunesSalida").value;
-    console.log("Entrada lun: ", entradaLun);
-    console.log("salida lun: ", salidaLun);
-    var respuestaJSON = {"fecha": fechaFormateada, "entrada": entradaLun, "salida": salidaLun, "codigoUsuario": codigoUsuario, "diaSemana": 2};
-    //console.log(respuestaJSON);
-    $.post("http://localhost:8000/enviar_usuario_horario", respuestaJSON, function(data){
-        try{
-            console.log('lo que sea');
+    for(var i=0; i<diasSemana.length; i++){
+        entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
+        salidas[i] = document.getElementById(diasSemana[i]+"Salida").value;
+    } 
+    for(var i = 0; i < diasSemana.length; i++){
+        if(entradas[i] != "N/A"){
+            console.log("Entradas: ",entradas[i]);
+            console.log("Salidas: ",salidas[i]);
+            var respuestaJSON = {"fecha": fechaFormateada, "entrada": entradas[i], "salida": salidas[i], "codigoUsuario": codigoUsuario, "diaSemana": i+1};
+            console.log(respuestaJSON);
+            $.post('http://localhost:8000/enviarUsuarioHorario', respuestaJSON, function(data){
+                if(data.success == true){
+                    console.log("respuesta del servidor: ", data.message);
+                }
+            }, "json");           
         }
-        catch(error){
-            alert(error.message);
-        }    
-    });           
+    }
+    // entradaLun = document.getElementById("lunesEntrada").value;
+    // salidaLun = document.getElementById("lunesSalida").value;
+    // console.log("Entrada lun: ", entradaLun);
+    // console.log("salida lun: ", salidaLun);
+    // var respuestaJSON = {"fecha": fechaFormateada, "entrada": entradaLun, "salida": salidaLun, "codigoUsuario": codigoUsuario, "diaSemana": 2};
+    // //console.log(respuestaJSON);
+    // $.post("http://localhost:8000/enviar_usuario_horario", respuestaJSON, function(data){
+    //     try{
+    //         console.log('lo que sea');
+    //     }
+    //     catch(error){
+    //         alert(error.message);
+    //     }    
+    // });           
 
     // var respuestaJSON = {"dato_que_mandaremos": lunesEntrada, }
     // console.log(queHay);
