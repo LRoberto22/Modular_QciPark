@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -28,37 +28,24 @@
 
                 var fechaActual = new Date();
                 var diaDeLaSemana = fechaActual.getDay()
-                console.log(diaDeLaSemana)
 
-                document.addEventListener("DOMContentLoaded", function(){
+                window.onload = function consultaHorario(){
 
-                    $.get('http://localhost:8000/obtener-usuario-horario', function(data){
-                        console.log('Jalo el server', data);
+                    var respuestaJSON = {"diaSemanaActual":diaDeLaSemana};
+                    console.log(respuestaJSON);
+                    $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
+
                         try{
-
-                            for(var i = 0; i<data.lenght; i++){
-
-                                var horario = data[i];
-                                var id = horario.id;
-                                var fecha = horario.fecha;
-                                var entrada = horario.entrada;
-                                var salida = horario.salida;
-                                var usuario = horario.usuario;
-                                var diaSemanaUsuario = horario.diaSemanaUsuario;
-
-                            }
-
-                            // data.forEach(function(dato) {
-                            //     console.log(dato);
-                            // });
+                            console.log("hola");
+                            console.log(data);
                         }
                         catch(error){
                             console.log(error.message);
                         }
-                    }, "json");
 
-                    console.log("A ver si jala")
-                });
+                    }, "json");
+
+                }
             
             </script>
 
@@ -173,4 +160,3 @@
             </div>
         </div>
     </body>
-</html

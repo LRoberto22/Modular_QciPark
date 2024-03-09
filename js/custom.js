@@ -127,9 +127,9 @@ function registroUsuario(){
     }
     else{
         console.log("pasas");
-        console.log(codigo);
-        console.log(nom_usuario);
-        console.log(passw);
+        // console.log(codigo);
+        // console.log(nom_usuario);
+        // console.log(passw);
         var respuestaJSON = {"codigoUsuario":codigo, "nombreUsuario":nom_usuario, "contrasenia":passw};
         console.log(respuestaJSON);
         $.post('http://localhost:8000/insertarUsuario_bd', respuestaJSON, function(data){
