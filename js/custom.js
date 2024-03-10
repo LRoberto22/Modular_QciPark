@@ -1,4 +1,10 @@
 //------------------------------------- VARIBABLES GLOBALES -------------------------------------
+// Variables para la verificacion del Login
+var codigoLogin, nombreLogin;
+
+// console.log("Datos guardados en localStorage:");
+// console.log("Código de usuario:", codigoLogin);
+// console.log("Nombre de usuario:", nombreLogin);
 
 // Crear un nuevo objeto Date
 var fechaActual = new Date();
@@ -148,6 +154,8 @@ function registroUsuario(){
 
 //------------------------------------- VERIFICAR LOGIN -------------------------------------
 
+
+
 function verificarLogin(){
     var codigo = document.getElementById("codigoUsu").value;
     var pass = document.getElementById("passUsu").value;
@@ -159,8 +167,16 @@ function verificarLogin(){
         console.log(data);
         if (data.existe){
             console.log("Que chingon");
-            //location.href = "index.html"
-        }
+
+            localStorage.setItem('codigoUsuario', data.logeado[0]);
+            localStorage.setItem('nombreUsuario', data.logeado[1]);
+
+            codigoLogin = localStorage.getItem('codigoUsuario');
+            nombreLogin = localStorage.getItem('nombreUsuario' );
+
+            //location.href = "index.html";
+    
+        }   
         else{
             console.log("Datos incorrectos");
             // codigo.value = '';
@@ -169,4 +185,3 @@ function verificarLogin(){
     });
 
 }
-

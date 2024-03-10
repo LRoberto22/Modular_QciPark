@@ -136,7 +136,7 @@ def verificacionLogin(codigoUsuario: int = Form(...), contrasenia: str = Form(..
         logeado = cursor.fetchone()
 
         if logeado:
-            return{"existe": True}
+            return{"existe": True, 'logeado': logeado}
         else:
             return{"existe": False}
     except Exception as e:
