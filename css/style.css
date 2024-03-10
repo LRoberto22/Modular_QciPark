@@ -120,6 +120,10 @@
   color: #F8A80B;
   font-weight:bold;
 }
+#cuposDisponibles{
+  color: #F8A80B;
+  font-weight:bold;
+}
 .progress.yellow .progress-bar {
   border-color: #fdba04;
 }

@@ -25,6 +25,7 @@ function insertaIngreso(){
             console.log(error.message);
         }
     }, "json");
+    location.reload();
 }
 
 function insertaEgreso(){
@@ -37,6 +38,7 @@ function insertaEgreso(){
             console.log(error.message);
         }
     }, "json");
+    location.reload();
 }
 
 // --------------------------------Ingreso Horario --------------------------
@@ -68,9 +70,7 @@ function cambioHorario(selectElement) {
     }
   }
 
-
-
-function guardarHorario(){ //ObtenerHorario
+function guardarHorario(){
     var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
     var entradas = [];
     var salidas = [];
@@ -84,35 +84,18 @@ function guardarHorario(){ //ObtenerHorario
     } 
     for(var i = 0; i < diasSemana.length; i++){
         if(entradas[i] != "N/A"){
-            console.log("Entradas: ",entradas[i]);
-            console.log("Salidas: ",salidas[i]);
-            var respuestaJSON = {"fecha": fechaFormateada, "entrada": entradas[i], "salida": salidas[i], "codigoUsuario": codigoUsuario, "diaSemana": i+1};
+            var respuestaJSON = {"entrada": entradas[i], "salida": salidas[i], "codigoUsuario": codigoUsuario, "diaSemana": i+1};
             console.log(respuestaJSON);
             $.post('http://localhost:8000/enviarUsuarioHorario', respuestaJSON, function(data){
-                if(data.success == true){
-                    console.log("respuesta del servidor: ", data.message);
+                try{
+                    console.log(data);
+                }
+                catch(error){
+                    console.log(error.message);
                 }
             }, "json");           
         }
     }
-    // entradaLun = document.getElementById("lunesEntrada").value;
-    // salidaLun = document.getElementById("lunesSalida").value;
-    // console.log("Entrada lun: ", entradaLun);
-    // console.log("salida lun: ", salidaLun);
-    // var respuestaJSON = {"fecha": fechaFormateada, "entrada": entradaLun, "salida": salidaLun, "codigoUsuario": codigoUsuario, "diaSemana": 2};
-    // //console.log(respuestaJSON);
-    // $.post("http://localhost:8000/enviar_usuario_horario", respuestaJSON, function(data){
-    //     try{
-    //         console.log('lo que sea');
-    //     }
-    //     catch(error){
-    //         alert(error.message);
-    //     }    
-    // });           
-
-    // var respuestaJSON = {"dato_que_mandaremos": lunesEntrada, }
-    // console.log(queHay);
-
 }
 
 function registroUsuario(){

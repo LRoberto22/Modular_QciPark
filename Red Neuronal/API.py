@@ -43,6 +43,7 @@ conexion = psycopg2.connect(
     password="AVNS_bJSJ3oB9EynJCouQhPY"
 )
 
+# ---------------------------End point para index----------------------------------------------- 
 @app.post("/insertarIngreso")
 def insertarIngreso(fecha: str = Form(...), horaIngreso: str = Form(...), diaSemana: int = Form(...)):
     try:
@@ -86,6 +87,8 @@ def consultaCupo(fecha: str = Form(...), diaSemana: int = Form(...)):
         return {"error": str(e)}
     
     return {egresoRes-ingresosRes}
+
+# ---------------------------End point para inicio Sesion----------------------------------------------- 
 #Insercion en la base de datos en el registro de usuario
 @app.post("/insertarUsuario_bd")
 def insertar_usuario_bd(codigoUsuario: int = Form(...), nombreUsuario: str = Form(...), contrasenia: str = Form(...)):
@@ -100,46 +103,34 @@ def insertar_usuario_bd(codigoUsuario: int = Form(...), nombreUsuario: str = For
     
     return {"message" : "Datos insertados correcamente"}
 
-
+# ---------------------------End point para usuario----------------------------------------------- 
 @app.post("/consultaHorario")
-def consultaHorario(diaSemanaActual: int = Form(...)):
+def consultaHorario(diaSemanaActual: str = Form(...)):
     try:
         cursor = conexion.cursor()
-        query = "SELECT * FROM horario_usuario WHERE fkusuario = 216666666 AND fkdiasemana = %s"
-        cursor.execute(query,(diaSemanaActual,))
-        resultado = cursor.fetchone()
-        if resultado is not None:
-            entradaUs = resultado[2]
-            salidaUs = resultado[3]   
-        
-            conexion.commit()
-            cursor.close()
-            return{entradaUs, salidaUs}        
-        else:
-            return {"error": "No se encontraron resultados para el día de la semana especificado."}
+        query = "select entrada, salida, dia from horario_usuario join dias_semana on fkdiasemana = id_dia where fkdiasemana = %s;"
+        cursor.execute(query, diaSemanaActual)
+        horarioHoy = cursor.fetchone()
+        conexion.commit()
+        cursor.close()        
     except Exception as e:
         return {"error": str(e)}
+    return [horarioHoy]
 
+
+# ---------------------------End point para ingreso_horarios----------------------------------------------- 
 @app.post("/enviarUsuarioHorario")
-async def enviar_usuario_horario(fecha: str = Form(...), entrada: str = Form(...), salida: str = Form(...), codigoUsuario: int = Form(...), diaSemana: int = Form(...)):
-    #conectar a la base de datos
+def guardarHorario(entrada: str = Form(...), salida: str = Form(...), codigoUsuario: int = Form(...), diaSemana: int = Form(...)):
     try:
-       cursor = conexion.cursor()
-       query = "INSERT INTO horario_usuario (fecha, entrada, salida, fkusuario, fkdiasemana) VALUES (%s, %s, %s, %s, %s)"
-       cursor.execute(query, (fecha, entrada, salida, codigoUsuario, diaSemana))
-       conexion.commit()
-       cursor.close()
-       return {"message": "Datos insertados correctamente"}
+        cursor = conexion.cursor()
+        query = "INSERT INTO horario_usuario (entrada, salida, fkusuario, fkdiasemana) VALUES (%s, %s, %s, %s);"
+        cursor.execute(query, (entrada, salida, codigoUsuario, diaSemana))
+        conexion.commit()
+        cursor.close()
     except Exception as e:
         return {"error": str(e)}
     
-    return {"message" : "Datos insertados correcamente"}
-
-
-
-@app.post("/enviarHorario")
-async def enviarHorario(dato_que_mandaremos: str = Form(...)):
-    pass
+    return {"Message: Insercion exitosa"}
 
 # @app.post("/ActualizacionHorario")
 # def actualizaHorario():
@@ -209,6 +200,8 @@ async def enviarHorario(dato_que_mandaremos: str = Form(...)):
 
 
 ########################################
+# Constructor y carga de microservicio
+
 # Constructor y carga de microservicio
 if __name__ == "__main__":
     import uvicorn
