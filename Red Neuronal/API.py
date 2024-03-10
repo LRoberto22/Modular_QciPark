@@ -161,21 +161,6 @@ def infoHorario(diaSemanaActual: int = Form(...), usuario: int = Form(...)):
 
 # ---------------------------End point para usuario---------------------------
 @app.post("/consultaHorario")
-def consultaHorario(diaSemanaActual: str = Form(...)):
-
-    try:
-        cursor = conexion.cursor()
-        query = "select entrada, salida, dia from horario_usuario join dias_semana on fkdiasemana = id_dia where fkdiasemana = %s and fkusuario = %s;"
-        cursor.execute(query, (diaSemanaActual, usuario))
-        horarioHoy = cursor.fetchone()
-        conexion.commit()
-        cursor.close()        
-    except Exception as e:
-        return {"error": str(e)}
-    return {horarioHoy}
-
-
-@app.post("/consultaHorario")
 def consultaHorario(usr: str = Form(...)):
     try:
         cursor = conexion.cursor()
