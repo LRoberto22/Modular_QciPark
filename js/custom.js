@@ -1,3 +1,5 @@
+//------------------------------------- VARIBABLES GLOBALES -------------------------------------
+
 // Crear un nuevo objeto Date
 var fechaActual = new Date();
 // Obtener el día de la semana (0 para domingo, 1 para lunes, etc.)
@@ -9,12 +11,16 @@ var minutos = fechaActual.getMinutes();
 // Formatear la hora y los minutos como cadena
 var horaActual = (horas < 10 ? '0' : '') + horas + ':' + (minutos < 10 ? '0' : '') + minutos;
 
+//Es para cuando tengamos las variables de sesion, solamente sustituyamos
+var usuarioAUX = 216666666;
+
 var year = fechaActual.getFullYear();
 var day = fechaActual.getDate();
 var month = fechaActual.getMonth() + 1; // Ten en cuenta que los meses van de 0 a 11 en JavaScript
 // Formatear la fecha como cadena con ceros a la izquierda si es necesario
 var fechaFormateada = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
-// --------------------------------------Ingreso--------------------------------
+
+// -------------------------------------- BOTON INGRESO --------------------------------
 function insertaIngreso(){
     var respuestaJSON = {"fecha":fechaFormateada, "horaIngreso":horaActual, "diaSemana":diaDeLaSemana};
     $.post('http://localhost:8000/insertarIngreso', respuestaJSON, function(data){
@@ -27,6 +33,8 @@ function insertaIngreso(){
     }, "json");
     location.reload();
 }
+
+//------------------------------------- BOTON DE EGRESO -------------------------------------
 
 function insertaEgreso(){
     var respuestaJSON = {"fecha":fechaFormateada, "horaEgreso":horaActual, "diaSemana":diaDeLaSemana};
@@ -41,7 +49,7 @@ function insertaEgreso(){
     location.reload();
 }
 
-// --------------------------------Ingreso Horario --------------------------
+// -------------------------------- VALIDACION DEL LAS HORAS EN EL HORARIO --------------------------
 
 function cambioHorario(selectElement) {
     var opciones = [];
@@ -70,6 +78,7 @@ function cambioHorario(selectElement) {
     }
   }
 
+//------------------------------------- GUARDAR HORARIO DE USUARIO -------------------------------------
 function guardarHorario(){
     var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
     var entradas = [];
@@ -77,7 +86,7 @@ function guardarHorario(){
     var entradaLun = "";
     var salidaLun;
 
-    var codigoUsuario = 216666666;
+    var codigoUsuario = usuarioAUX;
     for(var i=0; i<diasSemana.length; i++){
         entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
         salidas[i] = document.getElementById(diasSemana[i]+"Salida").value;
@@ -98,6 +107,8 @@ function guardarHorario(){
     }
 }
 
+//------------------------------------- REGISTRAR USUARIO -------------------------------------
+
 function registroUsuario(){
     
     var codigo = document.getElementById("usuario_cod").value;
@@ -109,21 +120,53 @@ function registroUsuario(){
         console.log("tas wey");
     }
     else{
-        console.log("pasas");
-        // console.log(codigo);
-        // console.log(nom_usuario);
-        // console.log(passw);
-        var respuestaJSON = {"codigoUsuario":codigo, "nombreUsuario":nom_usuario, "contrasenia":passw};
-        console.log(respuestaJSON);
-        $.post('http://localhost:8000/insertarUsuario_bd', respuestaJSON, function(data){
-            console.log('Jalo el server', data);
-            try{
-                console.log('lo que sea');
+        
+        $.post('http://localhost:8000/verificarUsuario', {codigoUsuario: codigo}, function(data){
+
+            console.log(data);
+
+            if(data.existe){
+                alert("El codigo ya tiene un usuario registrado");
             }
-            catch(error){
-                console.log(error.message);
+            else{
+                var respuestaJSON = {"codigoUsuario":codigo, "nombreUsuario":nom_usuario, "contrasenia":passw};
+                console.log(respuestaJSON);
+                $.post('http://localhost:8000/insertarUsuario_bd', respuestaJSON, function(data){
+                    console.log('Jalo el server', data);
+                    try{
+                        console.log(data);
+                        //location.href = "inicioSesion.html"
+                    }
+                    catch(error){
+                        console.log(error.message);
+                    }
+                }, "json");
             }
         }, "json");
-        
     }
 }
+
+//------------------------------------- VERIFICAR LOGIN -------------------------------------
+
+function verificarLogin(){
+    var codigo = document.getElementById("codigoUsu").value;
+    var pass = document.getElementById("passUsu").value;
+
+    var respuestaJSON = {"codigoUsuario":codigo, "contrasenia":pass};
+
+
+    $.post('http://localhost:8000/verificacionLogin', respuestaJSON, function(data){
+        console.log(data);
+        if (data.existe){
+            console.log("Que chingon");
+            //location.href = "index.html"
+        }
+        else{
+            console.log("Datos incorrectos");
+            // codigo.value = '';
+            // pass.value = '';
+        }
+    });
+
+}
+

@@ -43,7 +43,7 @@ conexion = psycopg2.connect(
     password="AVNS_bJSJ3oB9EynJCouQhPY"
 )
 
-# ---------------------------End point para index----------------------------------------------- 
+# ---------------------------End point para index (Simular un ingreso)---------------------------
 @app.post("/insertarIngreso")
 def insertarIngreso(fecha: str = Form(...), horaIngreso: str = Form(...), diaSemana: int = Form(...)):
     try:
@@ -57,6 +57,7 @@ def insertarIngreso(fecha: str = Form(...), horaIngreso: str = Form(...), diaSem
     
     return {"message" : "Datos insertados correcamente"}
 
+# ---------------------------End point para index (Simular un egreso)---------------------------
 @app.post("/insertarEgreso")
 def insertarIngreso(fecha: str = Form(...), horaEgreso: str = Form(...), diaSemana: int = Form(...)):
     try:
@@ -70,7 +71,7 @@ def insertarIngreso(fecha: str = Form(...), horaEgreso: str = Form(...), diaSema
     
     return {"message" : "Datos insertados correcamente"}
 
-
+# ---------------------------End point para index (Consultar el numero de cupos)---------------------------
 @app.post("/consultaCupo")
 def consultaCupo(fecha: str = Form(...), diaSemana: int = Form(...)):
     try:
@@ -88,7 +89,28 @@ def consultaCupo(fecha: str = Form(...), diaSemana: int = Form(...)):
     
     return {egresoRes-ingresosRes}
 
-# ---------------------------End point para inicio Sesion----------------------------------------------- 
+# --------------------------- End point para Registro (Verificacion de usuarios existentes)----------------------------------------
+@app.post("/verificarUsuario")
+def verificar_usuario(codigoUsuario: int = Form(...)):
+    try:
+        cursor = conexion.cursor()
+        query = "SELECT codigo FROM usuarios WHERE codigo = %s"
+        cursor.execute(query, (codigoUsuario,))
+        conexion.commit()
+        usuario = cursor.fetchone()
+
+        if usuario:
+            return{"existe": True}
+        else:
+            return{"existe": False}
+
+    except Exception as e:
+        return {"error": str(e)}
+    finally:
+        if 'cursor' in locals():
+            cursor.close;
+
+# ---------------------------End point para registro---------------------------
 #Insercion en la base de datos en el registro de usuario
 @app.post("/insertarUsuario_bd")
 def insertar_usuario_bd(codigoUsuario: int = Form(...), nombreUsuario: str = Form(...), contrasenia: str = Form(...)):
@@ -98,14 +120,49 @@ def insertar_usuario_bd(codigoUsuario: int = Form(...), nombreUsuario: str = For
         cursor.execute(query, (codigoUsuario, nombreUsuario, contrasenia))
         conexion.commit()
         cursor.close()
+
     except Exception as e:
         return {"error": str(e)}
     
     return {"message" : "Datos insertados correcamente"}
+# ---------------------------End point para Login---------------------------
+@app.post("/verificacionLogin")
+def verificacionLogin(codigoUsuario: int = Form(...), contrasenia: str = Form(...)):
+    try:
+        cursor = conexion.cursor()
+        query = "SELECT * FROM usuarios WHERE codigo = %s AND passw = %s"
+        cursor.execute(query, (codigoUsuario, contrasenia))
+        conexion.commit()
+        logeado = cursor.fetchone()
+
+        if logeado:
+            return{"existe": True}
+        else:
+            return{"existe": False}
+    except Exception as e:
+        return {"error": str(e)}
+    finally:
+        if 'cursor' in locals():
+            cursor.close;
 
 # ---------------------------End point para usuario----------------------------------------------- 
 @app.post("/infoHorario")
 def infoHorario(diaSemanaActual: int = Form(...), usuario: int = Form(...)):
+    try:
+        cursor = conexion.cursor()
+        query = "select entrada, salida, dia from horario_usuario join dias_semana on fkdiasemana = id_dia where fkdiasemana = %s and fkusuario = %s;"
+        cursor.execute(query, (diaSemanaActual, usuario))
+        horarioHoy = cursor.fetchone()
+        conexion.commit()
+        cursor.close()        
+    except Exception as e:
+        return {"error": str(e)}
+    return {horarioHoy}
+
+# ---------------------------End point para usuario---------------------------
+@app.post("/consultaHorario")
+def consultaHorario(diaSemanaActual: str = Form(...)):
+
     try:
         cursor = conexion.cursor()
         query = "select entrada, salida, dia from horario_usuario join dias_semana on fkdiasemana = id_dia where fkdiasemana = %s and fkusuario = %s;"
