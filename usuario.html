@@ -183,9 +183,11 @@
             var respuestaJSON = {"usr": String(usuario)};
             $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
                 try{
-                    console.log(data);        
+                    console.log(data);
+                    console.log(data[0]);        
                     for(var i = 0; i<=data[0].length; i++){
                         diasClase[i] = data[0][i][2];
+                        
                         // var diaEntrada = document.getElementById(diasSemana[dia]+"Entra");
                         // var diaSalida = document.getElementById(diasSemana[dia]+"Salida");
                         

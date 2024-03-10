@@ -2,9 +2,9 @@
 // Variables para la verificacion del Login
 var codigoLogin, nombreLogin;
 
-// console.log("Datos guardados en localStorage:");
-// console.log("Código de usuario:", codigoLogin);
-// console.log("Nombre de usuario:", nombreLogin);
+console.log("Datos guardados en localStorage:");
+console.log("Código de usuario:", codigoLogin);
+console.log("Nombre de usuario:", nombreLogin);
 
 // Crear un nuevo objeto Date
 var fechaActual = new Date();
