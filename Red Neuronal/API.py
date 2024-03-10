@@ -104,21 +104,33 @@ def insertar_usuario_bd(codigoUsuario: int = Form(...), nombreUsuario: str = For
     return {"message" : "Datos insertados correcamente"}
 
 # ---------------------------End point para usuario----------------------------------------------- 
-@app.post("/consultaHorario")
-def consultaHorario(diaSemanaActual: str = Form(...)):
+@app.post("/infoHorario")
+def infoHorario(diaSemanaActual: int = Form(...), usuario: int = Form(...)):
     try:
         cursor = conexion.cursor()
-        query = "select entrada, salida, dia from horario_usuario join dias_semana on fkdiasemana = id_dia where fkdiasemana = %s;"
-        cursor.execute(query, diaSemanaActual)
+        query = "select entrada, salida, dia from horario_usuario join dias_semana on fkdiasemana = id_dia where fkdiasemana = %s and fkusuario = %s;"
+        cursor.execute(query, (diaSemanaActual, usuario))
         horarioHoy = cursor.fetchone()
         conexion.commit()
         cursor.close()        
     except Exception as e:
         return {"error": str(e)}
-    return [horarioHoy]
+    return {horarioHoy}
 
 
-# ---------------------------End point para ingreso_horarios----------------------------------------------- 
+@app.post("/consultaHorario")
+def consultaHorario(usr: str = Form(...)):
+    try:
+        cursor = conexion.cursor()
+        query = "select entrada, salida, fkdiasemana from horario_usuario where fkusuario = %s;"
+        cursor.execute(query, (usr,))
+        horario = cursor.fetchall()
+        conexion.commit()
+        cursor.close()       
+    except Exception as e:
+        return {"error": str(e)}
+    return [horario]
+# ------------------------------End point para ingreso_horarios----------------------------------------------- 
 @app.post("/enviarUsuarioHorario")
 def guardarHorario(entrada: str = Form(...), salida: str = Form(...), codigoUsuario: int = Form(...), diaSemana: int = Form(...)):
     try:

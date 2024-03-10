@@ -120,20 +120,20 @@
                                 <div class="col-md-2"><label>S</label></div>
                             </div>
                             <div class="row" style="border: solid 1px;">
-                                <div class="col-md-2"><label>10:00</label></div>
-                                <div class="col-md-2"><label>10:00</label></div>
-                                <div class="col-md-2"><label>10:00</label></div>
-                                <div class="col-md-2"><label>10:00</label></div>
-                                <div class="col-md-2"><label>10:00</label></div>
-                                <div class="col-md-2"><label>10:00</label></div>
+                                <div class="col-md-2"><label id="lunesEntra">10:00</label></div>
+                                <div class="col-md-2"><label id="martesEntra">10:00</label></div>
+                                <div class="col-md-2"><label id="miercolesEntra">10:00</label></div>
+                                <div class="col-md-2"><label id="juevesEntra">10:00</label></div>
+                                <div class="col-md-2"><label id="viernesEntra">10:00</label></div>
+                                <div class="col-md-2"><label id="sabadoEntra">10:00</label></div>
                             </div>
                             <div class="row" style="border: solid 1px;">
-                                <div class="col-md-2"><label>10:00</label></div>
-                                <div class="col-md-2"><label>10:00</label></div>
-                                <div class="col-md-2"><label>10:00</label></div>
-                                <div class="col-md-2"><label>10:00</label></div>
-                                <div class="col-md-2"><label>10:00</label></div>
-                                <div class="col-md-2"><label>10:00</label></div>
+                                <div class="col-md-2"><label id="lunesSalida">10:00</label></div>
+                                <div class="col-md-2"><label id="martesSalida">10:00</label></div>
+                                <div class="col-md-2"><label id="miercolesSalida">10:00</label></div>
+                                <div class="col-md-2"><label id="juevesSalida">10:00</label></div>
+                                <div class="col-md-2"><label id="viernesSalida">10:00</label></div>
+                                <div class="col-md-2"><label id="sabadoSalida">10:00</label></div>
                             </div>
                         </div>
                     </div>
@@ -155,12 +155,17 @@
         </div>
     </body>
     <script>
+        var usuario = 216666666;
         var fechaActual = new Date();
         var diaDeLaSemana = fechaActual.getDay(); //Obtenemos el dia de la semana 
-        window.onload = function consultaHorario(){
-            var respuestaJSON = {"diaSemanaActual":diaDeLaSemana}; //Lo enviamos al endpoint
+        window.onload = function(){
+            infoHorario();
+            consultaHorario();
+        }
+        function infoHorario(){
+            var respuestaJSON = {"diaSemanaActual":diaDeLaSemana, "usuario": usuario}; //Lo enviamos al endpoint
             console.log(respuestaJSON);
-            $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){ //Data nos retorna la consulta a la bd
+            $.post('http://localhost:8000/infoHorario', respuestaJSON, function(data){ //Data nos retorna la consulta a la bd
                 try{   
                     document.getElementById("entradaHoy").textContent = data[0][0]; //Hora de entrada
                     document.getElementById("salidaHoy").textContent = data[0][1];  //Hora de salida 
@@ -171,5 +176,28 @@
                 }
             }, "json");
         }
+        function consultaHorario(){
+            var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
+            var diasClase = [];
+            var indexDia = 2;
+            var respuestaJSON = {"usr": String(usuario)};
+            $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
+                try{
+                    console.log(data);        
+                    for(var i = 0; i<=data[0].length; i++){
+                        diasClase[i] = data[0][i][2];
+                        // var diaEntrada = document.getElementById(diasSemana[dia]+"Entra");
+                        // var diaSalida = document.getElementById(diasSemana[dia]+"Salida");
+                        
+                    }
+                    console.log(diasClase);
+                    
+                }
+                catch(error){
+                    console.log(error);
+                }
+            }, "json");
+        }
+        
     </script>
 </html>
