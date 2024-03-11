@@ -161,7 +161,7 @@ def infoHorario(diaSemanaActual: int = Form(...), usuario: int = Form(...)):
 
 # ---------------------------End point para usuario---------------------------
 @app.post("/consultaHorario")
-def consultaHorario(usr: str = Form(...)):
+def consultaHorario(usr: int = Form(...)):
     try:
         cursor = conexion.cursor()
         query = "select entrada, salida, fkdiasemana from horario_usuario where fkusuario = %s;"

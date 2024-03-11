@@ -147,7 +147,7 @@ function registroUsuario(){
                         //location.href = "inicioSesion.html"
                     }
                     catch(error){
-                        console.log(error.message);
+                        console.log(error);
                     }
                 }, "json");
             }

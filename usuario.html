@@ -75,7 +75,7 @@
                     <!-- Info usuario y día de la semana -->
                     <div class="container" style="background-color: #F8A80B; width: 70%; height: 70px; border-radius: 10pt; margin-top: 15px; font-weight: bold; padding-top: 11px;">
                         <div class="container nombreUsuario d-flex justify-content-center" style="font-size: 20px;">
-                            <label id="nombreUser">Bienvenida</label>
+                            <label id="nombreUser">bienvenida + Nombre usuario</label>
                         </div>
                         <div class="container text-center" id="diaSemana" style="margin-top: 1px;">
                             <label id="diaHoy"></label>
@@ -87,7 +87,7 @@
                             <div class="col">
                                 Hora de entrada: 
                             </div>
-                            <div class="col d-flex align-items-center" id="horaEntrada">
+                            <div class="col d-flex align-items-center justify-content-center" id="horaEntrada">
                                 <label id="entradaHoy"></label>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                             <div class="col">
                                 Hora de Salida: 
                             </div>
-                            <div class="col d-flex align-items-center" id="horaEntrada">
+                            <div class="col d-flex align-items-center justify-content-center" id="horaEntrada">
                                 <label id="salidaHoy"></label>
                             </div>
                         </div>
@@ -164,7 +164,9 @@
     <script>
         var usuario = 216666666;
         var fechaActual = new Date();
-        var diaDeLaSemana = fechaActual.getDay(); //Obtenemos el dia de la semana 
+        var diaDeLaSemana = "4"//fechaActual.getDay(); //Obtenemos el dia de la semana 
+        var entradaFormateada;
+        var salidaFormateada;
         window.onload = function(){
             infoHorario();
             consultaHorario();
@@ -175,20 +177,23 @@
             console.log(respuestaJSON);
             $.post('http://localhost:8000/infoHorario', respuestaJSON, function(data){ //Data nos retorna la consulta a la bd
                 try{   
-                    document.getElementById("entradaHoy").textContent = data[0][0]; //Hora de entrada
-                    document.getElementById("salidaHoy").textContent = data[0][1];  //Hora de salida 
+                    entradaFormateada = data[0][0];
+                    entradaFormateada = entradaFormateada.split(":");
+                    salidaFormateada = data[0][1];
+                    salidaFormateada = salidaFormateada.split(":");
+                    document.getElementById("entradaHoy").textContent = entradaFormateada[0]+":"+entradaFormateada[1] //Hora de entrada
+                    document.getElementById("salidaHoy").textContent = salidaFormateada[0]+":"+salidaFormateada[1];  //Hora de salida 
                     document.getElementById("diaHoy").textContent = data[0][2];   //Dia actual
                 }
                 catch(error){
-                    console.log(error.message);
+                    console.log(error);
                 }
             }, "json");
         }
         function consultaHorario(){
             var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
             var diasClase = [];
-            var indexDia = 2;
-            var respuestaJSON = {"usr": String(usuario)};
+            var respuestaJSON = {"usr": usuario};
             $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
                 try{
                     console.log(data);
