@@ -2,6 +2,9 @@
 // Variables para la verificacion del Login
 var codigoLogin, nombreLogin;
 
+codigoLogin = localStorage.getItem('codigoUsuario');
+nombreLogin = localStorage.getItem('nombreUsuario' );
+
 console.log("Datos guardados en localStorage:");
 console.log("Código de usuario:", codigoLogin);
 console.log("Nombre de usuario:", nombreLogin);
@@ -171,10 +174,10 @@ function verificarLogin(){
             localStorage.setItem('codigoUsuario', data.logeado[0]);
             localStorage.setItem('nombreUsuario', data.logeado[1]);
 
-            codigoLogin = localStorage.getItem('codigoUsuario');
-            nombreLogin = localStorage.getItem('nombreUsuario' );
+            // codigoLogin = localStorage.getItem('codigoUsuario');
+            // nombreLogin = localStorage.getItem('nombreUsuario' );
 
-            //location.href = "index.html";
+            location.href = "index.html";
     
         }   
         else{
@@ -185,3 +188,22 @@ function verificarLogin(){
     });
 
 }
+
+
+//------------------------------------- CERRAR SESION -------------------------------------
+function cerrarSesion(){
+    codigoLogin = null;
+    nombreLogin = null;
+
+    localStorage.removeItem('codigoUsuario');
+    localStorage.removeItem('nombreUsuario');
+}
+
+//------------------------------------- VERIFICAR QUE HAYA SESION -------------------------------------
+function checarSesion(){
+    if (codigoLogin === null || nombreLogin === null) {
+        // Redirige a otra página
+        window.location.href = 'inicioSesion.html';
+    }
+}
+
