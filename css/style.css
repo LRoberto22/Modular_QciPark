@@ -177,14 +177,14 @@
   top: 20%;
   left: 10%
 }
-#error{
+/* #error{
   text-align: center;
   position: relative;
   color: #E12F2F;
   font-family:Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 25px;
-}
+} */
 .caja_txt{
   font-family:Arial, Helvetica, sans-serif;
   font-size: 18px;
@@ -193,7 +193,7 @@
   padding: 1px 5px;
   border: 2px solid #AEAEAE;
   margin: 15px;
-  border-radius: 4px;
+  border-radius: 10px;
   transition-duration: 0.1s;
 }
 .caja_txt:focus{
@@ -212,7 +212,23 @@
   background-color: #F8A80B; 
   color: black;
 }
+
 #btnIngreso, .btnGeneric{
+  float: right;
+  top: 30%;
+  margin: 4px;
+  color:azure;
+  cursor: pointer;
+  padding: 14px 28px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border-radius: 6px;
+  background-color: #062aa3;
+  transition-duration: 0.4s;
+}
+
+#btnRegistro{
+  float: left;
   top: 20%;
   margin: 4px;
   color:azure;
@@ -223,6 +239,11 @@
   border-radius: 6px;
   background-color: #062aa3;
   transition-duration: 0.4s;
+}
+
+#btnRegistro:hover{
+  background-color: #F8A80B; 
+  color: black;
 }
 
 /* ----------------------- Registro stylsheet --------------------------------- */
@@ -242,6 +263,26 @@
   border-radius: 20px;
 }
 
+#btnCancelar{
+  float: left;
+  top: 20%;
+  margin: 4px;
+  color:azure;
+  cursor: pointer;
+  padding: 14px 28px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border-radius: 6px;
+  background-color: #062aa3;
+  transition-duration: 0.4s;
+}
+
+#btnCancelar:hover{
+  background-color: #F8A80B; 
+  color: black;
+}
+
+
 .txtCajaReg{
   font-family:Arial, Helvetica, sans-serif;
   font-size: 18px;
@@ -250,8 +291,8 @@
   padding: 2px 5px;
   border: 2px solid #AEAEAE;
   margin: 15px;
-  border-radius: 4px;
-  transition-duration: 0.1s;
+  border-radius: 8px;
+  transition-duration: 0.4s;
 }
 
 .cajaReg{
@@ -368,4 +409,10 @@
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+/* ----------------------- usuario stylsheet --------------------------------- */
+
+#HOLA{
+  background-color: #f8a80b;
 }

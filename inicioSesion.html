@@ -4,7 +4,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="js/jquery-3.4.1.min.js"></script>
         <script>
-            
+            function irRegistro(){
+                location.href = "registro.html";
+            }
         </script>
         <title>Inicio de sesion</title>
     </head>
@@ -16,18 +18,16 @@
                     <img class= "img_logo" src="images/logo.png" />
                 </p>            
                 <div class="caja" id="divUsuario">
-                    <input class="caja_txt" type="text" name="correo" id="codigoUsu" placeholder="Numero de usuario">
+                    <input class="caja_txt" type="text" name="correo" id="codigoUsu" placeholder="Codigo de usuario">
                 </div>
                 <br>
                 <div id="divPass" class="caja">
-                    <input class="caja_txt" type="password" name="pass" id="passUsu" >
+                    <input class="caja_txt" type="password" name="pass" id="passUsu" placeholder="Contrase&ntilde;a" >
                 </div>
                 <br>
                 <div id="Divbtn" class="caja">
                     <button id="btnIngreso" onclick="verificarLogin(); return false;">Ingresar</button>
-                </div>
-                <div id="divRegistro" class="caja">
-                    <a id="linkRegistro" href="registro.html">Registrarse</a>
+                    <button id="btnRegistro" onclick="irRegistro(); return false;" >Registrarse</button>
                 </div>
                 <div id="divPr" class="caja">
                     <label id="divPrueba"></label>

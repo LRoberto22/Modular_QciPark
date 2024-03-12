@@ -24,7 +24,7 @@ var horaActual = (horas < 10 ? '0' : '') + horas + ':' + (minutos < 10 ? '0' : '
 //Es para cuando tengamos las variables de sesion, solamente sustituyamos
 var usuarioAUX = 216666666;
 //Cupos totales seteados ya que no tneemos la información oficial 
-var cuposTotales = 999;
+var cuposTotales = 500;
 
 var year = fechaActual.getFullYear();
 var day = fechaActual.getDate();
@@ -244,7 +244,7 @@ function registroUsuario(){
                     console.log('Jalo el server', data);
                     try{
                         console.log(data);
-                        //location.href = "inicioSesion.html"
+                        location.href = "inicioSesion.html"
                     }
                     catch(error){
                         console.log(error);
@@ -307,3 +307,7 @@ function cerrarSesion(){
 //     }
 // }
 
+//------------------------------------- CANCELAR REGISTRO -------------------------------------
+function cancelarRegistro(){
+    location.href = "inicioSesion.html";
+}
