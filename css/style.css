@@ -200,6 +200,18 @@
   border: 3px solid #555;
 }
 
+
+.img_logo{
+  width: 80px;
+  height: 80px;
+  position: relative;
+  top: 10%;
+}
+
+#btnIngreso:hover{
+  background-color: #F8A80B; 
+  color: black;
+}
 #btnIngreso{
   top: 20%;
   margin: 4px;
@@ -212,25 +224,13 @@
   background-color: #062aa3;
   transition-duration: 0.4s;
 }
-#btnIngreso:hover{
-  background-color: #F8A80B; 
-  color: black;
-}
 
-.img_logo{
-  width: 80px;
-  height: 80px;
-  position: relative;
-  top: 10%;
-}
-
+/* ----------------------- Registro stylsheet --------------------------------- */
 #linkRegistro{
   padding: 14px 28px;
   font-family:Arial, Helvetica, sans-serif;
   font-size: 19px;
 }
-
-/* ----------------------- Registro stylsheet --------------------------------- */
 
 #cajotaRegistro{
   background-color: #DFDFDF;
