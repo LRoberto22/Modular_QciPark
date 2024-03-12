@@ -146,8 +146,8 @@ def verificacionLogin(codigoUsuario: int = Form(...), contrasenia: str = Form(..
             cursor.close;
 
 # ---------------------------End point para usuario----------------------------------------------- 
-@app.post("/infoHorario")
-def infoHorario(diaSemanaActual: int = Form(...), usuario: int = Form(...)):
+@app.post("/getEntradaSalida")
+def getEntradaSalida(diaSemanaActual: int = Form(...), usuario: int = Form(...)):
     try:
         cursor = conexion.cursor()
         query = "select entrada, salida, dia from horario_usuario join dias_semana on fkdiasemana = id_dia where fkdiasemana = %s and fkusuario = %s;"
@@ -186,75 +186,6 @@ def guardarHorario(entrada: str = Form(...), salida: str = Form(...), codigoUsua
     
     return {"Message: Insercion exitosa"}
 
-# @app.post("/ActualizacionHorario")
-# def actualizaHorario():
-#     db = conexion()
-#     try:
-#         fecha = datetime.now() 
-#         query = f"CALL public.inserthorariousuario({fecha.strftime(f"%Y/%m/%d")}, {from.option_selected}, {from.option_selected}, {seteadoPorAhora}, );" 
-#         db.execute(query)
-#         db.commit()
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=f"Error al ejecutar stored procedure: {str(e)}")
-#     finally:
-#         db.close()
-
-
-#---------------Referencias API Mike--------------------
-# # Cargar datos desde la base de datos
-# preguntas_data = pd.read_sql_query("SELECT * FROM preguntas", conexion)
-# pregunta_carrera_data = pd.read_sql_query("SELECT * FROM preguntas_carreras", conexion)
-# carrera_data = pd.read_sql_query("SELECT * FROM carreras", conexion)
-
-
-# # Ruta de entrenamiento del modelo (POSTMAN)
-# @app.post("/train_model")
-# def train_model():
-    
-#     return {"message": "Modelo entrenado correctamente"}
-
-# @app.get("/")
-# def index():
-#     return {"message": "Bienvenido al test de orientación vocacional"}
-
-# # Ruta para reiniciar la API
-# @app.post("/reset_api")
-# def reset():
-    
-#     return {"message": "Estado reiniciado"}
-
-
-# # Ruta Para Mandar Respuesta
-# @app.post("/submit_answer")
-# def submit_answer(answer: int = Form(...), pregunta_id: int = Form(...)):
-#    save_responses_to_database(dato_equis, dato_equis2)
-
-#     return {"message": "Respuesta recibida"}
-
-
-
-# # Función para guardar en la base de datos
-# def save_responses_to_database(responses, carrera_recomendada):
-#     # Crear una cadena de texto con los pares (idpregunta, respuesta)
-#     response_text = ",".join(f"({pregunta_id}:{respuesta})" for pregunta_id, respuesta in responses)
-
-#     cursor = conexion.cursor()
-
-#     query = "INSERT INTO respuestas_usuario (respuestas, carrera_recomendada_id) VALUES (%s, %s)"
-#     # Carga las respuestas y carrera a la base de datos
-#     cursor.execute(query, (response_text, carrera_recomendada))
-#     conexion.commit()
-#     cursor.close()
-
-
-
-
-#######################################
-    
-
-
-########################################
-# Constructor y carga de microservicio
 
 # Constructor y carga de microservicio
 if __name__ == "__main__":

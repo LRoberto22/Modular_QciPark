@@ -9,10 +9,11 @@ console.log("Datos guardados en localStorage:");
 console.log("Código de usuario:", codigoLogin);
 console.log("Nombre de usuario:", nombreLogin);
 
+var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
 // Crear un nuevo objeto Date
 var fechaActual = new Date();
-// Obtener el día de la semana (0 para domingo, 1 para lunes, etc.)
-var diaDeLaSemana = fechaActual.getDay();
+// Obtener el día de la semana (0 para lunes, 1 para martes etc.)
+var diaDeLaSemana = (fechaActual.getDay() -1 + 7) % 7;
 
 // Obtener la hora y los minutos
 var horas = fechaActual.getHours();
@@ -22,12 +23,30 @@ var horaActual = (horas < 10 ? '0' : '') + horas + ':' + (minutos < 10 ? '0' : '
 
 //Es para cuando tengamos las variables de sesion, solamente sustituyamos
 var usuarioAUX = 216666666;
+//Cupos totales seteados ya que no tneemos la información oficial 
+var cuposTotales = 999;
 
 var year = fechaActual.getFullYear();
 var day = fechaActual.getDate();
-var month = fechaActual.getMonth() + 1; // Ten en cuenta que los meses van de 0 a 11 en JavaScript
+var month = fechaActual.getMonth() + 1; // Los meses van de 0 a 11 por eso el + 1
 // Formatear la fecha como cadena con ceros a la izquierda si es necesario
 var fechaFormateada = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+
+//-----------------------------------------CONSULTAAR CUPO ACTUAL------------------------------------------
+function consultaCupo(){
+    document.getElementById("horaActualizacion").textContent = horaActual;
+    var respuestaJSON = {"fecha":fechaFormateada, "diaSemana":diaDeLaSemana};
+    $.post('http://localhost:8000/consultaCupo', respuestaJSON, function(data){
+        try{
+            console.log(data);
+            let cuposDisponibles = parseInt(data);
+            document.getElementById("cuposDisponibles").textContent = cuposTotales + cuposDisponibles
+        }
+        catch(error){
+            console.log(error.message);
+        }
+    }, "json");
+}
 
 // -------------------------------------- BOTON INGRESO --------------------------------
 function insertaIngreso(){
@@ -52,7 +71,7 @@ function insertaEgreso(){
             console.log(data);
         }
         catch(error){
-            console.log(error.message);
+            console.log(error);
         }
     }, "json");
     location.reload();
@@ -70,9 +89,8 @@ function cambioHorario(selectElement) {
     //Obtener la hora de entrada
     var entrada = parseInt(seleccion.replace(":00", ""));
     //Select de salida
-    // for (var i = 0; i < diasSemana.length; i++){
     var select2 = document.getElementById(dia+"Salida");
-        //     // Habilitar o deshabilitar el segundo select basado en la selección del primero
+        
     if (seleccion === "N/A") {
         select2.disabled = true;
     } else {
@@ -87,14 +105,95 @@ function cambioHorario(selectElement) {
     }
   }
 
+//--------------------------------------OBTENER LA ENTRADA Y SALIDA DEL USUARIO-----------------------------------------------
+function getEntradaSalida(){
+    var respuestaJSON = {"diaSemanaActual":diaDeLaSemana, "usuario": usuarioAUX}; //Lo enviamos al endpoint
+    console.log(respuestaJSON);
+    document.getElementById("diaHoy").textContent = diasSemana[diaDeLaSemana];   //Dia actual
+    $.post('http://localhost:8000/getEntradaSalida', respuestaJSON, function(data){ //Data nos retorna la consulta a la bd
+        try{   
+            entradaFormateada = data[0][0];
+            entradaFormateada = entradaFormateada.split(":");
+            salidaFormateada = data[0][1];
+            salidaFormateada = salidaFormateada.split(":");
+            document.getElementById("entradaHoy").textContent = entradaFormateada[0]+":"+entradaFormateada[1] //Hora de entrada
+            document.getElementById("salidaHoy").textContent = salidaFormateada[0]+":"+salidaFormateada[1];  //Hora de salida 
+        }
+        catch(error){
+            console.log(error);
+        }
+    }, "json");
+}
+
+//-------------------------------------OBTENER EL HORARIO DEL USUARIO----------------------------------
+function getHorario(){
+    var diasClase = [];
+    var respuestaJSON = {"usr": usuarioAUX};
+    $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
+        try{
+            console.log(data);
+            arraysData = data[0];
+            console.log("arrays data: ",arraysData[0].length);
+            var diasClase = [];
+            for(var i = 0; i<arraysData.length; i++){
+                diasClase[i] = arraysData[i][2];
+                
+                for(var j = 0; j < (arraysData[i].length) - 1; j++){
+                    console.log("horarios: ", arraysData[i][j]);
+                    
+                }
+            }
+            for(var i=0; i<diasSemana.length; i++){
+                var diaEntrada = document.getElementById(diasSemana[i]+"Entra");
+                var diaSalida = document.getElementById(diasSemana[i]+"Salida");
+                if(diasClase.includes(i)){
+                    diaEntrada.textContent = "{";
+                    diaSalida.textContent = "]";
+                } else{
+                    diaEntrada.textContent = "No hay";
+                    diaSalida.textContent = "no hay";
+                }
+
+            }
+            
+        }
+        catch(error){
+            console.log(error);
+        }
+    }, "json");
+}
+
+//--------------------------------------GENERAR HORAS DE ENTRADA Y SALIDA--------------------------------
+function generarHorarios(dia){
+    var opciones = [];
+
+    var selectEntrada = document.getElementById(dia+"Entrada");
+    var selectSalida = document.getElementById(dia+"Salida");
+    var opcionNAE = document.createElement("option");
+    // ----------Para la entrada---------------------
+    for (var i = 0; i <= 13; i++){
+        opciones[i] = document.createElement("option");
+        opciones[i].text = (i+7)+":00";
+        opciones[i].value = (i+7)+":00";
+        selectEntrada.append(opciones[i]);
+    }
+    opcionNAE.text = "N/A";
+    opcionNAE.value = "N/A";
+    selectEntrada.append(opcionNAE);
+    // ----------Para la salida---------------------
+    for (var i = 0; i <= 13; i++){
+        opciones[i] = document.createElement("option");
+        opciones[i].text = (i+8)+":00";
+        opciones[i].value = (i+8)+":00";
+        selectSalida.append(opciones[i]);
+    }
+}
+
+
 //------------------------------------- GUARDAR HORARIO DE USUARIO -------------------------------------
 function guardarHorario(){
-    var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
     var entradas = [];
     var salidas = [];
-    var entradaLun = "";
-    var salidaLun;
-
     var codigoUsuario = usuarioAUX;
     for(var i=0; i<diasSemana.length; i++){
         entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
@@ -102,16 +201,17 @@ function guardarHorario(){
     } 
     for(var i = 0; i < diasSemana.length; i++){
         if(entradas[i] != "N/A"){
-            var respuestaJSON = {"entrada": entradas[i], "salida": salidas[i], "codigoUsuario": codigoUsuario, "diaSemana": i+1};
+            var respuestaJSON = {"entrada": entradas[i], "salida": salidas[i], "codigoUsuario": codigoUsuario, "diaSemana": i};
             console.log(respuestaJSON);
-            $.post('http://localhost:8000/enviarUsuarioHorario', respuestaJSON, function(data){
-                try{
-                    console.log(data);
-                }
-                catch(error){
-                    console.log(error.message);
-                }
-            }, "json");           
+            console.log("DIAS: ",i);
+                $.post('http://localhost:8000/enviarUsuarioHorario', respuestaJSON, function(data){
+                    try{
+                        console.log(data);
+                    }
+                    catch(error){
+                        console.log(error);
+                    }
+                }, "json");           
         }
     }
 }
@@ -119,7 +219,6 @@ function guardarHorario(){
 //------------------------------------- REGISTRAR USUARIO -------------------------------------
 
 function registroUsuario(){
-    
     var codigo = document.getElementById("usuario_cod").value;
     var passw = document.getElementById("pass_usuario").value;
     var nom_usuario = document.getElementById("usuario_nom").value;
@@ -129,11 +228,8 @@ function registroUsuario(){
         console.log("tas wey");
     }
     else{
-        
         $.post('http://localhost:8000/verificarUsuario', {codigoUsuario: codigo}, function(data){
-
             console.log(data);
-
             if(data.existe){
                 alert("El codigo ya tiene un usuario registrado");
             }
@@ -200,10 +296,10 @@ function cerrarSesion(){
 }
 
 //------------------------------------- VERIFICAR QUE HAYA SESION -------------------------------------
-function checarSesion(){
-    if (codigoLogin === null || nombreLogin === null) {
-        // Redirige a otra página
-        window.location.href = 'inicioSesion.html';
-    }
-}
+// function checarSesion(){
+//     if (codigoLogin === null || nombreLogin === null) {
+//         // Redirige a otra página
+//         window.location.href = 'inicioSesion.html';
+//     }
+// }
 

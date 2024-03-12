@@ -162,57 +162,10 @@
         </div>
     </body>
     <script>
-        var usuario = 216666666;
-        var fechaActual = new Date();
-        var diaDeLaSemana = "4"//fechaActual.getDay(); //Obtenemos el dia de la semana 
-        var entradaFormateada;
-        var salidaFormateada;
         window.onload = function(){
-            infoHorario();
-            consultaHorario();
-            checarSesion();
-        }
-        function infoHorario(){
-            var respuestaJSON = {"diaSemanaActual":diaDeLaSemana, "usuario": usuario}; //Lo enviamos al endpoint
-            console.log(respuestaJSON);
-            $.post('http://localhost:8000/infoHorario', respuestaJSON, function(data){ //Data nos retorna la consulta a la bd
-                try{   
-                    entradaFormateada = data[0][0];
-                    entradaFormateada = entradaFormateada.split(":");
-                    salidaFormateada = data[0][1];
-                    salidaFormateada = salidaFormateada.split(":");
-                    document.getElementById("entradaHoy").textContent = entradaFormateada[0]+":"+entradaFormateada[1] //Hora de entrada
-                    document.getElementById("salidaHoy").textContent = salidaFormateada[0]+":"+salidaFormateada[1];  //Hora de salida 
-                    document.getElementById("diaHoy").textContent = data[0][2];   //Dia actual
-                }
-                catch(error){
-                    console.log(error);
-                }
-            }, "json");
-        }
-        function consultaHorario(){
-            var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
-            var diasClase = [];
-            var respuestaJSON = {"usr": usuario};
-            $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
-                try{
-                    console.log(data);
-                    console.log(data[0]);        
-                    for(var i = 0; i<=data[0].length; i++){
-                        diasClase[i] = data[0][i][2];
-                        
-                        // var diaEntrada = document.getElementById(diasSemana[dia]+"Entra");
-                        // var diaSalida = document.getElementById(diasSemana[dia]+"Salida");
-                        
-                    }
-                    console.log(diasClase);
-                    
-                }
-                catch(error){
-                    console.log(error);
-                }
-            }, "json");
-        }
-        
+            getEntradaSalida();
+            getHorario();
+            //checarSesion();
+        }        
     </script>
 </html>
