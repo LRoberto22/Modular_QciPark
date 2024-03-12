@@ -40,7 +40,7 @@ function consultaCupo(){
         try{
             console.log(data);
             let cuposDisponibles = parseInt(data);
-            document.getElementById("cuposDisponibles").textContent = cuposTotales + cuposDisponibles
+            document.getElementById("cuposDisponibles").textContent = "Cupos disponibles: "+ (cuposTotales + cuposDisponibles)
         }
         catch(error){
             console.log(error);
@@ -109,7 +109,7 @@ function cambioHorario(selectElement) {
 function getEntradaSalida(){
     var respuestaJSON = {"diaSemanaActual":diaDeLaSemana, "usuario": usuarioAUX}; //Lo enviamos al endpoint
     console.log(respuestaJSON);
-    document.getElementById("nombreUser").textContent = nombreLogin;
+    //document.getElementById("nombreUser").textContent = nombreLogin;
     document.getElementById("diaHoy").textContent = diasSemana[diaDeLaSemana];   //Dia actual
     $.post('http://localhost:8000/getEntradaSalida', respuestaJSON, function(data){ //Data nos retorna la consulta a la bd
         try{   

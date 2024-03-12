@@ -29,7 +29,7 @@
                                 <a href="graficas.html" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/graphics-icon.png" style="width: 20%; padding-right: 20px;" >Graficas</a>
                                 <a href="" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/assistant-icon.png" style="width: 20%; padding-right: 20px;" >Asistente</a>
                                 <a href="ingreso_horarios.html" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/horario.png" style="width: 20%; padding-right: 20px;" >Horario</a>
-                                <a onclick="cerrarSesion();" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/exit-icon.png" style="width: 20%; padding-right: 20px;" >Cerrar sesion</a>
+                                <button onclick="cerrarSesion();"><a class=" buttonMenu list-group-item list-group-item-action" style="text-align: left; font-size: 30px;"><img src="Images/exit-icon.png" style="width: 20%; padding-right: 20px;" >Cerrar sesion</a></button>
                             </div>
                         </div>
                       </div>
@@ -38,15 +38,7 @@
                     <a href="index.html"><img src="Images/logo.png" class="rounded mx-auto d-block" style="height: 70px; width: 70px;"></a>
                 </div>
                 <div class="col">
-                    <div class="progress blue">
-                        <span class="progress-left">
-                            <span class="progress-bar"></span>
-                        </span>
-                        <span class="progress-right">
-                            <span class="progress-bar"></span>
-                        </span>
-                        <div class="progress-value">80%</div>
-                      </div>
+                   <button type="">Aqui log in</button>
                 </div>
 
             </div>
@@ -55,7 +47,7 @@
             <div class="container text-center rounded-top" style="background-color: #F8A80B; padding: 0.5%; font-weight: bold; font-size: xx-large; width: 100%;">
                 Estacionamiento CUCEI
             </div>
-            <div class="container text-center rounded-bottom display: column justify-content-center" style="background-color:#D9D9D9; height: fit-content;">
+            <div class="container text-center rounded-bottom display: column " style="background-color:#D9D9D9; height: fit-content;">
                 <div class="container d-flex justify-content-center">
                     <!-- progressbar -->
                     <div class="progress yellow">
@@ -67,10 +59,11 @@
                         </span>
                         <div class="progress-value">37.5%</div>
                       </div>
-                </div>
-                <div>
+                </div>   
+                <div style="width: 30%; background-color: rgb(236, 236, 236); border-radius: 20px; margin-bottom: 20px; margin-bottom: 30px;">
                     <label id="cuposDisponibles"></label>
                 </div>
+               
             </div>
         </div>
         <div class="container d-flex justify-content-center" style="margin-top: 20px;">
