@@ -85,26 +85,13 @@
         </div>
         <br>
         <div class="display row">
-            <button class="col" onclick="insertaIngreso(); return false;">Ingreso</button>
+            <button class="col" onclick="insertaIngreso();">Ingreso</button>
             <button class="col" onclick="insertaEgreso()">Egreso</button>
         </div>
     </body>
     <script src="js/custom.js"></script>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script>
-        var cuposTotales = 999;
-        var fechaActual = new Date();
-        // Obtener el día de la semana (0 para domingo, 1 para lunes, etc.)
-        var diaDeLaSemana = fechaActual.getDay();
-        var year = fechaActual.getFullYear();
-        var day = fechaActual.getDate();
-        var month = fechaActual.getMonth() + 1; // Ten en cuenta que los meses van de 0 a 11 en JavaScript
-        // Formatear la fecha como cadena con ceros a la izquierda si es necesario
-        var fechaFormateada = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
-        var horas = fechaActual.getHours();
-        var minutos = fechaActual.getMinutes();
-        // Formatear la hora y los minutos como cadena
-        var horaActual = (horas < 10 ? '0' : '') + horas + ':' + (minutos < 10 ? '0' : '') + minutos;
         window.onload = function(){
             consultaCupo()
         }

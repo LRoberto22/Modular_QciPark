@@ -43,7 +43,7 @@ function consultaCupo(){
             document.getElementById("cuposDisponibles").textContent = cuposTotales + cuposDisponibles
         }
         catch(error){
-            console.log(error.message);
+            console.log(error);
         }
     }, "json");
 }
@@ -109,6 +109,7 @@ function cambioHorario(selectElement) {
 function getEntradaSalida(){
     var respuestaJSON = {"diaSemanaActual":diaDeLaSemana, "usuario": usuarioAUX}; //Lo enviamos al endpoint
     console.log(respuestaJSON);
+    document.getElementById("nombreUser").textContent = nombreLogin;
     document.getElementById("diaHoy").textContent = diasSemana[diaDeLaSemana];   //Dia actual
     $.post('http://localhost:8000/getEntradaSalida', respuestaJSON, function(data){ //Data nos retorna la consulta a la bd
         try{   
@@ -134,7 +135,6 @@ function getHorario(){
             console.log(data);
             arraysData = data[0];
             console.log("arrays data: ",arraysData[0].length);
-            var diasClase = [];
             for(var i = 0; i<arraysData.length; i++){
                 diasClase[i] = arraysData[i][2];
                 
@@ -147,11 +147,15 @@ function getHorario(){
                 var diaEntrada = document.getElementById(diasSemana[i]+"Entra");
                 var diaSalida = document.getElementById(diasSemana[i]+"Salida");
                 if(diasClase.includes(i)){
-                    diaEntrada.textContent = "{";
-                    diaSalida.textContent = "]";
+                    entradaFormateada = arraysData[i][0];
+                    salidaFormateada = arraysData[i][1]
+                    entradaFormateada = entradaFormateada.split(":");
+                    salidaFormateada = salidaFormateada.split(":");
+                    diaEntrada.textContent = entradaFormateada[0]+":"+entradaFormateada[1]; //Hora de entrada
+                    diaSalida.textContent = salidaFormateada[0]+":"+salidaFormateada[1] //Hora de salida
                 } else{
-                    diaEntrada.textContent = "No hay";
-                    diaSalida.textContent = "no hay";
+                    diaEntrada.textContent = "N/A";
+                    diaSalida.textContent = "N/A";
                 }
 
             }
