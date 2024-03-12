@@ -206,7 +206,9 @@ def calcular_horas_pico_y_actividad(dia: int) -> dict:
 
     # Calcular la hora pico y la hora de menor actividad para ingresos
     hora_pico_ingresos = ingresos_data['hora_ingreso'].mode().iloc[0] if not ingresos_data.empty else None
-    hora_menos_actividad_ingresos = ingresos_data['hora_ingreso'].value_counts().idxmin() if not ingresos_data.empty else None
+    hora_menos_actividad_ingresos = ingresos_data['hora_ingreso'][
+        ingresos_data['hora_ingreso'] <= time(17, 0, 0)
+    ].value_counts().idxmin() if not ingresos_data.empty else None
 
     # Calcular la hora pico y la hora de menor actividad para egresos
     hora_pico_egresos = egresos_data['hora_egreso'].mode().iloc[0] if not egresos_data.empty else None
