@@ -208,11 +208,11 @@
   top: 10%;
 }
 
-#btnIngreso:hover{
+#btnIngreso:hover, .btnGeneric:hover{
   background-color: #F8A80B; 
   color: black;
 }
-#btnIngreso{
+#btnIngreso, .btnGeneric{
   top: 20%;
   margin: 4px;
   color:azure;
