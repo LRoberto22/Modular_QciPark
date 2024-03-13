@@ -271,7 +271,9 @@ function registroUsuario(){
     var pass_confirmar = document.getElementById("pass_conf").value;
 
     if (passw != pass_confirmar){
-        console.log("tas wey");
+        alert("Contraseñas no coinciden");
+        document.getElementById("pass_usuario").value="";
+        document.getElementById("pass_conf").value="";
     }
     else{
         $.post('http://localhost:8000/verificarUsuario', {codigoUsuario: codigo}, function(data){
@@ -311,7 +313,6 @@ function verificarLogin(){
     $.post('http://localhost:8000/verificacionLogin', respuestaJSON, function(data){
         console.log(data);
         if (data.existe){
-            console.log("Que chingon");
 
             localStorage.setItem('codigoUsuario', data.logeado[0]);
             localStorage.setItem('nombreUsuario', data.logeado[1]);
@@ -324,6 +325,7 @@ function verificarLogin(){
         }   
         else{
             console.log("Datos incorrectos");
+            alert("Datos incorrectos... Vuelve a intentarlo");
             // codigo.value = '';
             // pass.value = '';
         }
@@ -339,15 +341,17 @@ function cerrarSesion(){
 
     localStorage.removeItem('codigoUsuario');
     localStorage.removeItem('nombreUsuario');
+
+    window.location.href = 'inicioSesion.html';
 }
 
 //------------------------------------- VERIFICAR QUE HAYA SESION -------------------------------------
-// function checarSesion(){
-//     if (codigoLogin === null || nombreLogin === null) {
-//         // Redirige a otra página
-//         window.location.href = 'inicioSesion.html';
-//     }
-// }
+function checarSesion(){
+    if (codigoLogin === null || nombreLogin === null) {
+        // Redirige a otra página
+        window.location.href = 'inicioSesion.html';
+    }
+}
 
 //------------------------------------- CANCELAR REGISTRO -------------------------------------
 function cancelarRegistro(){
