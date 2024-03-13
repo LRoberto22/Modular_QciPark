@@ -43,12 +43,23 @@ function consultaCupo(){
             console.log(data);
             let cuposDisponibles = parseInt(data);
             document.getElementById("cuposDisponibles").textContent = "Cupos disponibles: "+ (cuposTotales + cuposDisponibles)
+            updateProgressBar(((cuposTotales + cuposDisponibles)/500)*100);
         }
         catch(error){
             console.log(error);
         }
     }, "json");
 }
+
+function updateProgressBar(percentage) {
+    // Ajusta la anchura de las barras de progreso
+    const progressBar = document.querySelector('.progress-bar');
+    progressBar.style.width = percentage + '%';
+    
+    // Muestra el porcentaje dentro de la barra de progreso
+    progressBar.textContent = percentage.toFixed(1) + '%';
+}
+
 
 // -------------------------------------- BOTON INGRESO --------------------------------
 function insertaIngreso(){
@@ -127,6 +138,36 @@ function getEntradaSalida(){
         }
     }, "json");
 }
+
+function getHoraPico() {
+    var respuestaJSON = { "dia": diaDeLaSemana }; //Lo enviamos al endpoint
+    console.log(respuestaJSON);
+    $.get('http://localhost:8000/horas_actividad/', respuestaJSON, function (data) { //Data nos retorna la consulta a la bd
+        try {
+            console.log(data);
+            $('#horaPicoIngresos').text('Hora pico ingresos: ' + convertirFormato12Horas(data.hora_pico_ingresos));
+            $('#horaMenosActividadIngresos').text('Hora menos actividad ingresos: ' + convertirFormato12Horas(data.hora_menos_actividad_ingresos));
+            $('#horaPicoEgresos').text('Hora pico egresos: ' + convertirFormato12Horas(data.hora_pico_egresos));
+            $('#horaMenosActividadEgresos').text('Hora menos actividad egresos: ' + convertirFormato12Horas(data.hora_menos_actividad_egresos));
+        } catch (error) {
+            console.log(error);
+        }
+    }, "json");
+}
+
+// Función para convertir formato de 24 horas a 12 horas
+function convertirFormato12Horas(hora24) {
+    var partesHora = hora24.split(':');
+    var horas = parseInt(partesHora[0]);
+    var minutos = parseInt(partesHora[1]);
+    var periodo = (horas >= 12) ? 'PM' : 'AM';
+    horas = (horas > 12) ? horas - 12 : horas;
+    horas = (horas == 0) ? 12 : horas;
+    horas = (horas < 10) ? '0' + horas : horas;
+    minutos = (minutos < 10) ? '0' + minutos : minutos;
+    return horas + ':' + minutos + ' ' + periodo;
+}
+
 
 //-------------------------------------OBTENER EL HORARIO DEL USUARIO----------------------------------
 function getHorario(){
