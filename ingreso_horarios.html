@@ -38,84 +38,98 @@
             </div>
         </header>
         <!-- Contenido de la página -->
-        <div class="container" style="width: 80%; margin-top: 50px;">
-            <div class="container text-center rounded-top" style="color: #1d1d1d; background-color: #ff9d00; padding: 0.5%; font-weight: bold; font-size: xx-large; width: 100%;">
+        <div class="container justify-content-center" style="width: 50%; margin-top: 50px;">
+            <div class="container text-center rounded-top justify-content-center" style="color: #1d1d1d; background-color: #ff9d00; padding: 0.5%; font-weight: bold; font-size: xx-large; width: 100%;">
                 <h1 class="tituloHorario" style="color: #1d1d1d">Hola Usuario! aqui ingresa tu horario</h1>
             </div>
-            <div class="container text-center rounded-bottom" style="background-color:#c7bfb1; height: fit-content; padding-top: 20px;">
+            <div class="container text-center rounded-bottom" style="background-color:#c7bfb1; height: fit-content; padding-top: 20px; padding-bottom: 30px; text-align: center;">
                 <form  class="formulario_horario">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h2 class="tituloDia vertical-center d-flex align-items-center" >Lunes</h2>
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-5">
+                            <h2 class="d-flex justify-content-center tituloDia">Lunes</h2>
+                        </div>
+                        <div class="col">
+                            <label class="lblEntradaS ">Entrada</label>
+                            <select class="seleccion" name="lunesEntrada" id="lunesEntrada" onchange="cambioHorario(this)"></select>
+                        </div>
+                        <div class="col">
+                            <label class="lblEntradaS" for="lunes-salida">Salida</label>
+                            <select class="seleccion" name="lunesSalida" id="lunesSalida"></select>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <label class="lblEntradaS ">Entrada</label>
-                        <select class="seleccion" name="lunesEntrada" id="lunesEntrada" onchange="cambioHorario(this)"></select>
-                        <label class="lblEntradaS" for="lunes-salida">Salida</label>
-                    <select class="seleccion" name="lunesSalida" id="lunesSalida"></select>
+                    <div class="d-flex justify-content-center"><hr style="width: 60%; border-width: 5px; color: #ff9d00;"></div>
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-5">
+                            <h2 class=" d-flex justify-content-center tituloDia" >Martes</h2>
+                        </div>
+                        <div class="col">
+                            <label class="lblEntradaS" for="martes-entrada">Entrada</label>
+                            <select class="seleccion" name="martesEntrada" id="martesEntrada" onchange="cambioHorario(this)"></select>
+                        </div>
+                        <div class="col">
+                            <label class="lblEntradaS" for="martes-salida">Salida</label>
+                            <select class="seleccion" name="martesSalida" id="martesSalida"></select>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <h2 class="tituloDia" >Martes</h2>
+                    <div class="d-flex justify-content-center"><hr style="width: 60%; border-width: 5px; color: #ff9d00;"></div>
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-5">
+                            <h2 class=" d-flex justify-content-center tituloDia" >Miercoles</h2>
+                        </div>
+                        <div class="col">
+                            <label class="lblEntradaS" for="miercoles-entrada">Entrada</label>
+                            <select class="seleccion" name="miercolesEntrada" id="miercolesEntrada" onchange="cambioHorario(this)"></select>
+                        </div>
+                        <div class="col">
+                            <label class="lblEntradaS" for="miercoles-salida">Salida</label>
+                            <select class="seleccion" name="miercolesSalida" id="miercolesSalida"></select>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <label class="lblEntradaS" for="martes-entrada">Entrada</label>
-                    <select class="seleccion" name="martesEntrada" id="martesEntrada" onchange="cambioHorario(this)"></select>
-                    <label class="lblEntradaS" for="martes-salida">Salida</label>
-                    <select class="seleccion" name="martesSalida" id="martesSalida"></select>
+                    <div class="d-flex justify-content-center"><hr style="width: 60%; border-width: 5px; color: #ff9d00;"></div>
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-5">
+                            <h2 class=" d-flex justify-content-center tituloDia" >Jueves</h2>
+                        </div>
+                        <div class="col">
+                            <label class="lblEntradaS" for="jueves-entrada">Entrada</label>
+                            <select class="seleccion" name="juevesEntrada" id="juevesEntrada" onchange="cambioHorario(this)"></select>
+                        </div>
+                        <div class="col">
+                            <label class="lblEntradaS" for="jueves-salida">Salida</label>
+                            <select class="seleccion" name="juevesSalida" id="juevesSalida"></select>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <h2 class="tituloDia" >Miercoles</h2>
+                    <div class="d-flex justify-content-center"><hr style="width: 60%; border-width: 5px; color: #ff9d00;"></div>
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-5">
+                            <h2 class=" d-flex justify-content-center tituloDia" >Viernes</h2>
+                        </div>
+                        <div class="col">
+                            <label class="lblEntradaS" for="viernes-entrada">Entrada</label>
+                            <select class="seleccion" name="viernesEntrada" id="viernesEntrada" onchange="cambioHorario(this)"></select>
+                        </div>
+                        <div class="col">
+                            <label class="lblEntradaS" for="viernes-salida">Salida</label>
+                            <select class="seleccion" name="viernesSalida" id="viernesSalida"></select>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <label class="lblEntradaS" for="miercoles-entrada">Entrada</label>
-                    <select class="seleccion" name="miercolesEntrada" id="miercolesEntrada" onchange="cambioHorario(this)"></select>
-    
-                    <label class="lblEntradaS" for="miercoles-salida">Salida</label>
-                    <select class="seleccion" name="miercolesSalida" id="miercolesSalida"></select>
+                    <div class="d-flex justify-content-center"><hr style="width: 60%; border-width: 5px; color: #ff9d00;"></div>
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-5">
+                            <h2 class=" d-flex justify-content-center tituloDia" >Sabado</h2>
+                        </div>
+                        <div class="col">
+                            <label class="lblEntradaS" for="sabado-entrada">Entrada</label>
+                            <select class="seleccion" name="sabadoEntrada" id="sabadoEntrada" onchange="cambioHorario(this)"></select>
+                        </div>
+                        <div class="col">
+                            <label class="lblEntradaS" for="sabado-salida">Salida</label>
+                            <select class="seleccion" name="sabadoSalida" id="sabadoSalida"></select>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <h2 class="tituloDia" >Jueves</h2>
-                    </div>
-                    <div class="col-md-8">
-                        <label class="lblEntradaS" for="jueves-entrada">Entrada</label>
-                    <select class="seleccion" name="juevesEntrada" id="juevesEntrada" onchange="cambioHorario(this)"></select>
-    
-                    <label class="lblEntradaS" for="jueves-salida">Salida</label>
-                    <select class="seleccion" name="juevesSalida" id="juevesSalida"></select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <h2 class="tituloDia" >Viernes</h2>
-                    </div>
-                    <div class="col-md-8">
-                        <label class="lblEntradaS" for="viernes-entrada">Entrada</label>
-                        <select class="seleccion" name="viernesEntrada" id="viernesEntrada" onchange="cambioHorario(this)"></select>
-        
-                        <label class="lblEntradaS" for="viernes-salida">Salida</label>
-                        <select class="seleccion" name="viernesSalida" id="viernesSalida"></select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <h2 class="tituloDia" >Sabado</h2>
-                    </div>
-                    <div class="col-md-8">
-                        <label class="lblEntradaS" for="sabado-entrada">Entrada</label>
-                        <select class="seleccion" name="sabadoEntrada" id="sabadoEntrada" onchange="cambioHorario(this)"></select>
-        
-                        <label class="lblEntradaS" for="sabado-salida">Salida</label>
-                        <select class="seleccion" name="sabadoSalida" id="sabadoSalida"></select>
-                    </div>
-                </div>
-                </br>
-                    <input class="btnGrdHorario" type="submit" value="Guardar Horarios" onclick="guardarHorario(); return false;">
+                    <div class="d-flex justify-content-center"><hr style="width: 60%; border-width: 5px; color: #ff9d00;"></div>
+                    </br>
+                        <input class="btnGeneric" type="submit" value="Guardar Horarios" onclick="guardarHorario(); return false;">
                 </form>
             </div>   
         </div>

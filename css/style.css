@@ -222,6 +222,13 @@ body{
   transition-duration: 0.4s;
 }
 
+.btnGeneric{
+  float: none;
+  border-radius: 30px;
+  font-weight: bolder; 
+  font-size: 20px;
+}
+
 #btnRegistro{
   float: left;
   top: 20%;
@@ -363,7 +370,8 @@ body{
 .lblEntradaS{
   display: block;
   margin-bottom: 5px;
-  color: #333; /* Texto gris oscuro */
+  color: #1d1d1d; 
+  font-weight: bold;
 }
 .seleccion{
   width: 40%;
