@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
+
+<html>
     <head>
         <title>Qci Park</title>
         <link rel="stylesheet" href="css/style.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="node_modules/bootstrap-icons/bootstrap-icons.svg">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
         
         </script>
@@ -25,11 +25,11 @@
                         </div>
                         <div class="offcanvas-body">
                             <div class="list-group" style="color: #A6A6A6;">
-                                <a href="index.html" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/home-icon.png" style="width: 20%; padding-right: 20px;" >Inicio</a>
-                                <a href="usuario.html" class="list-group-item list-group-item-action text-left" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/user-icon.png" style="width: 20%; padding-right: 20px;" >Usuario</a>
-                                <a href="graficas.html" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/graphics-icon.png" style="width: 20%; padding-right: 20px;" >Graficas</a>
-                                <a href="" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/assistant-icon.png" style="width: 20%; padding-right: 20px;" >Asistente</a>
-                                <a href="ingreso_horarios.html" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/horario.png" style="width: 20%; padding-right: 20px;" >Horario</a>
+                                <a href="index.html" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><i class="bi bi-house" style="margin-right: 10px;"></i>Inicio</a>
+                                <a href="usuario.html" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><i class="bi bi-person-fill" style="margin-right: 10px;"></i>Usuario</a>
+                                <a href="graficas.html" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><i class="bi bi-bar-chart"></i>Graficas</a>
+                                <a href="ingreso_horarios.html" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><i class="bi bi-clock-fill"></i>Horario</a>
+                                <button onclick="cerrarSesion();"><a class=" buttonMenu list-group-item list-group-item-action" style="text-align: left; font-size: 30px;"><i class="bi bi-box-arrow-right"></i>Cerrar sesion</a></button>
                             </div>
                         </div>
                       </div>
@@ -38,232 +38,49 @@
                     <a href="index.html"><img src="Images/logo.png" class="rounded mx-auto d-block" style="height: 70px; width: 70px;"></a>
                 </div>
                 <div class="col">
-                    <div class="progress blue">
-                        <span class="progress-left">
-                            <span class="progress-bar"></span>
-                        </span>
-                        <span class="progress-right">
-                            <span class="progress-bar"></span>
-                        </span>
-                        <div class="progress-value">80%</div>
-                      </div>
+                   <!--<button type="">Aqui log in</button>-->
                 </div>
+
             </div>
         </header>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráficas</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Incluimos Chart.js desde CDN -->
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f3f3f3; /* Gris claro de fondo */
-        }
-        #header {
-            background-color: #d9d9d9; /* Fondo gris claro */
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        #menu-container {
-            position: relative;
-            width: 200px; /* Ancho del menú */
-            background-color: #a6a6a6; /* Fondo gris oscuro del menú */
-            color: #fff; /* Color de texto del menú */
-            overflow: hidden;
-            transition: width 0.1s ease;
-        }
-        #menu {
-            padding: 10px;
-        }
-        #menu-button {
-            background-image: url('menu.png');
-            background-size: cover;
-            width: 60px;
-            height: 60px;
-            border: none;
-            cursor: pointer;
-        }
-        #menu-options {
-            display: none;
-        }
-        #menu-options a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 15px 30px;
-            font-size: 20px;
-            transition: background-color 0.3s ease;
-        }
-        #menu-options a:hover {
-            background-color: #a6a6a6;
-        }
-        #logo {
-            width: 80px;
-            height: auto;
-        }
-        #percentage {
-            background-color: #f8a80b;
-            color: white;
-            border-radius: 50%;
-            width: 70px;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-        #container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 20px;
-        }
-        .chart-container {
-            width: 35%;
-            background-color: #d9d9d9; /* Fondo gris claro */
-            padding: 20px;
-            border-radius: 8px;
-        }
-        .progress-container {
-            width: 45%;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: #d9d9d9; /* Fondo gris claro */
-        }
-        h1 {
-            text-align: center;
-            color: #f8a80b; /* Naranja */
-        }
-        .graph-container {
-            flex: 1;
-            padding: 20px;
+
+        <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+            <!-- Cuadro de ingresos -->
+            <div style="margin-right: 20px; padding: 20px; background-color: #f5f5f5; border-radius: 10px;">
+                <h2 style="margin-bottom: 10px;">INGRESOS</h2>
+                <div id="horaPicoIngresos" class="hora-div">
+                    <span class="hora-label">Hora con mayor actividad:</span>
+                    <span id="horaPicoIngresosValor" class="hora-valor"></span>
+                </div>
+                <div id="horaMenosActividadIngresos" class="hora-div">
+                    <span class="hora-label">Hora con menos actividad:</span>
+                    <span id="horaMenosActividadIngresosValor" class="hora-valor"></span>
+                </div>
+            </div>
+            
+            <!-- Cuadro de egresos -->
+            <div style="margin-left: 20px; padding: 20px; background-color: #f5f5f5; border-radius: 10px;">
+                <h2 style="margin-bottom: 10px;">EGRESOS</h2>
+                <div id="horaPicoEgresos" class="hora-div">
+                    <span class="hora-label">Hora con mayor actividad::</span>
+                    <span id="horaPicoEgresosValor" class="hora-valor"></span>
+                </div>
+                <div id="horaMenosActividadEgresos" class="hora-div">
+                    <span class="hora-label">Hora con menos actividad:</span>
+                    <span id="horaMenosActividadEgresosValor" class="hora-valor"></span>
+                </div>
+            </div>
+        </div>
+        
+        
+
+    </body>
+    <script src="js/custom.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script>
+        window.onload = function(){
+            getHoraPico();
         }
         
-        .graph {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-  
-        .progress-bar {
-            margin-bottom: 20px;
-            color: #f8a80b;
-        }
-
-    </style>
-</head>
-<body>
-    <!-- Contenido de la página -->
-    <div id="container" style="display: flex;">
-        <div class="chart-container">
-            <h1>Lunes</h1>
-            <canvas id="circular-chart"></canvas>
-        </div>
-        <div class="chart-container" style="display: flex; flex-direction: column;">
-            <h1>Horas pico</h1>
-            <div style="display: flex;">
-                <div style="margin-right: 10px;">
-                    <h2>7:00am</h2>
-                </div>
-                <div class="progress-bar">
-                    <progress id="progress-bar-1" style="background-color: #f8a80b;" max="100" value="50"></progress>
-                </div>
-            </div>
-            <div style="display: flex;">
-                <div style="margin-right: 10px ; ">
-                    <h2>9:00am</h2>
-                </div>
-                <div class="progress-bar">
-                    <progress id="progress-bar-2" style="background-color: #f8a80b;" max="100" value="60"></progress>
-                </div>
-            </div>
-            <div style="display: flex;">
-                <div style="margin-right: 10px;">
-                    <h2>1:00pm</h2>
-                </div>
-                <div class="progress-bar">
-                    <progress id="progress-bar-3" style="background-color: #f8a80b;" max="100" value="70"></progress>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-
-    
-
-    
-    <script>
-        var menuButton = document.getElementById('menu-button');
-        var menuOptions = document.getElementById('menu-options');
-        var menuContainer = document.getElementById('menu-container');
-
-        menuButton.addEventListener('click', function(event) {
-            event.stopPropagation();
-            if (menuOptions.style.display === 'none') {
-                menuOptions.style.display = 'block';
-                menuContainer.style.width = '200px'; /* Ancho del menú desplegado */
-            } else {
-                menuOptions.style.display = 'none';
-                menuContainer.style.width = '0'; /* Ancho del menú oculto */
-            }
-        });
-
-        document.addEventListener('click', function(event) {
-            var targetElement = event.target;
-            if (targetElement != menuButton && targetElement.parentNode != menuContainer) {
-                menuOptions.style.display = 'none';
-                menuContainer.style.width = '0';
-            }
-        });
-
-
-        // Obtener el elemento del porcentaje
-        var percentageElement = document.getElementById('percentage-value');
-
-        // Generar un porcentaje aleatorio entre 0 y 100
-        var randomPercentage = Math.floor(Math.random() * 101);
-
-        // Actualizar el valor del porcentaje en el círculo
-        percentageElement.textContent = randomPercentage + '%';
-        // Datos para la gráfica circular
-        var circularData = {
-            labels: ['Ocupado', 'Libre'],
-            datasets: [{
-                label: 'Porcentaje',
-                data: [60, 40], // Datos de ejemplo
-                backgroundColor: ['#f8a80b', '#d9d9d9']
-            }]
-        };
-
-        // Configuración de la gráfica circular
-        var circularConfig = {
-            type: 'doughnut',
-            data: circularData
-        };
-
-        // Seleccionar los canvas de las gráficas
-        var circularCanvas = document.getElementById('circular-chart').getContext('2d');
-        // Crear las instancias de las gráficas
-        var circularChart = new Chart(circularCanvas, circularConfig);
-
-        var progressBar1 = document.getElementById('progress-bar-1');
-        var progressBar2 = document.getElementById('progress-bar-2');
-        var progressBar3 = document.getElementById('progress-bar-3');
-
-        function updateProgressBars() {
-            progressBar1.value = Math.floor(Math.random() * 100);
-            progressBar2.value = Math.floor(Math.random() * 100);
-            progressBar3.value = Math.floor(Math.random() * 100);
-        }
-
-        // Actualiza las barras de progreso cada 24 horas
-        setInterval(updateProgressBars, 86400);
-
     </script>
-</body>
 </html>
