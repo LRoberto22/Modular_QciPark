@@ -32,6 +32,8 @@ var month = fechaActual.getMonth() + 1; // Los meses van de 0 a 11 por eso el + 
 // Formatear la fecha como cadena con ceros a la izquierda si es necesario
 var fechaFormateada = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
 
+//--------------------------------------------Mover entre paginas-----------------------------------------
+
 //-----------------------------------------CONSULTAAR CUPO ACTUAL------------------------------------------
 function consultaCupo(){
     document.getElementById("horaActualizacion").textContent = horaActual;
