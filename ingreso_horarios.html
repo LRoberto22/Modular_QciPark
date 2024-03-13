@@ -1,161 +1,93 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
     <head>
+        <meta charset="UTF-8">
         <title>Qci Park</title>
         <link rel="stylesheet" href="css/style.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="node_modules/bootstrap-icons/bootstrap-icons.svg">
-        
-    
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     </head>
-    <body class="cuerpote">
+    <body>
         <header>
-            <div class="row py-1 justify-content-md-center text-center" style="background-color: #D9D9D9;">
-                <div class="col center-block align-center">
-                    <a class="btn" data-bs-toggle="offcanvas" href="#offcanvas" role="button" style="margin-top: 10px; margin-left: 30px;">
-                        <img src="Images/menu-icon.png" style="height: 50px; width: 50px;">
-                    </a>
-                      <div class="offcanvas offcanvas-start" tabindex="1" id="offcanvas" aria-labelledby="offcanvasLabel" style="background-color: #A6A6A6;">
+            <div class="row py-1 justify-content-md-center text-center" style="background-color: #ff9d00; max-height: 97.97px !important;">
+                <div class="col-md-2 d-flex align-items-center align-items-center justify-content-center" style="max-height: 97.97px !important;">
+                    <a class="btn" data-bs-toggle="offcanvas" href="#offcanvas" role="button"><i class="bi bi-list" style="font-size: 70px; color: #3b9daf; font-weight: bolder; height: min-content !important;"></i></a>
+                      <div class="offcanvas offcanvas-start" tabindex="1" id="offcanvas" aria-labelledby="offcanvasLabel" style="background-color: #ff9d00;">
                         <div class="offcanvas-header">
                           <h5 class="offcanvas-title" id="offcanvasLabel"></h5>
                           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body">
-                            <div class="list-group" style="color: #A6A6A6;">
-                                <a href="index.html" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/home-icon.png" style="width: 20%; padding-right: 20px;" >Inicio</a>
-                                <a href="usuario.html" class="list-group-item list-group-item-action text-left" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/user-icon.png" style="width: 20%; padding-right: 20px;" >Usuario</a>
-                                <a href="graficas.html" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/graphics-icon.png" style="width: 20%; padding-right: 20px;" >Graficas</a>
-                                <a href="" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/assistant-icon.png" style="width: 20%; padding-right: 20px;" >Asistente</a>
-                                <a href="ingreso_horarios.html" class="list-group-item list-group-item-action" style="background-color: #A6A6A6; text-align: left; font-size: 30px;"><img src="Images/horario.png" style="width: 20%; padding-right: 20px;" >Horario</a>
+                            <div class="list-group menuList" style="background-color: #ff9d00;">
+                                <a href="/index.html" class="menuBtn btn d-flex align-items-center"><i class="bi bi-house " style="margin-right: 20px;"></i>Inicio</a>
+                                <a href="/usuario.html" class="menuBtn btn d-flex align-items-center"><i class="bi bi-person-fill " style="margin-right: 20px;"></i>Usuario</a>
+                                <a href="/graficas.html" class="menuBtn btn d-flex align-items-center"> <i class="bi bi-bar-chart " style="margin-right: 20px;"></i>Graficas</a>
+                                <a href="/ingreso_horarios.html" class="menuBtn btn d-flex align-items-center"><i class="bi bi-clock-fill " style="margin-right: 20px;"></i>Horario</a>
+                                <a onclick="cerrarSesion();" class="menuBtn btn d-flex align-items-center"><i class="bi bi-box-arrow-right " style="margin-right: 20px;"></i>Cerrar sesion</a>
                             </div>
                         </div>
                       </div>
                 </div>
-                <div class="col-8">
-                    <a href="index.html"><img src="Images/logo.png" class="rounded mx-auto d-block" style="height: 70px; width: 70px;"></a>
+                <div class="col-md-8 d-flex align-items-center align-items-center justify-content-center">
+                    <a href="index.html" ><img src="Images/logo.png" class="rounded mx-auto d-block" style="width: 90px;"></a>
                 </div>
-                <div class="col">
-                    <div class="progress blue">
-                        <span class="progress-left">
-                            <span class="progress-bar"></span>
-                        </span>
-                        <span class="progress-right">
-                            <span class="progress-bar"></span>
-                        </span>
-                        <div class="progress-value">80%</div>
-                      </div>
+                <div class="col-md-2 d-flex align-items-center align-items-center justify-content-center">
+                   <button class="btnLogIn"  id="logIn">Log In</button>
                 </div>
             </div>
         </header>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingreso de Horarios</title>
-    <style>
-        
-        #menu-options a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 15px 30px;
-            font-size: 20px;
-            transition: background-color 0.3s ease;
-        }
-        #menu-options a:hover {
-            background-color: #a6a6a6;
-        }
-        
-    </style>
-     <script src="js/jquery-3.4.1.min.js">
-        var menuButton = document.getElementById('menu-button');
-        var menuOptions = document.getElementById('menu-options');
-        var menuContainer = document.getElementById('menu-container');
+        <!-- Contenido de la página -->
+        <div style="padding:20px;"></div>
+        <div id="container">
+            <h1 class="tituloHorario" >Hola Usuario! aqui ingresa tu horario</h1>
+            <form  class="formulario_horario">
+                <h2 class="tituloDia" >Lunes</h2>
+                <label class="lblEntradaS" >Entrada</label>
+                <select class="seleccion" name="lunesEntrada" id="lunesEntrada" onchange="cambioHorario(this)"></select>
 
-        menuButton.addEventListener('click', function(event) {
-            event.stopPropagation();
-            if (menuOptions.style.display === 'none') {
-                menuOptions.style.display = 'block';
-                menuContainer.style.width = '200px'; /* Ancho del menú desplegado */
-            } else {
-                menuOptions.style.display = 'none';
-                menuContainer.style.width = '0'; /* Ancho del menú oculto */
-            }
-        });
+                <label class="lblEntradaS" for="lunes-salida">Salida</label>
+                <select class="seleccion" name="lunesSalida" id="lunesSalida"></select>
 
-        document.addEventListener('click', function(event) {
-            var targetElement = event.target;
-            if (targetElement != menuButton && targetElement.parentNode != menuContainer) {
-                menuOptions.style.display = 'none';
-                menuContainer.style.width = '0';
-            }
-        });
-        
-       
-        // Obtener el elemento del porcentaje
-        var percentageElement = document.getElementById('percentage-value');
+                <h2 class="tituloDia" >Martes</h2>
+                <label class="lblEntradaS" for="martes-entrada">Entrada</label>
+                <select class="seleccion" name="martesEntrada" id="martesEntrada" onchange="cambioHorario(this)"></select>
+                
+                <label class="lblEntradaS" for="martes-salida">Salida</label>
+                <select class="seleccion" name="martesSalida" id="martesSalida"></select>
 
-        // Generar un porcentaje aleatorio entre 0 y 100
-        var randomPercentage = Math.floor(Math.random() * 101);
+                <h2 class="tituloDia" >Miercoles</h2>            
+                <label class="lblEntradaS" for="miercoles-entrada">Entrada</label>
+                <select class="seleccion" name="miercolesEntrada" id="miercolesEntrada" onchange="cambioHorario(this)"></select>
 
-        // Actualizar el valor del porcentaje en el círculo
-        percentageElement.textContent = randomPercentage + '%';
-    </script>
-</head>
+                <label class="lblEntradaS" for="miercoles-salida">Salida</label>
+                <select class="seleccion" name="miercolesSalida" id="miercolesSalida"></select>
+                
+                <h2 class="tituloDia" >Jueves</h2>
+                <label class="lblEntradaS" for="jueves-entrada">Entrada</label>
+                <select class="seleccion" name="juevesEntrada" id="juevesEntrada" onchange="cambioHorario(this)"></select>
 
-    <!-- Contenido de la página -->
-    <div style="padding:20px;">
-        <h2></h2>
-        <p></p>
-    </div>
-    <div id="container">
-        <h1 class="tituloHorario" >Hola Usuario! aqui ingresa tu horario</h1>
-        <form  class="formulario_horario">
-            <h2 class="tituloDia" >Lunes</h2>
-            <label class="lblEntradaS" >Entrada</label>
-            <select class="seleccion" name="lunesEntrada" id="lunesEntrada" onchange="cambioHorario(this)"></select>
+                <label class="lblEntradaS" for="jueves-salida">Salida</label>
+                <select class="seleccion" name="juevesSalida" id="juevesSalida"></select>
 
-            <label class="lblEntradaS" for="lunes-salida">Salida</label>
-            <select class="seleccion" name="lunesSalida" id="lunesSalida"></select>
+                <h2 class="tituloDia" >Viernes</h2>
+                <label class="lblEntradaS" for="viernes-entrada">Entrada</label>
+                <select class="seleccion" name="viernesEntrada" id="viernesEntrada" onchange="cambioHorario(this)"></select>
 
-            <h2 class="tituloDia" >Martes</h2>
-            <label class="lblEntradaS" for="martes-entrada">Entrada</label>
-            <select class="seleccion" name="martesEntrada" id="martesEntrada" onchange="cambioHorario(this)"></select>
-            
-            <label class="lblEntradaS" for="martes-salida">Salida</label>
-            <select class="seleccion" name="martesSalida" id="martesSalida"></select>
+                <label class="lblEntradaS" for="viernes-salida">Salida</label>
+                <select class="seleccion" name="viernesSalida" id="viernesSalida"></select>
 
-            <h2 class="tituloDia" >Miercoles</h2>            
-            <label class="lblEntradaS" for="miercoles-entrada">Entrada</label>
-            <select class="seleccion" name="miercolesEntrada" id="miercolesEntrada" onchange="cambioHorario(this)"></select>
+                <h2 class="tituloDia" >Sabado</h2>
+                <label class="lblEntradaS" for="sabado-entrada">Entrada</label>
+                <select class="seleccion" name="sabadoEntrada" id="sabadoEntrada" onchange="cambioHorario(this)"></select>
 
-            <label class="lblEntradaS" for="miercoles-salida">Salida</label>
-            <select class="seleccion" name="miercolesSalida" id="miercolesSalida"></select>
-            
-            <h2 class="tituloDia" >Jueves</h2>
-            <label class="lblEntradaS" for="jueves-entrada">Entrada</label>
-            <select class="seleccion" name="juevesEntrada" id="juevesEntrada" onchange="cambioHorario(this)"></select>
-
-            <label class="lblEntradaS" for="jueves-salida">Salida</label>
-            <select class="seleccion" name="juevesSalida" id="juevesSalida"></select>
-
-            <h2 class="tituloDia" >Viernes</h2>
-            <label class="lblEntradaS" for="viernes-entrada">Entrada</label>
-            <select class="seleccion" name="viernesEntrada" id="viernesEntrada" onchange="cambioHorario(this)"></select>
-
-            <label class="lblEntradaS" for="viernes-salida">Salida</label>
-            <select class="seleccion" name="viernesSalida" id="viernesSalida"></select>
-
-            <h2 class="tituloDia" >Sabado</h2>
-            <label class="lblEntradaS" for="sabado-entrada">Entrada</label>
-            <select class="seleccion" name="sabadoEntrada" id="sabadoEntrada" onchange="cambioHorario(this)"></select>
-
-            <label class="lblEntradaS" for="sabado-salida">Salida</label>
-            <select class="seleccion" name="sabadoSalida" id="sabadoSalida"></select>
-        </br>
-            <input class="btnGrdHorario" type="submit" value="Guardar Horarios" onclick="guardarHorario(); return false;">
-        </form>
-    </div>
-
+                <label class="lblEntradaS" for="sabado-salida">Salida</label>
+                <select class="seleccion" name="sabadoSalida" id="sabadoSalida"></select>
+            </br>
+                <input class="btnGrdHorario" type="submit" value="Guardar Horarios" onclick="guardarHorario(); return false;">
+            </form>
+        </div>
+    </body>
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -168,8 +100,6 @@
             }
         }
     </script>
-
-</body>
 </html>
 
 

@@ -1,3 +1,38 @@
+body{
+  background-color: #4d4537;
+}
+
+.menulist{
+
+}
+.menuBtn{
+  text-align: left !important;
+  background-color: #ff9d00;
+  font-size: 40px;
+  margin: 6px;
+  border-radius: 20px;
+  padding: 10px;
+  color: #1d1d1d;
+  transition-duration: 0.4s;
+}
+.menuBtn:hover{
+  background-color: #3b9daf;
+  color: black;
+}
+.btnLogIn{
+  background-color: #3b9daf;
+  color: #1d1d1d;
+  transition-duration: 0.3s;
+  font-weight: bolder;
+  border-radius: 20px;
+  height: 50px !important;
+  width: 80px;
+}
+.btnLogIn:hover{
+  background-color: #196674;
+  color: #ffffff;
+}
+
 /* ------------------ Header style ------------------ */
 .mt-100{
   margin-top: 200px;
@@ -209,7 +244,7 @@
 }
 
 #btnIngreso:hover, .btnGeneric:hover{
-  background-color: #F8A80B; 
+  background-color: #3b9daf; 
   color: black;
 }
 
@@ -217,13 +252,13 @@
   float: right;
   top: 30%;
   margin: 4px;
-  color:azure;
+  color:#4d4537;
   cursor: pointer;
   padding: 14px 28px;
   font-family:Arial, Helvetica, sans-serif;
   font-size: 16px;
   border-radius: 6px;
-  background-color: #062aa3;
+  background-color: #ff9d00;
   transition-duration: 0.4s;
 }
 
@@ -315,19 +350,8 @@
 
 /* ----------------------- ingreso_horario stylsheet --------------------------------- */
 
-.cuerpote{
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f3f3f3; /* Gris claro de fondo */
-}
-#container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #d9d9d9; /* Fondo blanco del contenedor */
-  border-radius: 8px;
-}
+
+
 #header {
   background-color: #d9d9d9; /* Fondo gris claro */
   padding: 10px;
@@ -335,15 +359,7 @@
   align-items: center;
   justify-content: space-between;
 }
-#menu-container {
-  position: relative;
-  width: 200px; /* Ancho del menú */
-  background-color: #a6a6a6; /* Fondo gris oscuro del menú */
-  color: #fff; /* Color de texto del menú */
-  overflow: hidden;
-  transition: width 0.1s ease;
-  overflow-y: hidden;
-}
+
 #menu {
   padding: 10px;
 }
