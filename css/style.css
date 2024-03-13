@@ -8,9 +8,7 @@ body{
   background-color: #4d4537;
 }
 
-.menulist{
 
-}
 
 .menuBtn{
   text-align: left !important;
@@ -398,15 +396,10 @@ body{
   font-size: 20px;
 }
 
-.tituloHorario{
-  text-align: center;
-  color: #f8a80b; /* Naranja */
-}
-
 .tituloDia{
-  text-align: center;
+  text-align: right;
   color: #6a6868; /* Gris oscuro dias */
-  font-size: 20px;
+  font-size: 40px;
 }
 
 .formulario_horario{
