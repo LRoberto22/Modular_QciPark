@@ -2,7 +2,6 @@ import os
 import numpy as np
 import pandas as pd
 import psycopg2
-from datetime import datetime
 from datetime import time, timedelta
 from keras.models import Sequential, load_model
 from keras.layers import Dense
@@ -12,6 +11,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
+from pydantic import BaseModel
+from pydantic import BaseModel
+import tensorflow as tf
+from keras.models import Sequential, load_model
+from sklearn.neural_network import MLPRegressor
+from datetime import datetime, timedelta, time
 import json
 
 #Librerias de prueba 
@@ -48,62 +53,59 @@ conexion = psycopg2.connect(
 
 cursor = conexion.cursor()
 
-# Definir una función para calcular la hora pico y la hora de menor actividad para un día específico
-def calcular_horas_pico_y_actividad(dia: int) -> dict:
+def obtener_datos_de_bd(dia: int):
+    cursor = conexion.cursor()
+
     cursor.execute(f"SELECT hora_ingreso FROM ingresos WHERE fkdiasemana = {dia}")
     ingresos_data = pd.DataFrame(cursor.fetchall(), columns=['hora_ingreso'])
+    ingresos_data['hora_ingreso'] = pd.to_datetime(ingresos_data['hora_ingreso'], format='%H:%M:%S').dt.hour
 
     cursor.execute(f"SELECT hora_egreso FROM egresos WHERE fkdiasemana = {dia}")
     egresos_data = pd.DataFrame(cursor.fetchall(), columns=['hora_egreso'])
+    egresos_data['hora_egreso'] = pd.to_datetime(egresos_data['hora_egreso'], format='%H:%M:%S').dt.hour
 
-    # Convertir las horas a objetos time
-    ingresos_data['hora_ingreso'] = pd.to_datetime(ingresos_data['hora_ingreso'], format='%H:%M:%S').dt.time
-    egresos_data['hora_egreso'] = pd.to_datetime(egresos_data['hora_egreso'], format='%H:%M:%S').dt.time
+    cursor.close()
+    return ingresos_data, egresos_data
 
-    # Calcular la hora pico y la hora de menor actividad para ingresos
-    hora_pico_ingresos = ingresos_data['hora_ingreso'].mode().iloc[0] if not ingresos_data.empty else None
-    hora_menos_actividad_ingresos = ingresos_data['hora_ingreso'].value_counts().idxmin() if not ingresos_data.empty else None
+def entrenar_red_neuronal(X_train, y_train):
+    model = Sequential()
+    model.add(Dense(100, input_dim=1, activation='relu'))
+    model.add(Dense(1))
+    model.compile(loss='mean_squared_error', optimizer='adam')
+    model.fit(X_train, y_train, epochs=100, batch_size=10, verbose=0)
+    return model
 
-    # Calcular la hora pico y la hora de menor actividad para egresos
-    hora_pico_egresos = egresos_data['hora_egreso'].mode().iloc[0] if not egresos_data.empty else None
-    hora_menos_actividad_egresos = egresos_data['hora_egreso'].value_counts().idxmin() if not egresos_data.empty else None
+def calcular_horas_pico_y_actividad_con_red_neuronal(dia: int) -> dict:
+    ingresos_data, egresos_data = obtener_datos_de_bd(dia)
+
+    X_train = np.arange(24).reshape(-1, 1)  # Horas del día como enteros
+
+    y_ingresos = np.bincount(ingresos_data['hora_ingreso'], minlength=24)
+
+    ingresos_model = entrenar_red_neuronal(X_train, y_ingresos)
+
+    y_egresos = np.bincount(egresos_data['hora_egreso'], minlength=24)
+
+    egresos_model = entrenar_red_neuronal(X_train, y_egresos)
+
+    hora_pico_ingresos = ingresos_model.predict(np.array([[dia]]))[0][0]
+    hora_pico_egresos = egresos_model.predict(np.array([[dia]]))[0][0]
 
     return {
         "dia": dia,
-        "hora_pico_ingresos": hora_pico_ingresos.strftime('%H:%M:%S') if hora_pico_ingresos else None,
-        "hora_menos_actividad_ingresos": hora_menos_actividad_ingresos.strftime('%H:%M:%S') if hora_menos_actividad_ingresos else None,
-        "hora_pico_egresos": hora_pico_egresos.strftime('%H:%M:%S') if hora_pico_egresos else None,
-        "hora_menos_actividad_egresos": hora_menos_actividad_egresos.strftime('%H:%M:%S') if hora_menos_actividad_egresos else None
+        "hora_pico_ingresos": hora_pico_ingresos,
+        "hora_pico_egresos": hora_pico_egresos
     }
 
 @app.get("/horas_actividad/")
 async def obtener_horas_actividad(dia: int):
-    horas_actividad = calcular_horas_pico_y_actividad(dia)
-    return horas_actividad
-
-def calcular_hora_menos_actividad_antes(dia: int, hora: time):
-    hora_ajustada = datetime.combine(datetime.today(), hora) - timedelta(minutes=15)
-    hora_ajustada_str = hora_ajustada.strftime('%H:%M:%S')
-    
-    cursor.execute(f"SELECT hora_ingreso FROM ingresos WHERE fkdiasemana = {dia} AND hora_ingreso < '{hora}' ORDER BY hora_ingreso DESC")
-    ingresos_data = pd.DataFrame(cursor.fetchall(), columns=['hora_ingreso'])
-    
-    if not ingresos_data.empty:
-        hora_menos_actividad_antes = ingresos_data['hora_ingreso'].value_counts().idxmin()
-    else:
-        hora_menos_actividad_antes = hora_ajustada_str
-    
-    return hora_menos_actividad_antes
-
-@app.get("/hora_menos_actividad_antes/")
-async def obtener_hora_menos_actividad_antes(dia: int, hora: time):
-    hora_menos_actividad_antes = calcular_hora_menos_actividad_antes(dia, hora)
-    
-    return {
-        "dia": dia,
-        "hora_especificada": hora.strftime('%H:%M:%S'),
-        "hora_menos_actividad_antes": str(hora_menos_actividad_antes)
+    horas_actividad = calcular_horas_pico_y_actividad_con_red_neuronal(dia)
+    horas_actividad_serializable = {
+        "dia": horas_actividad["dia"],
+        "hora_pico_ingresos": float(horas_actividad["hora_pico_ingresos"]),
+        "hora_pico_egresos": float(horas_actividad["hora_pico_egresos"])
     }
+    return horas_actividad_serializable
 
 
 # Constructor y carga de microservicio
