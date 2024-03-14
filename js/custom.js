@@ -277,6 +277,21 @@ function existeHorario(){
         }
     }, "json");
 }
+
+//--------------------------------------Obtener Horario del ususario para la ventana usuario-----------------------------
+
+function existeHorarioUsuario(){
+    var respuestaJSON = {"usr": codigoLogin};
+    $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
+        if(data == 0){
+            alert("No tienes horario Jalate a registrarlo");
+            location.href = "ingreso_horarios.html";
+        }
+        else{
+            console.log("si tiene ", data);
+        }
+    }, "json");
+}
 //------------------------------------- REGISTRAR USUARIO -------------------------------------
 
 function registroUsuario(){
