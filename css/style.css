@@ -163,6 +163,10 @@ body{
   top:10%;
   left: 34%;
   border-radius: 20px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  
 }
 .caja{
   text-align: center;
@@ -171,15 +175,9 @@ body{
   height: 16%;
   top: 20%;
   left: 10%
+  
 }
-/* #error{
-  text-align: center;
-  position: relative;
-  color: #E12F2F;
-  font-family:Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  font-size: 25px;
-} */
+
 .caja_txt{
   font-family:Arial, Helvetica, sans-serif;
   font-size: 18px;
@@ -205,7 +203,7 @@ body{
 
 #btnIngreso:hover, .btnGeneric:hover{
   background-color: #3b9daf; 
-  color: black;
+  color: azure;
 }
 
 #btnIngreso, .btnGeneric{
@@ -233,19 +231,19 @@ body{
   float: left;
   top: 20%;
   margin: 4px;
-  color:azure;
+  color:black;
   cursor: pointer;
   padding: 14px 28px;
   font-family:Arial, Helvetica, sans-serif;
   font-size: 16px;
   border-radius: 6px;
-  background-color: #062aa3;
+  background-color: #ff9d00;
   transition-duration: 0.4s;
 }
 
 #btnRegistro:hover{
-  background-color: #F8A80B; 
-  color: black;
+  background-color: #3b9daf; 
+  color: azure;
 }
 
 /* ----------------------- Registro stylsheet --------------------------------- */
@@ -261,27 +259,30 @@ body{
   height: 600px;
   width: 900px;
   top:10%;
-  left: 27%;
+  left: 27%; 
   border-radius: 20px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #btnCancelar{
   float: left;
   top: 20%;
   margin: 4px;
-  color:azure;
+  color:black;
   cursor: pointer;
   padding: 14px 28px;
   font-family:Arial, Helvetica, sans-serif;
   font-size: 16px;
   border-radius: 6px;
-  background-color: #062aa3;
+  background-color: #ff9d00;
   transition-duration: 0.4s;
 }
 
 #btnCancelar:hover{
-  background-color: #F8A80B; 
-  color: black;
+  background-color: #3b9daf; 
+  color: azure;
 }
 
 
