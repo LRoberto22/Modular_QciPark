@@ -119,7 +119,7 @@ function cambioHorario(selectElement) {
 
 //--------------------------------------OBTENER LA ENTRADA Y SALIDA DEL USUARIO-----------------------------------------------
 function getEntradaSalida(){
-    var respuestaJSON = {"diaSemanaActual":diaDeLaSemana, "usuario": usuarioAUX}; //Lo enviamos al endpoint
+    var respuestaJSON = {"diaSemanaActual":diaDeLaSemana, "usuario": codigoLogin}; //Lo enviamos al endpoint
     console.log(respuestaJSON);
     //document.getElementById("nombreUser").textContent = nombreLogin;
     document.getElementById("diaHoy").textContent = diasSemana[diaDeLaSemana];   //Dia actual
@@ -171,7 +171,7 @@ function convertirFormato12Horas(hora24) {
 //-------------------------------------OBTENER EL HORARIO DEL USUARIO----------------------------------
 function getHorario(){
     var diasClase = [];
-    var respuestaJSON = {"usr": usuarioAUX};
+    var respuestaJSON = {"usr": codigoLogin};
     $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
         try{
             console.log(data);
@@ -240,7 +240,7 @@ function generarHorarios(dia){
 function guardarHorario(){
     var entradas = [];
     var salidas = [];
-    var codigoUsuario = usuarioAUX;
+    var codigoUsuario = codigoLogin;
     for(var i=0; i<diasSemana.length; i++){
         entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
         salidas[i] = document.getElementById(diasSemana[i]+"Salida").value;
@@ -262,6 +262,19 @@ function guardarHorario(){
     }
 }
 
+//--------------------------------------Obtener Horario del ususario-----------------------------
+function existeHorario(){
+    var respuestaJSON = {"usr": codigoLogin};
+    $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
+        if(data == 0){
+            console.log("Puta ", data);
+            document.getElementById("tituloHorario").textContent = "Al parecer no tienes horario registrado \n Ingresa el tuyo!";
+        }
+        else{
+            console.log("si tiene ", data);
+        }
+    }, "json");
+}
 //------------------------------------- REGISTRAR USUARIO -------------------------------------
 
 function registroUsuario(){
@@ -288,7 +301,11 @@ function registroUsuario(){
                     console.log('Jalo el server', data);
                     try{
                         console.log(data);
-                        location.href = "inicioSesion.html"
+                        localStorage.setItem('codigoUsuario', codigo);
+                        localStorage.setItem('nombreUsuario', nom_usuario);
+                        
+                        window.location.href = "index.html";
+                        
                     }
                     catch(error){
                         console.log(error);
@@ -308,8 +325,6 @@ function verificarLogin(){
     var pass = document.getElementById("passUsu").value;
 
     var respuestaJSON = {"codigoUsuario":codigo, "contrasenia":pass};
-
-
     $.post('http://localhost:8000/verificacionLogin', respuestaJSON, function(data){
         console.log(data);
         if (data.existe){
@@ -326,8 +341,9 @@ function verificarLogin(){
         else{
             console.log("Datos incorrectos");
             alert("Datos incorrectos... Vuelve a intentarlo");
-            // codigo.value = '';
-            // pass.value = '';
+            document.getElementById("codigoUsu").value = "";
+            document.getElementById("passUsu").value = "";
+
         }
     });
 

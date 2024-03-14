@@ -136,15 +136,14 @@ def verificacionLogin(codigoUsuario: int = Form(...), contrasenia: str = Form(..
         conexion.commit()
         logeado = cursor.fetchone()
 
+        cursor.close();
         if logeado:
             return{"existe": True, 'logeado': logeado}
         else:
             return{"existe": False}
     except Exception as e:
         return {"error": str(e)}
-    finally:
-        if 'cursor' in locals():
-            cursor.close;
+        
 
 # ---------------------------End point para usuario----------------------------------------------- 
 @app.post("/getEntradaSalida")
@@ -169,10 +168,13 @@ def consultaHorario(usr: int = Form(...)):
         cursor.execute(query, (usr,))
         horario = cursor.fetchall()
         conexion.commit()
-        cursor.close()       
+        cursor.close() 
+        if(horario == 0):
+            return [horario]
+        else:      
+            return [horario]
     except Exception as e:
         return {"error": str(e)}
-    return [horario]
 # ------------------------------End point para ingreso_horarios----------------------------------------------- 
 @app.post("/enviarUsuarioHorario")
 def guardarHorario(entrada: str = Form(...), salida: str = Form(...), codigoUsuario: int = Form(...), diaSemana: int = Form(...)):
