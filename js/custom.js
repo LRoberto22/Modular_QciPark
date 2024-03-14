@@ -251,26 +251,27 @@ function guardarHorario(){
     var entradas = [];
     var salidas = [];
     var codigoUsuario = codigoLogin;
-    window.location.href="usuario.html";
-    // for(var i=0; i<diasSemana.length; i++){
-    //     entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
-    //     salidas[i] = document.getElementById(diasSemana[i]+"Salida").value;
-    // } 
-    // for(var i = 0; i < diasSemana.length; i++){
-    //     if(entradas[i] != "N/A"){
-    //         var respuestaJSON = {"entrada": entradas[i], "salida": salidas[i], "codigoUsuario": codigoUsuario, "diaSemana": i};
-    //         console.log(respuestaJSON);
-    //         console.log("DIAS: ",i);
-    //             $.post('http://localhost:8000/enviarUsuarioHorario', respuestaJSON, function(data){
-    //                 try{
-    //                     console.log(data);
-    //                 }
-    //                 catch(error){
-    //                     console.log(error);
-    //                 }
-    //             },"json");           
-    //     }
-    // }
+    //window.location.href="usuario.html";
+    for(var i=0; i<diasSemana.length; i++){
+        entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
+        salidas[i] = document.getElementById(diasSemana[i]+"Salida").value;
+    } 
+    for(var i = 0; i < diasSemana.length; i++){
+        if(entradas[i] != "N/A"){
+            var respuestaJSON = {"entrada": entradas[i], "salida": salidas[i], "codigoUsuario": codigoUsuario, "diaSemana": i};
+            console.log(respuestaJSON);
+            console.log("DIAS: ",i);
+                $.post('http://localhost:8000/enviarUsuarioHorario', respuestaJSON, function(data){
+                    try{
+                        console.log(data);
+                        window.location.href="usuario.html";
+                    }
+                    catch(error){
+                        console.log(error);
+                    }
+                },"json");           
+        }
+    }
 }
 
 //--------------------------------------Obtener Horario del ususario-----------------------------
@@ -397,6 +398,12 @@ function checarSesion(){
     if (codigoLogin === null || nombreLogin === null) {
         // Redirige a otra página
         window.location.href = 'inicioSesion.html';
+    }
+}
+
+function existeSesion(){
+    if (codigoLogin != null){
+        window.location.href = 'index.html';
     }
 }
 
