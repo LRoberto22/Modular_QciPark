@@ -401,6 +401,7 @@ body{
   width: 735px;
   float: right;
   font-weight: bold;
+  border-radius: 20px;
 }
 
 .filamain{
