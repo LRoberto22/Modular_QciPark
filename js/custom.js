@@ -33,7 +33,7 @@ var month = fechaActual.getMonth() + 1; // Los meses van de 0 a 11 por eso el + 
 var fechaFormateada = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
 
 
-//-----------------------------------------CONSULTAAR CUPO ACTUAL------------------------------------------
+//-----------------------------------------CONSULTAR CUPO ACTUAL------------------------------------------
 function consultaCupo(){
     document.getElementById("horaActualizacion").textContent = horaActual;
     var respuestaJSON = {"fecha":fechaFormateada, "diaSemana":diaDeLaSemana};
@@ -119,7 +119,7 @@ function cambioHorario(selectElement) {
 
 //--------------------------------------OBTENER LA ENTRADA Y SALIDA DEL USUARIO-----------------------------------------------
 function getEntradaSalida(){
-    var respuestaJSON = {"diaSemanaActual":diaDeLaSemana, "usuario": usuarioAUX}; //Lo enviamos al endpoint
+    var respuestaJSON = {"diaSemanaActual":diaDeLaSemana, "usuario": codigoLogin}; //Lo enviamos al endpoint
     console.log(respuestaJSON);
     //document.getElementById("nombreUser").textContent = nombreLogin;
     document.getElementById("diaHoy").textContent = diasSemana[diaDeLaSemana];   //Dia actual
@@ -171,19 +171,16 @@ function convertirFormato12Horas(hora24) {
 //-------------------------------------OBTENER EL HORARIO DEL USUARIO----------------------------------
 function getHorario(){
     var diasClase = [];
-    var respuestaJSON = {"usr": usuarioAUX};
+    var respuestaJSON = {"usr": codigoLogin};
     $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
         try{
+            document.getElementById("nombreUser").textContent = nombreLogin;
             console.log(data);
             arraysData = data[0];
             console.log("arrays data: ",arraysData[0].length);
             for(var i = 0; i<arraysData.length; i++){
                 diasClase[i] = arraysData[i][2];
                 
-                for(var j = 0; j < (arraysData[i].length) - 1; j++){
-                    console.log("horarios: ", arraysData[i][j]);
-                    
-                }
             }
             for(var i=0; i<diasSemana.length; i++){
                 var diaEntrada = document.getElementById(diasSemana[i]+"Entra");
@@ -213,8 +210,7 @@ function getHorario(){
                     diaSalida.textContent = "N/A";
                 }
 
-            }
-            
+            } 
         }
         catch(error){
             console.log(error);
@@ -253,7 +249,7 @@ function generarHorarios(dia){
 function guardarHorario(){
     var entradas = [];
     var salidas = [];
-    var codigoUsuario = usuarioAUX;
+    var codigoUsuario = codigoLogin;
     for(var i=0; i<diasSemana.length; i++){
         entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
         salidas[i] = document.getElementById(diasSemana[i]+"Salida").value;
@@ -270,11 +266,45 @@ function guardarHorario(){
                     catch(error){
                         console.log(error);
                     }
-                }, "json");           
+                },"json");           
         }
     }
 }
 
+//--------------------------------------Obtener Horario del ususario-----------------------------
+function existeHorario(){
+    var respuestaJSON = {"usr": codigoLogin};
+    $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
+        try{
+            if(data == 0){
+                console.log("Puta ", data);
+                document.getElementById("tituloHorario").textContent = "Al parecer no tienes horario registrado ingresa el tuyo!";
+            }
+            else{
+                console.log("si tiene ", data);
+                window.location.href = "usuario.html";
+            }       
+        }
+        catch(error){
+            console.log(error);
+        }
+    }, "json");
+}
+
+//--------------------------------------Obtener Horario del ususario para la ventana usuario-----------------------------
+
+function existeHorarioUsuario(){
+    var respuestaJSON = {"usr": codigoLogin};
+    $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
+        if(data == 0){
+            alert("No tienes horario Jalate a registrarlo");
+            location.href = "ingreso_horarios.html";
+        }
+        else{
+            console.log("si tiene ", data);
+        }
+    }, "json");
+}
 //------------------------------------- REGISTRAR USUARIO -------------------------------------
 
 function registroUsuario(){
@@ -301,7 +331,11 @@ function registroUsuario(){
                     console.log('Jalo el server', data);
                     try{
                         console.log(data);
-                        location.href = "inicioSesion.html"
+                        localStorage.setItem('codigoUsuario', codigo);
+                        localStorage.setItem('nombreUsuario', nom_usuario);
+                        
+                        window.location.href = "index.html";
+                        
                     }
                     catch(error){
                         console.log(error);
@@ -321,8 +355,6 @@ function verificarLogin(){
     var pass = document.getElementById("passUsu").value;
 
     var respuestaJSON = {"codigoUsuario":codigo, "contrasenia":pass};
-
-
     $.post('http://localhost:8000/verificacionLogin', respuestaJSON, function(data){
         console.log(data);
         if (data.existe){
@@ -339,8 +371,9 @@ function verificarLogin(){
         else{
             console.log("Datos incorrectos");
             alert("Datos incorrectos... Vuelve a intentarlo");
-            // codigo.value = '';
-            // pass.value = '';
+            document.getElementById("codigoUsu").value = "";
+            document.getElementById("passUsu").value = "";
+
         }
     });
 

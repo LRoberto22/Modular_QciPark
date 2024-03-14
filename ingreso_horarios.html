@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="node_modules/bootstrap-icons/bootstrap-icons.svg">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
     <body class="bodyMain">
         <header>
@@ -40,7 +41,7 @@
         <!-- Contenido de la página -->
         <div class="container justify-content-center" style="width: 50%; margin-top: 50px;">
             <div class="container text-center rounded-top justify-content-center" style="color: #1d1d1d; background-color: #ff9d00; padding: 0.5%; font-weight: bold; font-size: xx-large; width: 100%;">
-                <h1 class="tituloHorario" style="color: #1d1d1d">Hola Usuario! aqui ingresa tu horario</h1>
+                <h1 id="tituloHorario" style="color: #1d1d1d">Hola Usuario! aqui ingresa tu horario</h1>
             </div>
             <div class="container text-center rounded-bottom" style="background-color:#c7bfb1; height: fit-content; padding-top: 20px; padding-bottom: 30px; text-align: center;">
                 <form  class="formulario_horario">
@@ -50,11 +51,11 @@
                         </div>
                         <div class="col">
                             <label class="lblEntradaS ">Entrada</label>
-                            <select class="seleccion" name="lunesEntrada" id="lunesEntrada" onchange="cambioHorario(this)"></select>
+                            <select class="seleccion" name="lunesEntrada" id="lunesEntrada" onchange="cambioHorario(this)" style="width: 90%; font-size: 20px; text-align: center;"></select>
                         </div>
                         <div class="col">
                             <label class="lblEntradaS" for="lunes-salida">Salida</label>
-                            <select class="seleccion" name="lunesSalida" id="lunesSalida"></select>
+                            <select class="seleccion" name="lunesSalida" id="lunesSalida" style="width: 90%; font-size: 20px; text-align: center;"></select>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center"><hr style="width: 60%; border-width: 5px; color: #ff9d00;"></div>
@@ -64,11 +65,11 @@
                         </div>
                         <div class="col">
                             <label class="lblEntradaS" for="martes-entrada">Entrada</label>
-                            <select class="seleccion" name="martesEntrada" id="martesEntrada" onchange="cambioHorario(this)"></select>
+                            <select class="seleccion" name="martesEntrada" id="martesEntrada" onchange="cambioHorario(this)" style="width: 90%; font-size: 20px; text-align: center;"></select>
                         </div>
                         <div class="col">
                             <label class="lblEntradaS" for="martes-salida">Salida</label>
-                            <select class="seleccion" name="martesSalida" id="martesSalida"></select>
+                            <select class="seleccion" name="martesSalida" id="martesSalida" style="width: 90%; font-size: 20px; text-align: center;"></select>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center"><hr style="width: 60%; border-width: 5px; color: #ff9d00;"></div>
@@ -78,11 +79,11 @@
                         </div>
                         <div class="col">
                             <label class="lblEntradaS" for="miercoles-entrada">Entrada</label>
-                            <select class="seleccion" name="miercolesEntrada" id="miercolesEntrada" onchange="cambioHorario(this)"></select>
+                            <select class="seleccion" name="miercolesEntrada" id="miercolesEntrada" onchange="cambioHorario(this)" style="width: 90%; font-size: 20px; text-align: center;"></select>
                         </div>
                         <div class="col">
                             <label class="lblEntradaS" for="miercoles-salida">Salida</label>
-                            <select class="seleccion" name="miercolesSalida" id="miercolesSalida"></select>
+                            <select class="seleccion" name="miercolesSalida" id="miercolesSalida" style="width: 90%; font-size: 20px; text-align: center;"></select>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center"><hr style="width: 60%; border-width: 5px; color: #ff9d00;"></div>
@@ -92,11 +93,11 @@
                         </div>
                         <div class="col">
                             <label class="lblEntradaS" for="jueves-entrada">Entrada</label>
-                            <select class="seleccion" name="juevesEntrada" id="juevesEntrada" onchange="cambioHorario(this)"></select>
+                            <select class="seleccion" name="juevesEntrada" id="juevesEntrada" onchange="cambioHorario(this)" style="width: 90%; font-size: 20px; text-align: center;"></select>
                         </div>
                         <div class="col">
                             <label class="lblEntradaS" for="jueves-salida">Salida</label>
-                            <select class="seleccion" name="juevesSalida" id="juevesSalida"></select>
+                            <select class="seleccion" name="juevesSalida" id="juevesSalida" style="width: 90%; font-size: 20px; text-align: center;"></select>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center"><hr style="width: 60%; border-width: 5px; color: #ff9d00;"></div>
@@ -106,11 +107,11 @@
                         </div>
                         <div class="col">
                             <label class="lblEntradaS" for="viernes-entrada">Entrada</label>
-                            <select class="seleccion" name="viernesEntrada" id="viernesEntrada" onchange="cambioHorario(this)"></select>
+                            <select class="seleccion" name="viernesEntrada" id="viernesEntrada" onchange="cambioHorario(this)" style="width: 90%; font-size: 20px; text-align: center;"></select>
                         </div>
                         <div class="col">
                             <label class="lblEntradaS" for="viernes-salida">Salida</label>
-                            <select class="seleccion" name="viernesSalida" id="viernesSalida"></select>
+                            <select class="seleccion" name="viernesSalida" id="viernesSalida" style="width: 90%; font-size: 20px; text-align: center;"></select>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center"><hr style="width: 60%; border-width: 5px; color: #ff9d00;"></div>
@@ -120,11 +121,11 @@
                         </div>
                         <div class="col">
                             <label class="lblEntradaS" for="sabado-entrada">Entrada</label>
-                            <select class="seleccion" name="sabadoEntrada" id="sabadoEntrada" onchange="cambioHorario(this)"></select>
+                            <select class="seleccion" name="sabadoEntrada" id="sabadoEntrada" onchange="cambioHorario(this)" style="width: 90%; font-size: 20px; text-align: center;"></select>
                         </div>
                         <div class="col">
                             <label class="lblEntradaS" for="sabado-salida">Salida</label>
-                            <select class="seleccion" name="sabadoSalida" id="sabadoSalida"></select>
+                            <select class="seleccion" name="sabadoSalida" id="sabadoSalida" style="width: 90%; font-size: 20px; text-align: center;"></select>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center"><hr style="width: 60%; border-width: 5px; color: #ff9d00;"></div>
@@ -140,7 +141,8 @@
     <script src="js/custom.js"></script>
     <script>
         window.onload = function(){
-            //checarSesion();
+            checarSesion();
+            existeHorario();
             for (var i = 0; i < diasSemana.length; i++) {
                 var dia = diasSemana[i];
                 generarHorarios(dia);
