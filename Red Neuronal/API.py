@@ -154,10 +154,15 @@ def getEntradaSalida(diaSemanaActual: int = Form(...), usuario: int = Form(...))
         cursor.execute(query, (diaSemanaActual, usuario))
         horarioHoy = cursor.fetchone()
         conexion.commit()
-        cursor.close()        
+        cursor.close()  
+        if(horarioHoy == 0):
+            return {horarioHoy}
+        else:
+            return {horarioHoy}
+        
     except Exception as e:
         return {"error": str(e)}
-    return {horarioHoy}
+
 
 # ---------------------------End point para usuario---------------------------
 @app.post("/consultaHorario")

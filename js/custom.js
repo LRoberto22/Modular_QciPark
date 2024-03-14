@@ -250,25 +250,26 @@ function guardarHorario(){
     var entradas = [];
     var salidas = [];
     var codigoUsuario = codigoLogin;
-    for(var i=0; i<diasSemana.length; i++){
-        entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
-        salidas[i] = document.getElementById(diasSemana[i]+"Salida").value;
-    } 
-    for(var i = 0; i < diasSemana.length; i++){
-        if(entradas[i] != "N/A"){
-            var respuestaJSON = {"entrada": entradas[i], "salida": salidas[i], "codigoUsuario": codigoUsuario, "diaSemana": i};
-            console.log(respuestaJSON);
-            console.log("DIAS: ",i);
-                $.post('http://localhost:8000/enviarUsuarioHorario', respuestaJSON, function(data){
-                    try{
-                        console.log(data);
-                    }
-                    catch(error){
-                        console.log(error);
-                    }
-                },"json");           
-        }
-    }
+    window.location.href="usuario.html";
+    // for(var i=0; i<diasSemana.length; i++){
+    //     entradas[i] = document.getElementById(diasSemana[i]+"Entrada").value;
+    //     salidas[i] = document.getElementById(diasSemana[i]+"Salida").value;
+    // } 
+    // for(var i = 0; i < diasSemana.length; i++){
+    //     if(entradas[i] != "N/A"){
+    //         var respuestaJSON = {"entrada": entradas[i], "salida": salidas[i], "codigoUsuario": codigoUsuario, "diaSemana": i};
+    //         console.log(respuestaJSON);
+    //         console.log("DIAS: ",i);
+    //             $.post('http://localhost:8000/enviarUsuarioHorario', respuestaJSON, function(data){
+    //                 try{
+    //                     console.log(data);
+    //                 }
+    //                 catch(error){
+    //                     console.log(error);
+    //                 }
+    //             },"json");           
+    //     }
+    // }
 }
 
 //--------------------------------------Obtener Horario del ususario-----------------------------
@@ -277,12 +278,11 @@ function existeHorario(){
     $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
         try{
             if(data == 0){
-                console.log("Puta ", data);
                 document.getElementById("tituloHorario").textContent = "Al parecer no tienes horario registrado ingresa el tuyo!";
             }
             else{
                 console.log("si tiene ", data);
-                window.location.href = "usuario.html";
+                //window.location.href = "usuario.html";
             }       
         }
         catch(error){
