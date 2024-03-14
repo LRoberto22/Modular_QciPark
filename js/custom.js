@@ -144,10 +144,10 @@ function getHoraPico() {
     $.get('http://localhost:8000/horas_actividad/', respuestaJSON, function (data) { //Data nos retorna la consulta a la bd
         try {
             console.log(data);
-            $('#horaPicoIngresos').text('Hora pico ingresos: ' + convertirFormato12Horas(data.hora_pico_ingresos));
-            $('#horaMenosActividadIngresos').text('Hora menos actividad ingresos: ' + convertirFormato12Horas(data.hora_menos_actividad_ingresos));
-            $('#horaPicoEgresos').text('Hora pico egresos: ' + convertirFormato12Horas(data.hora_pico_egresos));
-            $('#horaMenosActividadEgresos').text('Hora menos actividad egresos: ' + convertirFormato12Horas(data.hora_menos_actividad_egresos));
+            $('#horaPicoIngresos').text('HORA PICO: ' + convertirFormato12Horas(data.hora_pico_ingresos));
+            $('#horaMenosActividadIngresos').text('HORA MÁS TRANQUILA: ' + convertirFormato12Horas(data.hora_menos_actividad_ingresos));
+            $('#horaPicoEgresos').text('HORA PICO: ' + convertirFormato12Horas(data.hora_pico_egresos));
+            $('#horaMenosActividadEgresos').text('HORA MÁS TRANQUILA: ' + convertirFormato12Horas(data.hora_menos_actividad_egresos));
         } catch (error) {
             console.log(error);
         }
@@ -194,7 +194,20 @@ function getHorario(){
                     entradaFormateada = entradaFormateada.split(":");
                     salidaFormateada = salidaFormateada.split(":");
                     diaEntrada.textContent = entradaFormateada[0]+":"+entradaFormateada[1]; //Hora de entrada
-                    diaSalida.textContent = salidaFormateada[0]+":"+salidaFormateada[1] //Hora de salida
+                    diaSalida.textContent = salidaFormateada[0]+":"+salidaFormateada[1]; //Hora de salida
+
+
+                    $.get('http://localhost:8000/hora_menos_actividad_antes/?dia=' + i + '&hora=' + entradaFormateada.join(":"),
+                        function(response) {
+                            console.log(response);
+                            var labelId = diasSemana[response.dia] + "Extra";
+                            // Obtener la hora y los minutos de la cadena de tiempo
+                            var horaSinSegundos = response.hora_menos_actividad_antes.split(":").slice(0, 2).join(":");
+                            // Actualizar el contenido del label con la hora y los minutos
+                            $("#" + labelId).text(horaSinSegundos);
+                            // Aquí puedes actualizar tu label con la mejor hora obtenida
+                            // response.hora_menos_actividad_antes contiene la mejor hora
+                        });
                 } else{
                     diaEntrada.textContent = "N/A";
                     diaSalida.textContent = "N/A";
@@ -356,4 +369,81 @@ function checarSesion(){
 //------------------------------------- CANCELAR REGISTRO -------------------------------------
 function cancelarRegistro(){
     location.href = "inicioSesion.html";
+}
+
+
+// Hacer la solicitud al endpoint para obtener los datos
+function grafica() {
+    // Realizar la solicitud GET para obtener los datos
+    $.get('http://localhost:8000/actividad_promedio_semanal/')
+    .done(function(data) {
+        // Verificar si se recibieron datos válidos
+        if (data && Object.keys(data).length > 0) {
+            // Cambiar los nombres de las columnas
+            const etiquetas = {
+                "0": "Lunes",
+                "1": "Martes",
+                "2": "Miércoles",
+                "3": "Jueves",
+                "4": "Viernes",
+                "5": "Sábado"
+            };
+
+            // Obtener los valores y las etiquetas
+            const valores = Object.values(data);
+            const labels = Object.keys(etiquetas).map(key => etiquetas[key]);
+
+            // Crear el gráfico
+            const ctx = document.getElementById('miGrafica').getContext('2d');
+            const miGrafica = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'ACTIVIDAD',
+                        data: valores,
+                        backgroundColor: 'rgba(255, 165, 0, 0.2)', // Naranja transparente
+                        borderColor: 'rgba(255, 165, 0, 1)', // Naranja sólido
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            },
+                            gridLines: {
+                                color: 'rgba(255, 255, 255, 0.1)' // Color blanco para las líneas de la cuadrícula del eje X
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            },
+                            gridLines: {
+                                color: 'rgba(255, 255, 255, 0.1)' // Color blanco para las líneas de la cuadrícula del eje Y
+                            }
+                        }]
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: 'white' // Color blanco para las etiquetas de la leyenda
+                        }
+                    },
+                    rotation: -90,
+                    plugins: {
+                        datalabels: {
+                            color: 'white' // Color blanco para las etiquetas de datos
+                        }
+                    }
+                }
+            });
+        } else {
+            console.error('No se recibieron datos válidos.');
+        }
+    })
+    .fail(function(error) {
+        console.error('Error al obtener los datos:', error);
+    });
 }

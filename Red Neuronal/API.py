@@ -345,6 +345,24 @@ async def obtener_hora_menos_actividad_antes(dia: int, hora: time):
     }
 
 
+@app.get("/actividad_promedio_semanal/")
+async def obtener_actividad_promedio_semanal():
+    actividad_promedio = {}
+    
+    # Obtener el recuento de ingresos por día de la semana
+    cursor.execute("SELECT fkdiasemana, COUNT(*) AS cantidad FROM ingresos GROUP BY fkdiasemana")
+    resultados = cursor.fetchall()
+    
+    # Calcular el total de ingresos de la semana
+    total_semana = sum(cantidad for _, cantidad in resultados)
+    
+    # Calcular el porcentaje de actividad para cada día de la semana
+    for dia, cantidad in resultados:
+        porcentaje_actividad = (cantidad / total_semana) * 100
+        actividad_promedio[dia] = porcentaje_actividad
+    
+    return actividad_promedio
+
 
 
 # Constructor y carga de microservicio
