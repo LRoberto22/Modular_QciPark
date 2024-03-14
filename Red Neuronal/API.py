@@ -288,86 +288,86 @@ def guardarHorario(entrada: str = Form(...), salida: str = Form(...), codigoUsua
 
 
 #---------------------------------LÓGICA EMERGENCIA POR SI LA RED NEURONAL NO JALA CHIDO-----------------------------#
-# cursor = conexion.cursor()
+cursor = conexion.cursor()
 
 
-# # Definir una función para calcular la hora pico y la hora de menor actividad para un día específico
-# def calcular_horas_pico_y_actividad(dia: int) -> dict:
-#     cursor.execute(f"SELECT hora_ingreso FROM ingresos WHERE fkdiasemana = {dia}")
-#     ingresos_data = pd.DataFrame(cursor.fetchall(), columns=['hora_ingreso'])
+ # Definir una función para calcular la hora pico y la hora de menor actividad para un día específico
+def calcular_horas_pico_y_actividad(dia: int) -> dict:
+     cursor.execute(f"SELECT hora_ingreso FROM ingresos WHERE fkdiasemana = {dia}")
+     ingresos_data = pd.DataFrame(cursor.fetchall(), columns=['hora_ingreso'])
 
-#     cursor.execute(f"SELECT hora_egreso FROM egresos WHERE fkdiasemana = {dia}")
-#     egresos_data = pd.DataFrame(cursor.fetchall(), columns=['hora_egreso'])
+     cursor.execute(f"SELECT hora_egreso FROM egresos WHERE fkdiasemana = {dia}")
+     egresos_data = pd.DataFrame(cursor.fetchall(), columns=['hora_egreso'])
 
-#     # Convertir las horas a objetos time
-#     ingresos_data['hora_ingreso'] = pd.to_datetime(ingresos_data['hora_ingreso'], format='%H:%M:%S').dt.time
-#     egresos_data['hora_egreso'] = pd.to_datetime(egresos_data['hora_egreso'], format='%H:%M:%S').dt.time
+     # Convertir las horas a objetos time
+     ingresos_data['hora_ingreso'] = pd.to_datetime(ingresos_data['hora_ingreso'], format='%H:%M:%S').dt.time
+     egresos_data['hora_egreso'] = pd.to_datetime(egresos_data['hora_egreso'], format='%H:%M:%S').dt.time
 
-#     # Calcular la hora pico y la hora de menor actividad para ingresos
-#     hora_pico_ingresos = ingresos_data['hora_ingreso'].mode().iloc[0] if not ingresos_data.empty else None
-#     hora_menos_actividad_ingresos = ingresos_data['hora_ingreso'][
-#         ingresos_data['hora_ingreso'] <= time(17, 0, 0)
-#     ].value_counts().idxmin() if not ingresos_data.empty else None
+     # Calcular la hora pico y la hora de menor actividad para ingresos
+     hora_pico_ingresos = ingresos_data['hora_ingreso'].mode().iloc[0] if not ingresos_data.empty else None
+     hora_menos_actividad_ingresos = ingresos_data['hora_ingreso'][
+         ingresos_data['hora_ingreso'] <= time(17, 0, 0)
+     ].value_counts().idxmin() if not ingresos_data.empty else None
 
-#     # Calcular la hora pico y la hora de menor actividad para egresos
-#     hora_pico_egresos = egresos_data['hora_egreso'].mode().iloc[0] if not egresos_data.empty else None
-#     hora_menos_actividad_egresos = egresos_data['hora_egreso'].value_counts().idxmin() if not egresos_data.empty else None
+     # Calcular la hora pico y la hora de menor actividad para egresos
+     hora_pico_egresos = egresos_data['hora_egreso'].mode().iloc[0] if not egresos_data.empty else None
+     hora_menos_actividad_egresos = egresos_data['hora_egreso'].value_counts().idxmin() if not egresos_data.empty else None
 
-#     return {
-#         "dia": dia,
-#         "hora_pico_ingresos": hora_pico_ingresos.strftime('%H:%M:%S') if hora_pico_ingresos else None,
-#         "hora_menos_actividad_ingresos": hora_menos_actividad_ingresos.strftime('%H:%M:%S') if hora_menos_actividad_ingresos else None,
-#         "hora_pico_egresos": hora_pico_egresos.strftime('%H:%M:%S') if hora_pico_egresos else None,
-#         "hora_menos_actividad_egresos": hora_menos_actividad_egresos.strftime('%H:%M:%S') if hora_menos_actividad_egresos else None
-#     }
+     return {
+         "dia": dia,
+         "hora_pico_ingresos": hora_pico_ingresos.strftime('%H:%M:%S') if hora_pico_ingresos else None,
+         "hora_menos_actividad_ingresos": hora_menos_actividad_ingresos.strftime('%H:%M:%S') if hora_menos_actividad_ingresos else None,
+         "hora_pico_egresos": hora_pico_egresos.strftime('%H:%M:%S') if hora_pico_egresos else None,
+         "hora_menos_actividad_egresos": hora_menos_actividad_egresos.strftime('%H:%M:%S') if hora_menos_actividad_egresos else None
+     }
 
-# @app.get("/horas_actividad/")
-# async def obtener_horas_actividad(dia: int):
-#     horas_actividad = calcular_horas_pico_y_actividad(dia)
-#     return horas_actividad
+@app.get("/horas_actividad/")
+async def obtener_horas_actividad(dia: int):
+     horas_actividad = calcular_horas_pico_y_actividad(dia)
+     return horas_actividad
 
-# def calcular_hora_menos_actividad_antes(dia: int, hora: time):
-#     hora_ajustada = datetime.combine(datetime.today(), hora) - timedelta(minutes=15)
-#     hora_ajustada_str = hora_ajustada.strftime('%H:%M:%S')
+def calcular_hora_menos_actividad_antes(dia: int, hora: time):
+     hora_ajustada = datetime.combine(datetime.today(), hora) - timedelta(minutes=15)
+     hora_ajustada_str = hora_ajustada.strftime('%H:%M:%S')
     
-#     cursor.execute(f"SELECT hora_ingreso FROM ingresos WHERE fkdiasemana = {dia} AND hora_ingreso < '{hora}' ORDER BY hora_ingreso DESC")
-#     ingresos_data = pd.DataFrame(cursor.fetchall(), columns=['hora_ingreso'])
+     cursor.execute(f"SELECT hora_ingreso FROM ingresos WHERE fkdiasemana = {dia} AND hora_ingreso < '{hora}' ORDER BY hora_ingreso DESC")
+     ingresos_data = pd.DataFrame(cursor.fetchall(), columns=['hora_ingreso'])
     
-#     if not ingresos_data.empty:
-#         hora_menos_actividad_antes = ingresos_data['hora_ingreso'].value_counts().idxmin()
-#     else:
-#         hora_menos_actividad_antes = hora_ajustada_str
+     if not ingresos_data.empty:
+         hora_menos_actividad_antes = ingresos_data['hora_ingreso'].value_counts().idxmin()
+     else:
+         hora_menos_actividad_antes = hora_ajustada_str
     
-#     return hora_menos_actividad_antes
+     return hora_menos_actividad_antes
 
-# @app.get("/hora_menos_actividad_antes/")
-# async def obtener_hora_menos_actividad_antes(dia: int, hora: time):
-#     hora_menos_actividad_antes = calcular_hora_menos_actividad_antes(dia, hora)
+@app.get("/hora_menos_actividad_antes/")
+async def obtener_hora_menos_actividad_antes(dia: int, hora: time):
+     hora_menos_actividad_antes = calcular_hora_menos_actividad_antes(dia, hora)
     
-#     return {
-#         "dia": dia,
-#         "hora_especificada": hora.strftime('%H:%M:%S'),
-#         "hora_menos_actividad_antes": str(hora_menos_actividad_antes)
-#     }
+     return {
+         "dia": dia,
+         "hora_especificada": hora.strftime('%H:%M:%S'),
+         "hora_menos_actividad_antes": str(hora_menos_actividad_antes)
+     }
 
 
-# @app.get("/actividad_promedio_semanal/")
-# async def obtener_actividad_promedio_semanal():
-#     actividad_promedio = {}
+@app.get("/actividad_promedio_semanal/")
+async def obtener_actividad_promedio_semanal():
+     actividad_promedio = {}
     
-#     # Obtener el recuento de ingresos por día de la semana
-#     cursor.execute("SELECT fkdiasemana, COUNT(*) AS cantidad FROM ingresos GROUP BY fkdiasemana")
-#     resultados = cursor.fetchall()
+     # Obtener el recuento de ingresos por día de la semana
+     cursor.execute("SELECT fkdiasemana, COUNT(*) AS cantidad FROM ingresos GROUP BY fkdiasemana")
+     resultados = cursor.fetchall()
     
-#     # Calcular el total de ingresos de la semana
-#     total_semana = sum(cantidad for _, cantidad in resultados)
+     # Calcular el total de ingresos de la semana
+     total_semana = sum(cantidad for _, cantidad in resultados)
     
-#     # Calcular el porcentaje de actividad para cada día de la semana
-#     for dia, cantidad in resultados:
-#         porcentaje_actividad = (cantidad / total_semana) * 100
-#         actividad_promedio[dia] = porcentaje_actividad
+     # Calcular el porcentaje de actividad para cada día de la semana
+     for dia, cantidad in resultados:
+         porcentaje_actividad = (cantidad / total_semana) * 100
+         actividad_promedio[dia] = porcentaje_actividad
     
-#     return actividad_promedio
+     return actividad_promedio
 
 
 

@@ -199,7 +199,7 @@ function getHorario(){
                     diaSalida.textContent = salidaFormateada[0]+":"+salidaFormateada[1]; //Hora de salida
 
 
-                    $.get('http://localhost:8000/hora_menos_actividad_antes/?dia=' + i + '&hora=' + entradaFormateada.join(":"),
+                    $.get('http://localhost:8000/hora_menos_actividad_antes/?dia=' + arraysData[j][2] + '&hora=' + entradaFormateada.join(":"),
                         function(response) {
                             console.log(response);
                             var labelId = diasSemana[response.dia] + "Extra";
@@ -209,7 +209,7 @@ function getHorario(){
                             $("#" + labelId).text(horaSinSegundos);
                             // Aquí puedes actualizar tu label con la mejor hora obtenida
                             // response.hora_menos_actividad_antes contiene la mejor hora
-                        }); 
+                    }); 
                 }
             }
         }
@@ -299,7 +299,7 @@ function existeHorarioUsuario(){
     var respuestaJSON = {"usr": codigoLogin};
     $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
         if(data == 0){
-            alert("No tienes horario Jalate a registrarlo");
+            alert("NO TIENES HORARIO, FAVOR DE REGISTRAR UNO");
             location.href = "ingreso_horarios.html";
         }
         else{
