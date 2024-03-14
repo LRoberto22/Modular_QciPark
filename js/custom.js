@@ -174,20 +174,25 @@ function getHorario(){
     var respuestaJSON = {"usr": codigoLogin};
     $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
         try{
-            document.getElementById("nombreUser").textContent = nombreLogin;
-            console.log(data);
-            arraysData = data[0];
-            console.log("arrays data: ",arraysData[0].length);
-            for(var i = 0; i<arraysData.length; i++){
-                diasClase[i] = arraysData[i][2];
-                
-            }
-            for(var i=0; i<diasSemana.length; i++){
-                var diaEntrada = document.getElementById(diasSemana[i]+"Entra");
-                var diaSalida = document.getElementById(diasSemana[i]+"Salida");
-                if(diasClase.includes(i)){
-                    entradaFormateada = arraysData[i][0];
-                    salidaFormateada = arraysData[i][1]
+            if(data!=0){
+                document.getElementById("nombreUser").textContent = nombreLogin;
+                console.log(data);
+                arraysData = data[0];
+                console.log("arrays data: ",arraysData[0].length);
+                for(var i = 0; i<arraysData.length; i++){
+                    diasClase[i] = arraysData[i][2];
+                }
+                console.log(diasSemana[0]);
+                console.log(diasSemana[1]);
+                console.log(diasSemana[2]);
+                console.log(diasSemana[3]);
+                console.log(diasSemana[4]);
+                console.log(diasSemana[5]);
+                for(var j = 0; j<diasClase.length; j++){
+                    var diaEntrada = document.getElementById(diasSemana[arraysData[j][2]]+"Entra");
+                    var diaSalida = document.getElementById(diasSemana[arraysData[j][2]]+"Salida");
+                    entradaFormateada = arraysData[j][0];
+                    salidaFormateada = arraysData[j][1];
                     entradaFormateada = entradaFormateada.split(":");
                     salidaFormateada = salidaFormateada.split(":");
                     diaEntrada.textContent = entradaFormateada[0]+":"+entradaFormateada[1]; //Hora de entrada
@@ -204,13 +209,9 @@ function getHorario(){
                             $("#" + labelId).text(horaSinSegundos);
                             // Aquí puedes actualizar tu label con la mejor hora obtenida
                             // response.hora_menos_actividad_antes contiene la mejor hora
-                        });
-                } else{
-                    diaEntrada.textContent = "N/A";
-                    diaSalida.textContent = "N/A";
+                        }); 
                 }
-
-            } 
+            }
         }
         catch(error){
             console.log(error);
