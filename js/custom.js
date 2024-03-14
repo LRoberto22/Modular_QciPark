@@ -33,7 +33,7 @@ var month = fechaActual.getMonth() + 1; // Los meses van de 0 a 11 por eso el + 
 var fechaFormateada = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
 
 
-//-----------------------------------------CONSULTAAR CUPO ACTUAL------------------------------------------
+//-----------------------------------------CONSULTAR CUPO ACTUAL------------------------------------------
 function consultaCupo(){
     document.getElementById("horaActualizacion").textContent = horaActual;
     var respuestaJSON = {"fecha":fechaFormateada, "diaSemana":diaDeLaSemana};
@@ -174,16 +174,13 @@ function getHorario(){
     var respuestaJSON = {"usr": codigoLogin};
     $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
         try{
+            document.getElementById("nombreUser").textContent = nombreLogin;
             console.log(data);
             arraysData = data[0];
             console.log("arrays data: ",arraysData[0].length);
             for(var i = 0; i<arraysData.length; i++){
                 diasClase[i] = arraysData[i][2];
                 
-                for(var j = 0; j < (arraysData[i].length) - 1; j++){
-                    console.log("horarios: ", arraysData[i][j]);
-                    
-                }
             }
             for(var i=0; i<diasSemana.length; i++){
                 var diaEntrada = document.getElementById(diasSemana[i]+"Entra");
@@ -200,8 +197,7 @@ function getHorario(){
                     diaSalida.textContent = "N/A";
                 }
 
-            }
-            
+            } 
         }
         catch(error){
             console.log(error);
@@ -257,7 +253,7 @@ function guardarHorario(){
                     catch(error){
                         console.log(error);
                     }
-                }, "json");           
+                },"json");           
         }
     }
 }
@@ -266,12 +262,18 @@ function guardarHorario(){
 function existeHorario(){
     var respuestaJSON = {"usr": codigoLogin};
     $.post('http://localhost:8000/consultaHorario', respuestaJSON, function(data){
-        if(data == 0){
-            console.log("Puta ", data);
-            document.getElementById("tituloHorario").textContent = "Al parecer no tienes horario registrado \n Ingresa el tuyo!";
+        try{
+            if(data == 0){
+                console.log("Puta ", data);
+                document.getElementById("tituloHorario").textContent = "Al parecer no tienes horario registrado ingresa el tuyo!";
+            }
+            else{
+                console.log("si tiene ", data);
+                window.location.href = "usuario.html";
+            }       
         }
-        else{
-            console.log("si tiene ", data);
+        catch(error){
+            console.log(error);
         }
     }, "json");
 }
