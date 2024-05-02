@@ -4,10 +4,12 @@ var codigoLogin, nombreLogin;
 
 codigoLogin = localStorage.getItem('codigoUsuario');
 nombreLogin = localStorage.getItem('nombreUsuario' );
+rolUsuario = localStorage.getItem('rolUsuario');
 
 console.log("Datos guardados en localStorage:");
 console.log("Código de usuario:", codigoLogin);
 console.log("Nombre de usuario:", nombreLogin);
+console.log("ROL: ", rolUsuario);
 
 var diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
 // Crear un nuevo objeto Date
@@ -59,6 +61,14 @@ function updateProgressBar(percentage) {
     progressBar.textContent = percentage.toFixed(1) + '%';
 }
 
+//--------------------------------------------------Botones de admin -------------------------------------------
+function VerificarRol(){
+    if(rolUsuario != '' && rolUsuario == 'Administrador'){
+        console.log("SI entre al if del rol");
+        let divBotones = document.getElementById('administradorButtons');
+        divBotones.innerHTML = "<button class='col-md-2 btnGeneric' style='font-weight: bolder; font-size: 20px; margin-right: 15%; margin-top: 1%; border-radius: 30px;' onclick='insertaIngreso();'>Ingreso</button> <button class='col-md-2 btnGeneric' style='font-weight: bolder; font-size: 20px; margin-top: 1%; border-radius: 30px;' onclick='insertaEgreso()'>Egreso</button>"
+    }
+}
 
 // -------------------------------------- BOTON INGRESO --------------------------------
 function insertaIngreso(){
@@ -358,14 +368,12 @@ function verificarLogin(){
 
     var respuestaJSON = {"codigoUsuario":codigo, "contrasenia":pass};
     $.post('http://localhost:8000/verificacionLogin', respuestaJSON, function(data){
-        console.log(data);
+        console.log("Log - IN: ", data);
         if (data.existe){
 
             localStorage.setItem('codigoUsuario', data.logeado[0]);
             localStorage.setItem('nombreUsuario', data.logeado[1]);
-
-            // codigoLogin = localStorage.getItem('codigoUsuario');
-            // nombreLogin = localStorage.getItem('nombreUsuario' );
+            localStorage.setItem('rolUsuario', data.logeado[3]);
 
             location.href = "index.html";
     
@@ -389,6 +397,7 @@ function cerrarSesion(){
 
     localStorage.removeItem('codigoUsuario');
     localStorage.removeItem('nombreUsuario');
+    localStorage.removeItem('rolUsuario');
 
     window.location.href = 'inicioSesion.html';
 }
